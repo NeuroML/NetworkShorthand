@@ -2,7 +2,12 @@
 
 As discussed during the [2016 NeuroML editors meeting](https://www.neuroml.org/workshops) there is some overlap between the format used for [NetPyNE to create cells/populations/connections](http://neurosimlab.org/netpyne/tutorial.html#network-parameters-tutorial-2) and that used in [MOOSE (Rdesigneur)](https://moose.ncbs.res.in/Rdesigneur/RdesigneurDocumentation.html). We should investigate whether it would be possible/useful to have a common format for these, which would also be supported natively by NeuroML libraries.
 
-An end goal for this would be to have complex connectivity information like [this for the Traub et al 2005 model](https://github.com/OpenSourceBrain/Thalamocortical/blob/master/neuroConstruct/pythonScripts/netbuild/netConnList) expressible in such a shorthand notation (not verbosely in XML, or procedurally in Python), which can be read and edited by hand, but is standardised. Shorthand (non XML based) network connectivity formats are being used in the Blue Brain Project and [Allen Institute](http://neuralensemble.org/media/slides/Sergey_Gratiy_bionet_representation.pdf) also.
+An end goal for this would be to have complex connectivity information as specified for networks such as:
+
+- [the Traub et al 2005 model](https://github.com/OpenSourceBrain/Thalamocortical/blob/master/neuroConstruct/pythonScripts/netbuild/netConnList) 
+- [the Potjans and Diesmann (2014) spiking column model](https://github.com/NeuralEnsemble/PyNN/blob/4854346d5f7dd33fe4140a49cddd84038f7f3495/examples/Potjans2014/network_params.py#L74)
+
+expressible in a common shorthand notation (not verbosely in XML, or procedurally in Python), which can be read and edited by hand, but is standardised. Shorthand (non XML based) network connectivity formats are being used in the Blue Brain Project and [Allen Institute](http://neuralensemble.org/media/slides/Sergey_Gratiy_bionet_representation.pdf) also.
 
 **Example from Rdesigneur**
 
