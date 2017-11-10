@@ -1,0 +1,65 @@
+<Lems>
+    
+    <!-- 
+
+        This LEMS file has been automatically generated using PyNeuroML v0.3.4 (libNeuroML v0.2.34)
+
+     -->
+    
+    <!-- Specify which component to run -->
+    <Target component="Example3"/>
+
+    <!-- Include core NeuroML2 ComponentType definitions -->
+    <Include file="Cells.xml"/>
+    <Include file="Networks.xml"/>
+    <Include file="Simulation.xml"/>
+    
+    <Include file="test_files/iaf.cell.nml"/>
+    <Include file="test_files/ampa.synapse.nml"/>
+    <Include file="Example3_Network.net.nml"/>
+   
+    <Simulation id="Example3" length="100.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
+        
+        <Display id="DispPop__pop0" title="Membrane potentials of cells in pop0" timeScale="1ms" xmin="-10.0" xmax="110.0" ymin="-90" ymax="50">
+            <Line id="pop0[0]: v" quantity="pop0/0/iaf/v" scale="1mV" color="#44d6de" timeScale="1ms"/>
+            <Line id="pop0[1]: v" quantity="pop0/1/iaf/v" scale="1mV" color="#a58ec7" timeScale="1ms"/>
+            <Line id="pop0[2]: v" quantity="pop0/2/iaf/v" scale="1mV" color="#2fa9c8" timeScale="1ms"/>
+            <Line id="pop0[3]: v" quantity="pop0/3/iaf/v" scale="1mV" color="#d3f377" timeScale="1ms"/>
+            <Line id="pop0[4]: v" quantity="pop0/4/iaf/v" scale="1mV" color="#7d3087" timeScale="1ms"/>
+        </Display>
+        
+        <Display id="DispPop__pop1" title="Membrane potentials of cells in pop1" timeScale="1ms" xmin="-10.0" xmax="110.0" ymin="-90" ymax="50">
+            <Line id="pop1[0]: v" quantity="pop1/0/iaf/v" scale="1mV" color="#e4e01e" timeScale="1ms"/>
+            <Line id="pop1[1]: v" quantity="pop1/1/iaf/v" scale="1mV" color="#a58098" timeScale="1ms"/>
+            <Line id="pop1[2]: v" quantity="pop1/2/iaf/v" scale="1mV" color="#0e17f6" timeScale="1ms"/>
+            <Line id="pop1[3]: v" quantity="pop1/3/iaf/v" scale="1mV" color="#e5c11d" timeScale="1ms"/>
+            <Line id="pop1[4]: v" quantity="pop1/4/iaf/v" scale="1mV" color="#52ef88" timeScale="1ms"/>
+            <Line id="pop1[5]: v" quantity="pop1/5/iaf/v" scale="1mV" color="#a04f43" timeScale="1ms"/>
+            <Line id="pop1[6]: v" quantity="pop1/6/iaf/v" scale="1mV" color="#ad1abe" timeScale="1ms"/>
+            <Line id="pop1[7]: v" quantity="pop1/7/iaf/v" scale="1mV" color="#f1d3c6" timeScale="1ms"/>
+            <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#6f76f1" timeScale="1ms"/>
+        </Display>
+        
+        <OutputFile id="Volts_file__pop0" fileName="Example3.pop0.v.dat">
+            <OutputColumn id="v_pop0_0_iaf_v" quantity="pop0/0/iaf/v"/> 
+            <OutputColumn id="v_pop0_1_iaf_v" quantity="pop0/1/iaf/v"/> 
+            <OutputColumn id="v_pop0_2_iaf_v" quantity="pop0/2/iaf/v"/> 
+            <OutputColumn id="v_pop0_3_iaf_v" quantity="pop0/3/iaf/v"/> 
+            <OutputColumn id="v_pop0_4_iaf_v" quantity="pop0/4/iaf/v"/> 
+        </OutputFile>
+        
+        <OutputFile id="Volts_file__pop1" fileName="Example3.pop1.v.dat">
+            <OutputColumn id="v_pop1_0_iaf_v" quantity="pop1/0/iaf/v"/> 
+            <OutputColumn id="v_pop1_1_iaf_v" quantity="pop1/1/iaf/v"/> 
+            <OutputColumn id="v_pop1_2_iaf_v" quantity="pop1/2/iaf/v"/> 
+            <OutputColumn id="v_pop1_3_iaf_v" quantity="pop1/3/iaf/v"/> 
+            <OutputColumn id="v_pop1_4_iaf_v" quantity="pop1/4/iaf/v"/> 
+            <OutputColumn id="v_pop1_5_iaf_v" quantity="pop1/5/iaf/v"/> 
+            <OutputColumn id="v_pop1_6_iaf_v" quantity="pop1/6/iaf/v"/> 
+            <OutputColumn id="v_pop1_7_iaf_v" quantity="pop1/7/iaf/v"/> 
+            <OutputColumn id="v_pop1_8_iaf_v" quantity="pop1/8/iaf/v"/> 
+        </OutputFile>
+        
+    </Simulation>
+
+</Lems>

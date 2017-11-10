@@ -1,0 +1,53 @@
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta5.xsd" id="Example3_Network">
+    <notes>Generated network</notes>
+    <network id="Example3_Network">
+        <notes>The network</notes>
+        <population id="pop0" component="iaf" size="5" type="populationList">
+            <instance id="0">
+                <location x="966.453535692138757" y="44.073259917535268" z="7.491470058587191"/>
+            </instance>
+            <instance id="1">
+                <location x="910.975962449124154" y="93.926899736376399" z="582.227573058949133"/>
+            </instance>
+            <instance id="2">
+                <location x="671.563481487985086" y="8.393822683708397" z="766.480932791796249"/>
+            </instance>
+            <instance id="3">
+                <location x="236.809775363117751" y="3.081402172660996" z="788.772717236283484"/>
+            </instance>
+            <instance id="4">
+                <location x="346.088965597123092" y="62.328147503916853" z="615.815695103615212"/>
+            </instance>
+        </population>
+        <population id="pop1" component="iaf" size="9" type="populationList">
+            <instance id="0">
+                <location x="148.55463870828757" y="183.090647409931648" z="114.412969688687639"/>
+            </instance>
+            <instance id="1">
+                <location x="14.618780486909122" y="486.751540604758361" z="964.901560916215658"/>
+            </instance>
+            <instance id="2">
+                <location x="64.562280977186077" y="541.088185551130209" z="465.898559008309576"/>
+            </instance>
+            <instance id="3">
+                <location x="601.463449561051448" y="88.928829990662322" z="579.002686187366521"/>
+            </instance>
+            <instance id="4">
+                <location x="269.585503819448263" y="556.432560556215549" z="644.634234178282668"/>
+            </instance>
+            <instance id="5">
+                <location x="481.036371366518438" y="355.239147442983324" z="249.152121361208998"/>
+            </instance>
+            <instance id="6">
+                <location x="933.515498042346735" y="453.388019476493525" z="530.161206911590284"/>
+            </instance>
+            <instance id="7">
+                <location x="19.299566309716852" y="508.101925779792168" z="5.780237417743139"/>
+            </instance>
+            <instance id="8">
+                <location x="143.768427595595369" y="472.826925347406359" z="377.347440772596428"/>
+            </instance>
+        </population>
+        <projection id="proj0" presynapticPopulation="pop0" postsynapticPopulation="pop1" synapse="ampa"/>
+    </network>
+</neuroml>

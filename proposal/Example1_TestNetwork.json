@@ -1,0 +1,20 @@
+{ "TestNetwork": {
+    "notes": "The network",
+    "populations": [
+        { "pop0": {
+            "component": "iaf",
+            "size": 5 }
+        },
+        { "pop1": {
+            "component": "iaf",
+            "size": 9 }
+        }
+    ],
+    "projections": [
+        { "proj0": {
+            "synapse": "ampa",
+            "postsynaptic": "pop1",
+            "presynaptic": "pop0" }
+        }
+    ] }
+}

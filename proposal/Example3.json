@@ -1,0 +1,5 @@
+{ "Example3": {
+    "duration": 100.0,
+    "recordTraces": "all",
+    "dt": 0.025 }
+}

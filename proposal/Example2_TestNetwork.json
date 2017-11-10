@@ -1,0 +1,38 @@
+{ "TestNetwork": {
+    "notes": "The network",
+    "populations": [
+        { "pop0": {
+            "random_layout":                 { 
+                    "y": 100.0,
+                    "x": 1000.0,
+                    "z": 1000.0 },
+            "component": "iaf",
+            "size": 5 }
+        },
+        { "pop1": {
+            "random_layout":                 { 
+                    "y": 1000.0,
+                    "x": 1000.0,
+                    "z": 1000.0 },
+            "component": "iaf",
+            "size": 9 }
+        }
+    ],
+    "projections": [
+        { "proj0": {
+            "synapse": "ampa",
+            "postsynaptic": "pop1",
+            "presynaptic": "pop0" }
+        }
+    ],
+    "cells": [
+        { "iaf": {
+            "source_file": "test_files/iaf.cell.nml" }
+        }
+    ],
+    "synapses": [
+        { "ampa": {
+            "source_file": "test_files/ampa.synapse.nml" }
+        }
+    ] }
+}
