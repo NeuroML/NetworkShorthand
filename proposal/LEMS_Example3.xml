@@ -21,23 +21,23 @@
     <Simulation id="Example3" length="1000.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
         
         <Display id="DispPop__pop0" title="Membrane potentials of cells in pop0" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-90" ymax="50">
-            <Line id="pop0[0]: v" quantity="pop0/0/iaf/v" scale="1mV" color="#07a810" timeScale="1ms"/>
-            <Line id="pop0[1]: v" quantity="pop0/1/iaf/v" scale="1mV" color="#2704b8" timeScale="1ms"/>
-            <Line id="pop0[2]: v" quantity="pop0/2/iaf/v" scale="1mV" color="#210945" timeScale="1ms"/>
-            <Line id="pop0[3]: v" quantity="pop0/3/iaf/v" scale="1mV" color="#38c37c" timeScale="1ms"/>
-            <Line id="pop0[4]: v" quantity="pop0/4/iaf/v" scale="1mV" color="#c97ca3" timeScale="1ms"/>
+            <Line id="pop0[0]: v" quantity="pop0/0/iaf/v" scale="1mV" color="#6aa799" timeScale="1ms"/>
+            <Line id="pop0[1]: v" quantity="pop0/1/iaf/v" scale="1mV" color="#029a72" timeScale="1ms"/>
+            <Line id="pop0[2]: v" quantity="pop0/2/iaf/v" scale="1mV" color="#d340bb" timeScale="1ms"/>
+            <Line id="pop0[3]: v" quantity="pop0/3/iaf/v" scale="1mV" color="#4c73a9" timeScale="1ms"/>
+            <Line id="pop0[4]: v" quantity="pop0/4/iaf/v" scale="1mV" color="#5e503a" timeScale="1ms"/>
         </Display>
         
         <Display id="DispPop__pop1" title="Membrane potentials of cells in pop1" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-90" ymax="50">
-            <Line id="pop1[0]: v" quantity="pop1/0/iaf/v" scale="1mV" color="#22af34" timeScale="1ms"/>
-            <Line id="pop1[1]: v" quantity="pop1/1/iaf/v" scale="1mV" color="#da14e6" timeScale="1ms"/>
-            <Line id="pop1[2]: v" quantity="pop1/2/iaf/v" scale="1mV" color="#7b0dd0" timeScale="1ms"/>
-            <Line id="pop1[3]: v" quantity="pop1/3/iaf/v" scale="1mV" color="#a7f899" timeScale="1ms"/>
-            <Line id="pop1[4]: v" quantity="pop1/4/iaf/v" scale="1mV" color="#a9ef95" timeScale="1ms"/>
-            <Line id="pop1[5]: v" quantity="pop1/5/iaf/v" scale="1mV" color="#097028" timeScale="1ms"/>
-            <Line id="pop1[6]: v" quantity="pop1/6/iaf/v" scale="1mV" color="#bb3078" timeScale="1ms"/>
-            <Line id="pop1[7]: v" quantity="pop1/7/iaf/v" scale="1mV" color="#ef05d8" timeScale="1ms"/>
-            <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#f9731a" timeScale="1ms"/>
+            <Line id="pop1[0]: v" quantity="pop1/0/iaf/v" scale="1mV" color="#3193ca" timeScale="1ms"/>
+            <Line id="pop1[1]: v" quantity="pop1/1/iaf/v" scale="1mV" color="#90e5e9" timeScale="1ms"/>
+            <Line id="pop1[2]: v" quantity="pop1/2/iaf/v" scale="1mV" color="#29645f" timeScale="1ms"/>
+            <Line id="pop1[3]: v" quantity="pop1/3/iaf/v" scale="1mV" color="#1fcff4" timeScale="1ms"/>
+            <Line id="pop1[4]: v" quantity="pop1/4/iaf/v" scale="1mV" color="#6ed4e9" timeScale="1ms"/>
+            <Line id="pop1[5]: v" quantity="pop1/5/iaf/v" scale="1mV" color="#8fe460" timeScale="1ms"/>
+            <Line id="pop1[6]: v" quantity="pop1/6/iaf/v" scale="1mV" color="#2ca1c7" timeScale="1ms"/>
+            <Line id="pop1[7]: v" quantity="pop1/7/iaf/v" scale="1mV" color="#8d9fe5" timeScale="1ms"/>
+            <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#5adad1" timeScale="1ms"/>
         </Display>
         
         <OutputFile id="Volts_file__pop0" fileName="Example3.pop0.v.dat">

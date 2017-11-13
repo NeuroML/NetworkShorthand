@@ -78,6 +78,55 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
     print("Written NeuroML to %s"%nml_file_name)
     
     return nml_file_name, nml_doc
-    
-    
+
+
+
+def generate_and_run(simulation, network, simulator):
+
+    if simulator=='jNeuroML':
+
+        from pyneuroml.lems import generate_lems_file_for_neuroml
+
+        lems_file_name='LEMS_%s.xml'%simulation.id
+
+        from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
+
+        nml_file_name, nml_doc = generate_neuroml2_from_network(network)
+
+        included_files = []
+
+        if network.cells:
+            for c in network.cells:
+                included_files.append(c.source_file)
+
+        if network.synapses:
+            for s in network.synapses:
+                included_files.append(s.source_file)
+
+        generate_lems_file_for_neuroml(simulation.id, 
+                               nml_file_name, 
+                               network.id, 
+                               simulation.duration, 
+                               simulation.dt, 
+                               lems_file_name,
+                               '.',
+                               nml_doc = None,  # Use this if the nml doc has already been loaded (to avoid delay in reload)
+                               include_extra_files = included_files,
+                               gen_plots_for_all_v = True,
+                               plot_all_segments = False,
+                               gen_plots_for_quantities = {},   # Dict with displays vs lists of quantity paths
+                               gen_plots_for_only_populations = [],   # List of populations, all pops if = []
+                               gen_saves_for_all_v = simulation.recordTraces=='all',
+                               save_all_segments = False,
+                               gen_saves_for_only_populations = [],  # List of populations, all pops if = []
+                               gen_saves_for_quantities = {},   # Dict with file names vs lists of quantity paths
+                               gen_spike_saves_for_all_somas = False,
+                               gen_spike_saves_for_only_populations = [],  # List of populations, all pops if = []
+                               gen_spike_saves_for_cells = {},  # Dict with file names vs lists of quantity paths
+                               spike_time_format='ID_TIME',
+                               copy_neuroml = True,
+                               lems_file_generate_seed=12345,
+                               simulation_seed=12345)
+
+
     

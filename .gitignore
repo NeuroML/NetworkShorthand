@@ -2,3 +2,6 @@
 /proposal/Example2_TestNetwork.net.nml
 /proposal/*.dat
 /proposal/networkshorthand/*.pyc
+/proposal/x86_64
+/proposal/*.mod
+/proposal/*_nrn.py

@@ -1,4 +1,5 @@
 from networkshorthand import *
+from networkshorthand.NetworkGenerator import *
 
 from Example2 import net
 net.id = 'Example3_Network'
@@ -11,7 +12,7 @@ sim = Simulation(id='Example3',
 sim.to_json_file()
 
 
-sim.generate_and_run(net, simulator='jNeuroML')
+generate_and_run(sim, net, simulator='jNeuroML')
 
 
 
