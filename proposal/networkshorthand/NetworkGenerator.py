@@ -1,6 +1,7 @@
 import random
 import numpy as np
 
+
 def generate_network(nl_model, handler, seed=1234):
     
     pop_locations = {}
@@ -27,7 +28,6 @@ def generate_network(nl_model, handler, seed=1234):
             synapse_objects[s.id] = nml2_doc.get_by_id(s.id)
             
         
-    
     handler.handleNetwork(nl_model.id, nl_model.notes)
     
     for p in nl_model.populations:
@@ -80,7 +80,7 @@ def generate_network(nl_model, handler, seed=1234):
         
         
         
-def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=True, seed=1234):
+def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=True, seed=1234, format='xml'):
 
     from neuroml.hdf5.NetworkBuilder import NetworkBuilder
 
@@ -95,11 +95,18 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
         print(nml_doc.summary())
 
     # Save to file
-    if not nml_file_name:
-        nml_file_name = '%s.net.nml'%nml_doc.id
         
-    from neuroml.writers import NeuroMLWriter
-    NeuroMLWriter.write(nml_doc,nml_file_name)
+    if format=='xml':
+        if not nml_file_name:
+            nml_file_name = '%s.net.nml'%nml_doc.id
+        from neuroml.writers import NeuroMLWriter
+        NeuroMLWriter.write(nml_doc,nml_file_name)
+        
+    if format=='hdf5':
+        if not nml_file_name:
+            nml_file_name = '%s.net.nml.h5'%nml_doc.id
+        from neuroml.writers import NeuroMLHdf5Writer
+        NeuroMLHdf5Writer.write(nml_doc, nml_file_name)
 
     print("Written NeuroML to %s"%nml_file_name)
     

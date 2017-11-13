@@ -45,6 +45,7 @@ class Population(BaseWithId):
                       
         super(Population, self).__init__(**kwargs)
  
+ 
 class RandomLayout(Base):
 
     def __init__(self, **kwargs):
@@ -74,6 +75,7 @@ class RandomConnectivity(Base):
         self.allowed_fields = {'probability':float}
                                
         super(RandomConnectivity, self).__init__(**kwargs)
+    
     
 class Simulation(BaseWithId):
 

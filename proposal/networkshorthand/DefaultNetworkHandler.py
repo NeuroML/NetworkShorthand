@@ -17,29 +17,35 @@
 #
 #
 
-
-import logging
+    
+def print_(text, print_it=False):
+    prefix = "netshort >>> "
+    if not isinstance(text, str): text = text.decode('ascii')
+    if print_it:
+        
+        print("%s%s"%(prefix, text.replace("\n", "\n"+prefix)))
+    
+    
+def print_v(text):
+    print_(text, True)
 
 
 class DefaultNetworkHandler:
         
-    log = logging.getLogger("DefaultNetworkHandler")
-    
-    isParallel = 0
 
     #
     #  Internal info method, can be reused in overriding classes for debugging
     #
     def printLocationInformation(self, id, population_id, component, x, y, z):
         position = "(%s, %s, %s)" % (x, y, z)
-        self.log.debug("Location "+str(id)+" of population: "+population_id+", component: "+component+": "+position)
+        print_v("Location "+str(id)+" of population: "+population_id+", component: "+component+": "+position)
         
 
     #
     #  Internal info method, can be reused in overriding classes for debugging
     #        
     def printConnectionInformation(self,  projName, id, prePop, postPop, synapseType, preCellId, postCellId, weight):
-        self.log.debug("Connection "+str(id)+" of: "+projName+": cell "+str(preCellId)+" in "+prePop \
+        print_v("Connection "+str(id)+" of: "+projName+": cell "+str(preCellId)+" in "+prePop \
                               +" -> cell "+str(postCellId)+" in "+postPop+", syn: "+ str(synapseType)+", weight: "+str(weight))
         
          
@@ -48,7 +54,7 @@ class DefaultNetworkHandler:
     #        
     def printInputInformation(self, inputName, population_id, component, size=-1):
         sizeInfo = " size: "+ str(size)+ " cells"
-        self.log.debug("Input Source: "+inputName+", on population: "+population_id+sizeInfo+" with component: "+ component)
+        print_v("Input Source: "+inputName+", on population: "+population_id+sizeInfo+" with component: "+ component)
         
     
 
@@ -57,20 +63,20 @@ class DefaultNetworkHandler:
     #  
     def handleDocumentStart(self, id, notes):
             
-        self.log.debug("Document: %s"%id)
+        print_v("Document: %s"%id)
         if notes:
-            self.log.debug("  Notes: "+notes)
+            print_v("  Notes: "+notes)
 
     #
     #  Should be overridden to create network
     #  
     def handleNetwork(self, network_id, notes, temperature=None):
             
-        self.log.debug("Network: %s"%network_id)
+        print_v("Network: %s"%network_id)
         if temperature:
-            self.log.debug("  Temperature: "+temperature)
+            print_v("  Temperature: "+temperature)
         if notes:
-            self.log.debug("  Notes: "+notes)
+            print_v("  Notes: "+notes)
 
     #
     #  Should be overridden to create population array
@@ -84,7 +90,7 @@ class DefaultNetworkHandler:
         else:
             compInfo=""
             
-        self.log.debug("Population: "+population_id+", component: "+component+compInfo+sizeInfo)
+        print_v("Population: "+population_id+", component: "+component+compInfo+sizeInfo)
         
         
     #
@@ -107,7 +113,7 @@ class DefaultNetworkHandler:
         if pre_synapse_obj:
             synInfo += " (pre comp: %s)"%pre_synapse_obj.__class__.__name__
 
-        self.log.debug("Projection: "+projName+" ("+type+") from "+prePop+" to "+postPop+" with syn: "+synapse+synInfo)
+        print_v("Projection: "+projName+" ("+type+") from "+prePop+" to "+postPop+" with syn: "+synapse+synInfo)
 
 
     #
@@ -125,14 +131,14 @@ class DefaultNetworkHandler:
         
         self.printConnectionInformation(projName, id, prePop, postPop, synapseType, preCellId, postCellId, weight)
         if preSegId != 0 or postSegId!=0 or preFract != 0.5 or postFract != 0.5:
-            self.log.debug("Src cell: %d, seg: %f, fract: %f -> Tgt cell %d, seg: %f, fract: %f; weight %s, delay: %s ms" % (preCellId,preSegId,preFract,postCellId,postSegId,postFract, weight, delay))
+            print_v("Src cell: %d, seg: %f, fract: %f -> Tgt cell %d, seg: %f, fract: %f; weight %s, delay: %s ms" % (preCellId,preSegId,preFract,postCellId,postSegId,postFract, weight, delay))
         
     #
     #  Should be overridden to handle end of network connection
     #  
     def finaliseProjection(self, projName, prePop, postPop, synapse=None, type="projection"):
    
-        self.log.debug("Projection: "+projName+" from "+prePop+" to "+postPop+" completed")
+        print_v("Projection: "+projName+" from "+prePop+" to "+postPop+" completed")
         
         
     #
@@ -152,14 +158,14 @@ class DefaultNetworkHandler:
     #  
     def handleSingleInput(self, inputListId, id, cellId, segId = 0, fract = 0.5, weight=1):
         
-        self.log.debug("Input: %s[%s], cellId: %i, seg: %i, fract: %f, weight: %f" % (inputListId,id,cellId,segId,fract,weight))
+        print_v("Input: %s[%s], cellId: %i, seg: %i, fract: %f, weight: %f" % (inputListId,id,cellId,segId,fract,weight))
         
         
     #
     #  Should be overridden to to connect each input to the target cell
     #  
     def finaliseInputSource(self, inputName):
-        self.log.debug("Input : %s completed" % inputName)
+        print_v("Input : %s completed" % inputName)
         
         
 
@@ -168,6 +174,6 @@ class DefaultNetworkHandler:
     #    
     def setParallelStatus(self, val):
         
-        self.log.debug("Parallel status (0=serial mode, 1=parallel distributed): "+str(val))
+        print_v("Parallel status (0=serial mode, 1=parallel distributed): "+str(val))
         self.isParallel = val
         

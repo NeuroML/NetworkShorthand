@@ -15,6 +15,8 @@ echo "**** Running Example 3 ****"
 python Example3.py
 
 
+jnml -validate *nml
+
 jnml LEMS_SimExample3.xml -nogui
 
 echo

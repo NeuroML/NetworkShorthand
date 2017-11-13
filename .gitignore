@@ -5,3 +5,5 @@
 /proposal/x86_64
 /proposal/*.mod
 /proposal/*_nrn.py
+/proposal/*.pov
+/proposal/*_movie.ini
