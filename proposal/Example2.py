@@ -14,8 +14,8 @@ from Example1 import net
 net.populations[0].random_layout = RandomLayout(x=1000,y=100,z=1000)
 net.populations[1].random_layout = RandomLayout(x=1000,y=1000,z=1000)
 
-net.cells.append(Cell(id='iaf', source_file='test_files/iaf.cell.nml'))
-net.synapses.append(Synapse(id='ampa', source_file='test_files/ampa.synapse.nml'))
+net.cells.append(Cell(id='iaf', neuroml2_source_file='test_files/iaf.cell.nml'))
+net.synapses.append(Synapse(id='ampa', neuroml2_source_file='test_files/ampa.synapse.nml'))
 
 print net.to_json()
 net.to_json_file('Example2_%s.json'%net.id)

@@ -1,5 +1,7 @@
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta5.xsd" id="Example3_Network">
     <notes>Generated network</notes>
+    <expTwoSynapse id="ampa" gbase="0.5nS" erev="0mV" tauDecay="2ms" tauRise="1ms"/>
+    <iafCell id="iaf" leakReversal="-50mV" thresh="-55mV" reset="-70mV" C="0.2nF" leakConductance="0.01uS"/>
     <network id="Example3_Network">
         <notes>The network</notes>
         <population id="pop0" component="iaf" size="5" type="populationList">

@@ -19,7 +19,7 @@ class Cell(BaseWithId):
 
     def __init__(self, **kwargs):
         
-        self.allowed_fields = {'source_file':str}
+        self.allowed_fields = {'neuroml2_source_file':str}
                       
         super(Cell, self).__init__(**kwargs)
   
@@ -28,7 +28,7 @@ class Synapse(BaseWithId):
 
     def __init__(self, **kwargs):
         
-        self.allowed_fields = {'source_file':str}
+        self.allowed_fields = {'neuroml2_source_file':str}
                       
         super(Synapse, self).__init__(**kwargs)
     

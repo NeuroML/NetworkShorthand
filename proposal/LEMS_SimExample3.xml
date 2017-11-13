@@ -7,18 +7,16 @@
      -->
     
     <!-- Specify which component to run -->
-    <Target component="Example3"/>
+    <Target component="SimExample3"/>
 
     <!-- Include core NeuroML2 ComponentType definitions -->
     <Include file="Cells.xml"/>
     <Include file="Networks.xml"/>
     <Include file="Simulation.xml"/>
     
-    <Include file="test_files/iaf.cell.nml"/>
-    <Include file="test_files/ampa.synapse.nml"/>
     <Include file="Example3_Network.net.nml"/>
    
-    <Simulation id="Example3" length="1000.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
+    <Simulation id="SimExample3" length="1000.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
         
         <Display id="DispPop__pop0" title="Membrane potentials of cells in pop0" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-90" ymax="50">
             <Line id="pop0[0]: v" quantity="pop0/0/iaf/v" scale="1mV" color="#6aa799" timeScale="1ms"/>
@@ -40,7 +38,7 @@
             <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#5adad1" timeScale="1ms"/>
         </Display>
         
-        <OutputFile id="Volts_file__pop0" fileName="Example3.pop0.v.dat">
+        <OutputFile id="Volts_file__pop0" fileName="SimExample3.pop0.v.dat">
             <OutputColumn id="v_pop0_0_iaf_v" quantity="pop0/0/iaf/v"/> 
             <OutputColumn id="v_pop0_1_iaf_v" quantity="pop0/1/iaf/v"/> 
             <OutputColumn id="v_pop0_2_iaf_v" quantity="pop0/2/iaf/v"/> 
@@ -48,7 +46,7 @@
             <OutputColumn id="v_pop0_4_iaf_v" quantity="pop0/4/iaf/v"/> 
         </OutputFile>
         
-        <OutputFile id="Volts_file__pop1" fileName="Example3.pop1.v.dat">
+        <OutputFile id="Volts_file__pop1" fileName="SimExample3.pop1.v.dat">
             <OutputColumn id="v_pop1_0_iaf_v" quantity="pop1/0/iaf/v"/> 
             <OutputColumn id="v_pop1_1_iaf_v" quantity="pop1/1/iaf/v"/> 
             <OutputColumn id="v_pop1_2_iaf_v" quantity="pop1/2/iaf/v"/> 

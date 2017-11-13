@@ -1,4 +1,4 @@
-{ "Example3": {
+{ "SimExample3": {
     "duration": 1000.0,
     "recordTraces": "all",
     "dt": 0.025 }
