@@ -36,6 +36,7 @@
             <Line id="pop1[6]: v" quantity="pop1/6/iaf/v" scale="1mV" color="#2ca1c7" timeScale="1ms"/>
             <Line id="pop1[7]: v" quantity="pop1/7/iaf/v" scale="1mV" color="#8d9fe5" timeScale="1ms"/>
             <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#5adad1" timeScale="1ms"/>
+            <Line id="pop1[9]: v" quantity="pop1/9/iaf/v" scale="1mV" color="#f543bb" timeScale="1ms"/>
         </Display>
         
         <OutputFile id="Volts_file__pop0" fileName="SimExample3.pop0.v.dat">
@@ -56,6 +57,7 @@
             <OutputColumn id="v_pop1_6_iaf_v" quantity="pop1/6/iaf/v"/> 
             <OutputColumn id="v_pop1_7_iaf_v" quantity="pop1/7/iaf/v"/> 
             <OutputColumn id="v_pop1_8_iaf_v" quantity="pop1/8/iaf/v"/> 
+            <OutputColumn id="v_pop1_9_iaf_v" quantity="pop1/9/iaf/v"/> 
         </OutputFile>
         
     </Simulation>

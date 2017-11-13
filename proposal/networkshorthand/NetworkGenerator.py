@@ -131,27 +131,79 @@ def generate_and_run(simulation, network, simulator):
         
         netpyne_handler.finalise()
         
+                    
+        
         simConfig = specs.SimConfig() 
         simConfig.tstop = simulation.duration
         simConfig.duration = simulation.duration
         simConfig.st = simulation.dt
-        simConfig.recordCells = ['all']  
+        simConfig.recordStep = simulation.dt
+        
+        simConfig.recordCells = ['all'] 
+        simConfig.recordTraces = {}
+        if simulation.recordTraces=='all':
+        
+            for p in network.populations:
+                for i in range(p.size):
+                    simConfig.recordTraces['v_%s_%s'%(p.id,i)] = {'sec':'soma','loc':0.5,'var':'v','conds':{'pop':p.id,'cellLabel':i}}
+
+        simConfig.saveDat = True
         
         #pp.pprint(netParams.todict())
 
-        #pp.pprint(simConfig.todict())
+        pp.pprint(simConfig.todict())
         
         sim.initialize(netParams, simConfig)  # create network object and set cfg and net params
 
         sim.net.createPops()  
         cells = sim.net.createCells()                 # instantiate network cells based on defined populations  
-               
+        
+        
+        
+        for proj_id in netpyne_handler.projection_infos.keys():
+            projName, prePop, postPop, synapse, ptype = netpyne_handler.projection_infos[proj_id]
+            print("Creating connections for %s (%s): %s->%s via %s"%(projName, ptype, prePop, postPop, synapse))
+            
+            preComp = netpyne_handler.pop_ids_vs_components[prePop]
+            
+            ###from neuroml import Cell
+           
+
+            for conn in netpyne_handler.connections[projName]:
+                
+                pre_id, pre_seg, pre_fract, post_id, post_seg, post_fract, delay, weight = conn
+                
+                #connParam = {'delay':delay,'weight':weight,'synsPerConn':1, 'sec':post_seg, 'loc':post_fract, 'threshold':threshold}
+                connParam = {'delay':delay,'weight':weight,'synsPerConn':1, 'sec':post_seg, 'loc':post_fract}
+                
+                if ptype == 'electricalProjection':
+
+                    if weight!=1:
+                        raise Exception('Cannot yet support inputs where weight !=1!')
+                    connParam = {'synsPerConn': 1, 
+                                 'sec': post_seg, 
+                                 'loc': post_fract, 
+                                 'gapJunction': True, 
+                                 'weight': weight}
+                else:
+                    connParam = {'delay': delay,
+                                 'weight': weight,
+                                 'synsPerConn': 1, 
+                                 'sec': post_seg, 
+                                 'loc': post_fract} 
+                                 #'threshold': threshold}
+
+                connParam['synMech'] = synapse
+
+                if post_id in sim.net.lid2gid:  # check if postsyn is in this node's list of gids
+                    sim.net._addCellConn(connParam, pre_id, post_id)
+                    
+                    
         stims = sim.net.addStims()                    # add external stimulation to cells (IClamps etc)
         simData = sim.setupRecording()              # setup variables to record for each cell (spikes, V traces, etc)
         sim.runSim()                      # run parallel Neuron simulation  
         sim.gatherData()                  # gather spiking data and cell info from each node
         sim.saveData()                    # save params, cell info and sim output to file (pickle,mat,txt,etc)
-        sim.analysis.plotData()               # plot spike raster
         
     elif simulator=='jNeuroML' or  simulator=='jNeuroML_NEURON':
 

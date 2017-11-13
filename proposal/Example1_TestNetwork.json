@@ -7,7 +7,7 @@
         },
         { "pop1": {
             "component": "iaf",
-            "size": 9 }
+            "size": 10 }
         }
     ],
     "projections": [

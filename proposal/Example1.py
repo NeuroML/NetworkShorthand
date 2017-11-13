@@ -15,7 +15,6 @@ print net
 
 p0 = Population(id='pop0', size=5, component='iaf')
 p1 = Population(id='pop1', size=10, component='iaf')
-p1.size = 9
 
 print p0
 print p1
