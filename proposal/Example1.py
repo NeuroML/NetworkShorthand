@@ -20,7 +20,9 @@ net.projections.append(Projection(id='proj0',
                                   presynaptic=p0.id, 
                                   postsynaptic=p1.id,
                                   synapse='ampa'))
-
+                                  
+net.projections[0].random_connectivity=RandomConnectivity(probability=0.5)
+                                 
 print net
 net.id = 'TestNetwork'
 

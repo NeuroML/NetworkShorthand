@@ -1,6 +1,9 @@
 import random
+import numpy as np
 
 def generate_network(nl_model, handler, seed=1234):
+    
+    pop_locations = {}
     
     print("Starting net generation...")
     rng = random.Random(seed)
@@ -12,18 +15,42 @@ def generate_network(nl_model, handler, seed=1234):
     for p in nl_model.populations:
         
         handler.handlePopulation(p.id, p.component, p.size)
+        pop_locations[p.id] = np.zeros((p.size,3))
         
         for i in range(p.size):
             if p.random_layout:
                 x = rng.random()*p.random_layout.x
                 y = rng.random()*p.random_layout.y
                 z = rng.random()*p.random_layout.z
+                pop_locations[p.id][i]=(x,y,z)
 
                 handler.handleLocation(i, p.id, p.component, x, y, z)
         
     for p in nl_model.projections:
         
         handler.handleProjection(p.id, p.presynaptic, p.postsynaptic, p.synapse)
+        
+        conn_count = 0
+        if p.random_connectivity:
+            for pre_i in range(len(pop_locations[p.presynaptic])):
+                for post_i in range(len(pop_locations[p.postsynaptic])):
+                    flip = rng.random()
+                    #print("Is cell %i conn to %i, prob %s - %s"%(pre_i, post_i, flip, p.random_connectivity.probability))
+                    if flip<p.random_connectivity.probability:
+                        handler.handleConnection(p.id, 
+                                         conn_count, 
+                                         p.presynaptic, 
+                                         p.postsynaptic, 
+                                         p.synapse, \
+                                         pre_i, \
+                                         post_i, \
+                                         preSegId = 0, \
+                                         preFract = 0.5, \
+                                         postSegId = 0, \
+                                         postFract = 0.5, \
+                                         delay = 0, \
+                                         weight = 1)
+                        conn_count+=1
         
         
         

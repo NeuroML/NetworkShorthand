@@ -18,26 +18,26 @@
     <Include file="test_files/ampa.synapse.nml"/>
     <Include file="Example3_Network.net.nml"/>
    
-    <Simulation id="Example3" length="100.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
+    <Simulation id="Example3" length="1000.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
         
-        <Display id="DispPop__pop0" title="Membrane potentials of cells in pop0" timeScale="1ms" xmin="-10.0" xmax="110.0" ymin="-90" ymax="50">
-            <Line id="pop0[0]: v" quantity="pop0/0/iaf/v" scale="1mV" color="#44d6de" timeScale="1ms"/>
-            <Line id="pop0[1]: v" quantity="pop0/1/iaf/v" scale="1mV" color="#a58ec7" timeScale="1ms"/>
-            <Line id="pop0[2]: v" quantity="pop0/2/iaf/v" scale="1mV" color="#2fa9c8" timeScale="1ms"/>
-            <Line id="pop0[3]: v" quantity="pop0/3/iaf/v" scale="1mV" color="#d3f377" timeScale="1ms"/>
-            <Line id="pop0[4]: v" quantity="pop0/4/iaf/v" scale="1mV" color="#7d3087" timeScale="1ms"/>
+        <Display id="DispPop__pop0" title="Membrane potentials of cells in pop0" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-90" ymax="50">
+            <Line id="pop0[0]: v" quantity="pop0/0/iaf/v" scale="1mV" color="#07a810" timeScale="1ms"/>
+            <Line id="pop0[1]: v" quantity="pop0/1/iaf/v" scale="1mV" color="#2704b8" timeScale="1ms"/>
+            <Line id="pop0[2]: v" quantity="pop0/2/iaf/v" scale="1mV" color="#210945" timeScale="1ms"/>
+            <Line id="pop0[3]: v" quantity="pop0/3/iaf/v" scale="1mV" color="#38c37c" timeScale="1ms"/>
+            <Line id="pop0[4]: v" quantity="pop0/4/iaf/v" scale="1mV" color="#c97ca3" timeScale="1ms"/>
         </Display>
         
-        <Display id="DispPop__pop1" title="Membrane potentials of cells in pop1" timeScale="1ms" xmin="-10.0" xmax="110.0" ymin="-90" ymax="50">
-            <Line id="pop1[0]: v" quantity="pop1/0/iaf/v" scale="1mV" color="#e4e01e" timeScale="1ms"/>
-            <Line id="pop1[1]: v" quantity="pop1/1/iaf/v" scale="1mV" color="#a58098" timeScale="1ms"/>
-            <Line id="pop1[2]: v" quantity="pop1/2/iaf/v" scale="1mV" color="#0e17f6" timeScale="1ms"/>
-            <Line id="pop1[3]: v" quantity="pop1/3/iaf/v" scale="1mV" color="#e5c11d" timeScale="1ms"/>
-            <Line id="pop1[4]: v" quantity="pop1/4/iaf/v" scale="1mV" color="#52ef88" timeScale="1ms"/>
-            <Line id="pop1[5]: v" quantity="pop1/5/iaf/v" scale="1mV" color="#a04f43" timeScale="1ms"/>
-            <Line id="pop1[6]: v" quantity="pop1/6/iaf/v" scale="1mV" color="#ad1abe" timeScale="1ms"/>
-            <Line id="pop1[7]: v" quantity="pop1/7/iaf/v" scale="1mV" color="#f1d3c6" timeScale="1ms"/>
-            <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#6f76f1" timeScale="1ms"/>
+        <Display id="DispPop__pop1" title="Membrane potentials of cells in pop1" timeScale="1ms" xmin="-100.0" xmax="1100.0" ymin="-90" ymax="50">
+            <Line id="pop1[0]: v" quantity="pop1/0/iaf/v" scale="1mV" color="#22af34" timeScale="1ms"/>
+            <Line id="pop1[1]: v" quantity="pop1/1/iaf/v" scale="1mV" color="#da14e6" timeScale="1ms"/>
+            <Line id="pop1[2]: v" quantity="pop1/2/iaf/v" scale="1mV" color="#7b0dd0" timeScale="1ms"/>
+            <Line id="pop1[3]: v" quantity="pop1/3/iaf/v" scale="1mV" color="#a7f899" timeScale="1ms"/>
+            <Line id="pop1[4]: v" quantity="pop1/4/iaf/v" scale="1mV" color="#a9ef95" timeScale="1ms"/>
+            <Line id="pop1[5]: v" quantity="pop1/5/iaf/v" scale="1mV" color="#097028" timeScale="1ms"/>
+            <Line id="pop1[6]: v" quantity="pop1/6/iaf/v" scale="1mV" color="#bb3078" timeScale="1ms"/>
+            <Line id="pop1[7]: v" quantity="pop1/7/iaf/v" scale="1mV" color="#ef05d8" timeScale="1ms"/>
+            <Line id="pop1[8]: v" quantity="pop1/8/iaf/v" scale="1mV" color="#f9731a" timeScale="1ms"/>
         </Display>
         
         <OutputFile id="Volts_file__pop0" fileName="Example3.pop0.v.dat">

@@ -143,7 +143,6 @@ class BaseWithId(Base):
         super(BaseWithId, self).__init__(**kwargs)
         
             
-            
     def get_id(self):
         if len(self.fields)==0:
             return '???'
@@ -160,7 +159,6 @@ class BaseWithId(Base):
         print("Written to: %s"%file_name)
     
     
-        
       
 class Network(BaseWithId):
 
@@ -220,11 +218,19 @@ class Projection(BaseWithId):
     def __init__(self, **kwargs):
         self.allowed_fields = {'presynaptic':str,
                                'postsynaptic':str,
-                               'synapse':str}
+                               'synapse':str,
+                               'random_connectivity':RandomConnectivity}
 
         super(Projection, self).__init__(**kwargs)
 
 
+class RandomConnectivity(Base):
+
+    def __init__(self, **kwargs):
+        
+        self.allowed_fields = {'probability':float}
+                               
+        super(RandomConnectivity, self).__init__(**kwargs)
     
 class Simulation(BaseWithId):
 

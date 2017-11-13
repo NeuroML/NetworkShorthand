@@ -4,7 +4,7 @@ from Example2 import net
 net.id = 'Example3_Network'
 
 sim = Simulation(id='Example3',
-                 duration='100',
+                 duration='1000',
                  dt='0.025',
                  recordTraces='all')
                  

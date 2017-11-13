@@ -13,8 +13,10 @@
     "projections": [
         { "proj0": {
             "synapse": "ampa",
-            "postsynaptic": "pop1",
-            "presynaptic": "pop0" }
+            "random_connectivity":                 { 
+                    "probability": 0.5 },
+            "presynaptic": "pop0",
+            "postsynaptic": "pop1" }
         }
     ] }
 }
