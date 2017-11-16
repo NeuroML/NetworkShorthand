@@ -182,7 +182,8 @@ def generate_and_run(simulation, network, simulator):
 
         for c in network.cells:
             if c.neuroml2_source_file:
-                nrn_handler.executeHoc('load_file("%s.hoc")'%c.id)
+                src_dir = os.path.dirname(os.path.abspath(c.neuroml2_source_file))
+                nrn_handler.executeHoc('load_file("%s/%s.hoc")'%(src_dir,c.id))
                 
         generate_network(network, nrn_handler)
 
