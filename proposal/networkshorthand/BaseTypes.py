@@ -48,7 +48,8 @@ class Base(object):
             if not name in self.children:
                 self.children[name] = []
             return self.children[name]
-        
+    
+    
     def _is_base_type(self, value):
         return value==int or \
                value==str or \
@@ -133,6 +134,7 @@ class Base(object):
                     s += '\n    %s'%(cc)
             
         return s
+    
 
 class BaseWithId(Base):
     
@@ -149,7 +151,6 @@ class BaseWithId(Base):
         return self.fields['id']
             
             
-    
     def to_json_file(self, file_name=None):
         if not file_name:
             file_name='%s.json'%self.id

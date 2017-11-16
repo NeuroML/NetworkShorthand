@@ -29,6 +29,10 @@ generate_and_run(sim, net, simulator='jNeuroML_NEURON')
 
 generate_and_run(sim, net, simulator='NetPyNE')
 
+#generate_and_run(sim, net, simulator='NEURON')
+
+
+
 
 
 

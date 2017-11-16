@@ -89,7 +89,15 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
     generate_network(nl_model, neuroml_handler, seed=seed)
 
     nml_doc = neuroml_handler.get_nml_doc()
-
+    
+    for c in nl_model.cells:
+        if c.neuroml2_source_file:
+            import neuroml
+            for cell in nml_doc.cells:
+                if cell.id == c.id:
+                    nml_doc.cells.remove(cell) # Better to use imported cell file; will have channels, etc.
+                    nml_doc.includes.append(neuroml.IncludeType(c.neuroml2_source_file)) 
+            
     if print_summary:
         # Print info
         print(nml_doc.summary())
@@ -116,12 +124,42 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
 
 def generate_and_run(simulation, network, simulator):
 
+
+    if simulator=='NEURON':
+        
+        from networkshorthand.NeuronHandler import NeuronHandler
+        
+                    
+        nrn_handler = NeuronHandler()
+
+        for c in network.cells:
+            if c.neuroml2_source_file:
+                nrn_handler.executeHoc('load_file("%s.hoc")'%c.id)
+                
+
+        generate_network(network, nrn_handler)
+
+
     if simulator=='NetPyNE':
         
         from netpyne import specs
         from netpyne import sim
         from netpyne import neuromlFuncs
         
+        nml_src_files = []
+        for c in network.cells:
+            if c.neuroml2_source_file:
+                nml_src_files.append(c.neuroml2_source_file)
+        for s in network.synapses:
+            if s.neuroml2_source_file:
+                nml_src_files.append(s.neuroml2_source_file)
+        for f in nml_src_files:
+            from pyneuroml import pynml
+            pynml.run_lems_with_jneuroml_neuron(f, 
+                                                nogui=True, 
+                                                only_generate_scripts=True,
+                                                verbose=True)
+        #exit()
         import pprint; pp = pprint.PrettyPrinter(depth=6)
         
         netParams = specs.NetParams()
@@ -130,8 +168,6 @@ def generate_and_run(simulation, network, simulator):
         generate_network(network, netpyne_handler)
         
         netpyne_handler.finalise()
-        
-                    
         
         simConfig = specs.SimConfig() 
         simConfig.tstop = simulation.duration

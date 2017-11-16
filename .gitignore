@@ -7,3 +7,7 @@
 /proposal/*_nrn.py
 /proposal/*.pov
 /proposal/*_movie.ini
+/proposal/*.hoc
+/proposal/test_files/*.mod
+/proposal/test_files/*.hoc
+/proposal/test_files/x86_64

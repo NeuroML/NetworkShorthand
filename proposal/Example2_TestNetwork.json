@@ -6,7 +6,7 @@
                     "y": 100.0,
                     "x": 1000.0,
                     "z": 1000.0 },
-            "component": "iaf",
+            "component": "hhcell",
             "size": 5 }
         },
         { "pop1": {
@@ -14,7 +14,7 @@
                     "y": 1000.0,
                     "x": 1000.0,
                     "z": 1000.0 },
-            "component": "iaf",
+            "component": "hhcell",
             "size": 10 }
         }
     ],
@@ -28,8 +28,8 @@
         }
     ],
     "cells": [
-        { "iaf": {
-            "neuroml2_source_file": "test_files/iaf.cell.nml" }
+        { "hhcell": {
+            "neuroml2_source_file": "test_files/hhcell.cell.nml" }
         }
     ],
     "synapses": [

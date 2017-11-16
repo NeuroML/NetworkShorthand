@@ -14,7 +14,10 @@ from Example1 import net
 net.populations[0].random_layout = RandomLayout(x=1000,y=100,z=1000)
 net.populations[1].random_layout = RandomLayout(x=1000,y=1000,z=1000)
 
-net.cells.append(Cell(id='iaf', neuroml2_source_file='test_files/iaf.cell.nml'))
+net.populations[0].component = 'hhcell'
+net.populations[1].component = 'hhcell'
+
+net.cells.append(Cell(id='hhcell', neuroml2_source_file='test_files/hhcell.cell.nml'))
 net.synapses.append(Synapse(id='ampa', neuroml2_source_file='test_files/ampa.synapse.nml'))
 
 print net.to_json()
@@ -41,4 +44,4 @@ generate_neuroml2_from_network(net,
 generate_neuroml2_from_network(net, 
                                nml_file_name='Example2_%s.net.nml.h5'%net.id,
                                format='hdf5')
-
+                               

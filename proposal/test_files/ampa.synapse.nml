@@ -7,7 +7,7 @@
 
 
 
-    <expTwoSynapse id="ampa" gbase="0.5nS" erev="0mV"
+    <expTwoSynapse id="ampa" gbase="5nS" erev="0mV"
                    tauRise="1ms" tauDecay="2ms" >
     </expTwoSynapse>
 

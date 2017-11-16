@@ -1,10 +1,10 @@
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta5.xsd" id="Example3_Network">
     <notes>Generated network</notes>
-    <expTwoSynapse id="ampa" gbase="0.5nS" erev="0mV" tauDecay="2ms" tauRise="1ms"/>
-    <iafCell id="iaf" leakReversal="-50mV" thresh="-55mV" reset="-70mV" C="0.2nF" leakConductance="0.01uS"/>
+    <include href="test_files/hhcell.cell.nml"></include>
+    <expTwoSynapse id="ampa" gbase="5nS" erev="0mV" tauDecay="2ms" tauRise="1ms"/>
     <network id="Example3_Network">
         <notes>The network</notes>
-        <population id="pop0" component="iaf" size="5" type="populationList">
+        <population id="pop0" component="hhcell" size="5" type="populationList">
             <instance id="0">
                 <location x="966.453535692138757" y="44.073259917535268" z="7.491470058587191"/>
             </instance>
@@ -21,7 +21,7 @@
                 <location x="346.088965597123092" y="62.328147503916853" z="615.815695103615212"/>
             </instance>
         </population>
-        <population id="pop1" component="iaf" size="10" type="populationList">
+        <population id="pop1" component="hhcell" size="10" type="populationList">
             <instance id="0">
                 <location x="148.55463870828757" y="183.090647409931648" z="114.412969688687639"/>
             </instance>
@@ -54,32 +54,32 @@
             </instance>
         </population>
         <projection id="proj0" presynapticPopulation="pop0" postsynapticPopulation="pop1" synapse="ampa">
-            <connection id="0" preCellId="../pop0/0/iaf" postCellId="../pop1/1/iaf"/>
-            <connection id="1" preCellId="../pop0/0/iaf" postCellId="../pop1/5/iaf"/>
-            <connection id="2" preCellId="../pop0/0/iaf" postCellId="../pop1/6/iaf"/>
-            <connection id="3" preCellId="../pop0/0/iaf" postCellId="../pop1/7/iaf"/>
-            <connection id="4" preCellId="../pop0/0/iaf" postCellId="../pop1/8/iaf"/>
-            <connection id="5" preCellId="../pop0/1/iaf" postCellId="../pop1/0/iaf"/>
-            <connection id="6" preCellId="../pop0/1/iaf" postCellId="../pop1/1/iaf"/>
-            <connection id="7" preCellId="../pop0/1/iaf" postCellId="../pop1/3/iaf"/>
-            <connection id="8" preCellId="../pop0/1/iaf" postCellId="../pop1/5/iaf"/>
-            <connection id="9" preCellId="../pop0/1/iaf" postCellId="../pop1/6/iaf"/>
-            <connection id="10" preCellId="../pop0/1/iaf" postCellId="../pop1/7/iaf"/>
-            <connection id="11" preCellId="../pop0/1/iaf" postCellId="../pop1/8/iaf"/>
-            <connection id="12" preCellId="../pop0/2/iaf" postCellId="../pop1/0/iaf"/>
-            <connection id="13" preCellId="../pop0/2/iaf" postCellId="../pop1/2/iaf"/>
-            <connection id="14" preCellId="../pop0/2/iaf" postCellId="../pop1/5/iaf"/>
-            <connection id="15" preCellId="../pop0/2/iaf" postCellId="../pop1/8/iaf"/>
-            <connection id="16" preCellId="../pop0/2/iaf" postCellId="../pop1/9/iaf"/>
-            <connection id="17" preCellId="../pop0/3/iaf" postCellId="../pop1/0/iaf"/>
-            <connection id="18" preCellId="../pop0/3/iaf" postCellId="../pop1/1/iaf"/>
-            <connection id="19" preCellId="../pop0/3/iaf" postCellId="../pop1/2/iaf"/>
-            <connection id="20" preCellId="../pop0/3/iaf" postCellId="../pop1/5/iaf"/>
-            <connection id="21" preCellId="../pop0/3/iaf" postCellId="../pop1/9/iaf"/>
-            <connection id="22" preCellId="../pop0/4/iaf" postCellId="../pop1/2/iaf"/>
-            <connection id="23" preCellId="../pop0/4/iaf" postCellId="../pop1/4/iaf"/>
-            <connection id="24" preCellId="../pop0/4/iaf" postCellId="../pop1/5/iaf"/>
-            <connection id="25" preCellId="../pop0/4/iaf" postCellId="../pop1/9/iaf"/>
+            <connection id="0" preCellId="../pop0/0/hhcell" postCellId="../pop1/1/hhcell"/>
+            <connection id="1" preCellId="../pop0/0/hhcell" postCellId="../pop1/5/hhcell"/>
+            <connection id="2" preCellId="../pop0/0/hhcell" postCellId="../pop1/6/hhcell"/>
+            <connection id="3" preCellId="../pop0/0/hhcell" postCellId="../pop1/7/hhcell"/>
+            <connection id="4" preCellId="../pop0/0/hhcell" postCellId="../pop1/8/hhcell"/>
+            <connection id="5" preCellId="../pop0/1/hhcell" postCellId="../pop1/0/hhcell"/>
+            <connection id="6" preCellId="../pop0/1/hhcell" postCellId="../pop1/1/hhcell"/>
+            <connection id="7" preCellId="../pop0/1/hhcell" postCellId="../pop1/3/hhcell"/>
+            <connection id="8" preCellId="../pop0/1/hhcell" postCellId="../pop1/5/hhcell"/>
+            <connection id="9" preCellId="../pop0/1/hhcell" postCellId="../pop1/6/hhcell"/>
+            <connection id="10" preCellId="../pop0/1/hhcell" postCellId="../pop1/7/hhcell"/>
+            <connection id="11" preCellId="../pop0/1/hhcell" postCellId="../pop1/8/hhcell"/>
+            <connection id="12" preCellId="../pop0/2/hhcell" postCellId="../pop1/0/hhcell"/>
+            <connection id="13" preCellId="../pop0/2/hhcell" postCellId="../pop1/2/hhcell"/>
+            <connection id="14" preCellId="../pop0/2/hhcell" postCellId="../pop1/5/hhcell"/>
+            <connection id="15" preCellId="../pop0/2/hhcell" postCellId="../pop1/8/hhcell"/>
+            <connection id="16" preCellId="../pop0/2/hhcell" postCellId="../pop1/9/hhcell"/>
+            <connection id="17" preCellId="../pop0/3/hhcell" postCellId="../pop1/0/hhcell"/>
+            <connection id="18" preCellId="../pop0/3/hhcell" postCellId="../pop1/1/hhcell"/>
+            <connection id="19" preCellId="../pop0/3/hhcell" postCellId="../pop1/2/hhcell"/>
+            <connection id="20" preCellId="../pop0/3/hhcell" postCellId="../pop1/5/hhcell"/>
+            <connection id="21" preCellId="../pop0/3/hhcell" postCellId="../pop1/9/hhcell"/>
+            <connection id="22" preCellId="../pop0/4/hhcell" postCellId="../pop1/2/hhcell"/>
+            <connection id="23" preCellId="../pop0/4/hhcell" postCellId="../pop1/4/hhcell"/>
+            <connection id="24" preCellId="../pop0/4/hhcell" postCellId="../pop1/5/hhcell"/>
+            <connection id="25" preCellId="../pop0/4/hhcell" postCellId="../pop1/9/hhcell"/>
         </projection>
     </network>
 </neuroml>
