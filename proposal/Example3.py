@@ -25,11 +25,11 @@ sim.to_json_file()
 
 generate_and_run(sim, net, simulator='jNeuroML')
 
-generate_and_run(sim, net, simulator='jNeuroML_NEURON')
+#generate_and_run(sim, net, simulator='jNeuroML_NEURON')
 
-generate_and_run(sim, net, simulator='NetPyNE')
+#generate_and_run(sim, net, simulator='NetPyNE')
 
-#generate_and_run(sim, net, simulator='NEURON')
+generate_and_run(sim, net, simulator='NEURON')
 
 
 

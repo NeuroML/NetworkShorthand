@@ -1,5 +1,8 @@
 import random
 import numpy as np
+import os
+
+from networkshorthand.utils import print_v
 
 
 def generate_network(nl_model, handler, seed=1234):
@@ -8,7 +11,7 @@ def generate_network(nl_model, handler, seed=1234):
     cell_objects = {}
     synapse_objects = {}
     
-    print("Starting net generation...")
+    print_v("Starting net generation...")
     rng = random.Random(seed)
     
     handler.handleDocumentStart(nl_model.id, "Generated network")
@@ -116,10 +119,54 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
         from neuroml.writers import NeuroMLHdf5Writer
         NeuroMLHdf5Writer.write(nml_doc, nml_file_name)
 
-    print("Written NeuroML to %s"%nml_file_name)
+    print_v("Written NeuroML to %s"%nml_file_name)
     
     return nml_file_name, nml_doc
 
+locations_mods_loaded_from = []
+
+def _generate_neuron_files_from_neuroml(network):
+    
+        nml_src_files = []
+        dir_for_mod_files = None
+
+        #import neuron
+        #h = neuron.h
+        
+        for c in network.cells:
+            if c.neuroml2_source_file:
+                nml_src_files.append(c.neuroml2_source_file)
+                if not dir_for_mod_files:
+                    dir_for_mod_files = os.path.dirname(os.path.abspath(c.neuroml2_source_file))
+                    
+        for s in network.synapses:
+            if s.neuroml2_source_file:
+                nml_src_files.append(s.neuroml2_source_file)
+                if not dir_for_mod_files:
+                    dir_for_mod_files = os.path.dirname(os.path.abspath(s.neuroml2_source_file))
+                
+        for f in nml_src_files:
+            from pyneuroml import pynml
+            pynml.run_lems_with_jneuroml_neuron(f, 
+                                                nogui=True, 
+                                                only_generate_scripts=True,
+                                                compile_mods = True,
+                                                verbose=True)
+                     
+        if not dir_for_mod_files in locations_mods_loaded_from:
+            print_v("Generated NEURON code; loading mechanisms from %s"%dir_for_mod_files)
+            print locations_mods_loaded_from
+            try:
+                
+                from neuron import load_mechanisms
+                #if os.path.get_cwd()==dir_for_mod_files:
+                    
+                    #print_v("Compiled mod files in currents"%dir_for_mod_files)
+                load_mechanisms(dir_for_mod_files)
+                
+                locations_mods_loaded_from.append(dir_for_mod_files)
+            except:
+                print_v("Failed to load mod file mechanisms...")
 
 
 def generate_and_run(simulation, network, simulator):
@@ -127,16 +174,16 @@ def generate_and_run(simulation, network, simulator):
 
     if simulator=='NEURON':
         
+        _generate_neuron_files_from_neuroml(network)
+        
         from networkshorthand.NeuronHandler import NeuronHandler
         
-                    
         nrn_handler = NeuronHandler()
 
         for c in network.cells:
             if c.neuroml2_source_file:
                 nrn_handler.executeHoc('load_file("%s.hoc")'%c.id)
                 
-
         generate_network(network, nrn_handler)
 
 
@@ -146,20 +193,8 @@ def generate_and_run(simulation, network, simulator):
         from netpyne import sim
         from netpyne import neuromlFuncs
         
-        nml_src_files = []
-        for c in network.cells:
-            if c.neuroml2_source_file:
-                nml_src_files.append(c.neuroml2_source_file)
-        for s in network.synapses:
-            if s.neuroml2_source_file:
-                nml_src_files.append(s.neuroml2_source_file)
-        for f in nml_src_files:
-            from pyneuroml import pynml
-            pynml.run_lems_with_jneuroml_neuron(f, 
-                                                nogui=True, 
-                                                only_generate_scripts=True,
-                                                verbose=True)
-        #exit()
+        _generate_neuron_files_from_neuroml(network)
+        
         import pprint; pp = pprint.PrettyPrinter(depth=6)
         
         netParams = specs.NetParams()
@@ -198,7 +233,7 @@ def generate_and_run(simulation, network, simulator):
         
         for proj_id in netpyne_handler.projection_infos.keys():
             projName, prePop, postPop, synapse, ptype = netpyne_handler.projection_infos[proj_id]
-            print("Creating connections for %s (%s): %s->%s via %s"%(projName, ptype, prePop, postPop, synapse))
+            print_v("Creating connections for %s (%s): %s->%s via %s"%(projName, ptype, prePop, postPop, synapse))
             
             preComp = netpyne_handler.pop_ids_vs_components[prePop]
             
