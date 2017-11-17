@@ -6,8 +6,11 @@ An end goal for this would be to have complex connectivity information as specif
 
 - [the Traub et al 2005 model](https://github.com/OpenSourceBrain/Thalamocortical/blob/master/neuroConstruct/pythonScripts/netbuild/netConnList) 
 - [the Potjans and Diesmann (2014) spiking column model](https://github.com/NeuralEnsemble/PyNN/blob/4854346d5f7dd33fe4140a49cddd84038f7f3495/examples/Potjans2014/network_params.py#L74)
+- [Destexhe 2009 cortical network](https://github.com/dguarino/Destexhe2009/blob/master/params.py)
+- [Blue Brain neocortical microcolumn](https://bbp.epfl.ch/nmc-portal/downloads)
+- [Bezaire et al. 2016 Hippocampal CA1 network model](https://github.com/mbezaire/ca1/blob/master/datasets/conndata_163.dat)
 
-expressible in a common shorthand notation (not verbosely in XML, or procedurally in Python), which can be read and edited by hand, but is standardised. Shorthand (non XML based) network connectivity formats are being used in the Blue Brain Project and [Allen Institute](http://neuralensemble.org/media/slides/Sergey_Gratiy_bionet_representation.pdf) also.
+expressible in a common shorthand notation (not verbosely in XML), which can be read and edited by hand or GUI, but is standardised. Shorthand (non XML based) network connectivity formats are being used in the Blue Brain Project and [Allen Institute](http://neuralensemble.org/media/slides/Sergey_Gratiy_bionet_representation.pdf) also.
 
 **Example from Rdesigneur**
 
