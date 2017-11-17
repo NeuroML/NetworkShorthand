@@ -1,6 +1,8 @@
 ## JSON based Network Shorthand
 
-As discussed during the [2016 NeuroML editors meeting](https://www.neuroml.org/workshops) there is some overlap between the format used for [NetPyNE to create cells/populations/connections](http://neurosimlab.org/netpyne/tutorial.html#network-parameters-tutorial-2) and that used in [MOOSE (Rdesigneur)](https://moose.ncbs.res.in/Rdesigneur/RdesigneurDocumentation.html). We should investigate whether it would be possible/useful to have a common format for these, which would also be supported natively by NeuroML libraries.
+As discussed during the [2016 NeuroML editors meeting](https://www.neuroml.org/workshops) there is some overlap between the format used for [NetPyNE to create cells/populations/connections](http://neurosimlab.org/netpyne/tutorial.html#network-parameters-tutorial-2) and that used in [MOOSE (Rdesigneur)](https://moose.ncbs.res.in/Rdesigneur/RdesigneurDocumentation.html). [NeuroML](http://www.neuroml.org) has support for instance based network specifications, as well as some template based networks, and [PyNN](http://neuralensemble.org/PyNN/) can procedurally create networks. [Brain Modelling Tookit](https://alleninstitute.github.io/bmtk/) is working on a similar format. 
+
+We should investigate whether it would be possible/useful to have a **common format** for these, which would also be supported natively by NeuroML and PyNN libraries, as well as other applications.
 
 An end goal for this would be to have complex connectivity information as specified for networks such as:
 
@@ -10,7 +12,7 @@ An end goal for this would be to have complex connectivity information as specif
 - [Blue Brain neocortical microcolumn](https://bbp.epfl.ch/nmc-portal/downloads)
 - [Bezaire et al. 2016 Hippocampal CA1 network model](https://github.com/mbezaire/ca1/blob/master/datasets/conndata_163.dat)
 
-expressible in a common shorthand notation (not verbosely in XML), which can be read and edited by hand or GUI, but is standardised. Shorthand (non XML based) network connectivity formats are being used in the Blue Brain Project and [Allen Institute](http://neuralensemble.org/media/slides/Sergey_Gratiy_bionet_representation.pdf) also.
+expressible in a common shorthand notation (not verbosely in XML), which can be read and edited by hand or GUI, but is standardised.
 
 **Example from Rdesigneur**
 
@@ -31,11 +33,74 @@ rdes = rd.rdesigneur(
     cellRule['secs']['soma'] = {'geom': {}, 'mechs': {}}                                                                                          
     cellRule['secs']['soma']['geom'] = {'diam': 18.8, 'L': 18.8, 'Ra': 123.0}                                                                           
     cellRule['secs']['soma']['mechs']['hh'] = {'gnabar': 0.12, 'gkbar': 0.036, 'gl': 0.003, 'el': -70}              # soma hh mechanisms
+    ...
+    netParams.popParams['artif1'] = {'cellModel': 'IntFire2', 'taum': 100, 'noise': 0.5, 'numCells': 100}  # Intfire2
+    netParams.popParams['artif2'] = {'cellModel': 'NetStim', 'rate': 100, 'noise': 0.5, 'numCells': 100}  # NetsStim
+    ...
+    netParams.connParams['bg->all'] = {
+        'preConds': {'pop': 'background'},
+        'postConds': {'cellType': ['S','M'], 'ynorm': [0.1,0.6]}, # background -> S,M with ynrom in range 0.1 to 0.6
+        'synReceptor': 'AMPA',                                  # target synaptic mechanism
+        'weight': 0.01,                                         # synaptic weight
+        'delay': 5}     
+    
+**Example from BMTK**
+
+    "networks": {
+      "nodes": [
+        {
+          "name": "V1",
+          "nodes_file": "$NETWORK_DIR/v1_nodes.h5",
+          "node_types_file": "$NETWORK_DIR/v1_node_types.csv"
+        },
+              ...
+      ],
+
+      "edges": [
+        {
+          "target": "V1",
+          "source": "V1",
+          "edges_file": "$NETWORK_DIR/v1_v1_edges.h5",
+          "edge_types_file": "$NETWORK_DIR/v1_v1_edge_types.csv"
+        },
+      ...
+      ]
+    }
+    
+    
+**Example from PyNN**
+
+     params = {
+
+
+    'Populations' : {
+        'ext' : {
+            'n' : 1,
+            'type': SpikeSourcePoisson,
+            'cellparams' : {
+                'start':0.0,
+                'rate':50.,
+                'duration':100.0
+            }
+        },
+        ....
+    },
+    ...
+    'Projections' : {
+        'ext_py' : {
+            'source' : 'ext',
+            'target' : 'py',
+            'connector' : FixedProbabilityConnector(.02),
+            'synapse_type' : StaticSynapse,
+            'weight' : 6e-3,
+            'receptor_type' : 'excitatory'
+    },
+    
 
 #### Possible scope
 
-- A format in JSON that can be validated that multiple tools can load in 
+- A format in JSON that can be validated, that multiple tools can load in 
 - Allows specification of simple cell models with small numbers of compartments
 - Allows generative network connectivity specification
-- Standard reference implementation for reading this format and generating NeuroML2 where cell/networks are fully specified 
+- Standard reference implementation (in Python )for reading this format and generating NeuroML2 etc. where cell/networks are fully specified 
 
