@@ -129,9 +129,6 @@ def _generate_neuron_files_from_neuroml(network):
     
         nml_src_files = []
         dir_for_mod_files = None
-
-        #import neuron
-        #h = neuron.h
         
         for c in network.cells:
             if c.neuroml2_source_file:
@@ -160,7 +157,6 @@ def _generate_neuron_files_from_neuroml(network):
                 
                 from neuron import load_mechanisms
                 #if os.path.get_cwd()==dir_for_mod_files:
-                    
                     #print_v("Compiled mod files in currents"%dir_for_mod_files)
                 load_mechanisms(dir_for_mod_files)
                 
@@ -188,7 +184,32 @@ def generate_and_run(simulation, network, simulator):
         generate_network(network, nrn_handler)
 
 
-    if simulator=='NetPyNE':
+    elif simulator.startswith('PyNN'):
+        
+        #_generate_neuron_files_from_neuroml(network)
+        simulator_name = simulator.split('_')[1].lower()
+        
+        
+        from networkshorthand.PyNNHandler import PyNNHandler
+        
+        pynn_handler = PyNNHandler(simulator_name)
+        
+        cells = {}
+        for c in network.cells:
+            if c.pynn_cell:
+                cell_params = {}
+                exec('cells["%s"] = pynn_handler.sim.%s(**cell_params)'%(c.id,c.pynn_cell))
+                
+        pynn_handler.set_cells(cells)
+        
+        generate_network(network, pynn_handler)
+        
+        
+        pynn_handler.sim.run(simulation.duration)
+        pynn_handler.sim.end()
+        
+
+    elif simulator=='NetPyNE':
         
         from netpyne import specs
         from netpyne import sim

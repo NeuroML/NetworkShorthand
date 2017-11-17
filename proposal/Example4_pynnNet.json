@@ -1,0 +1,18 @@
+{ "pynnNet": {
+    "notes": "A network for PyNN",
+    "cells": [
+        { "pynnhhcell": {
+            "pynn_cell": "HH_cond_exp" }
+        }
+    ],
+    "populations": [
+        { "pop0": {
+            "component": "pynnhhcell",
+            "size": 5 }
+        },
+        { "pop1": {
+            "component": "pynnhhcell",
+            "size": 10 }
+        }
+    ] }
+}

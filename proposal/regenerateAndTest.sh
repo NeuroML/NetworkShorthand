@@ -1,6 +1,6 @@
 set -e
 
-rm -rf *dat *json *nml LEMS* x86_64
+rm -rf *dat *json *nml LEMS* x86_64 *mod *hoc
 
 echo
 echo "**** Running Example 1 ****"

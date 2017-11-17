@@ -19,7 +19,8 @@ class Cell(BaseWithId):
 
     def __init__(self, **kwargs):
         
-        self.allowed_fields = {'neuroml2_source_file':str}
+        self.allowed_fields = {'neuroml2_source_file':str,
+                               'pynn_cell':str}
                       
         super(Cell, self).__init__(**kwargs)
   

@@ -71,14 +71,11 @@ class NeuronHandler(DefaultNetworkHandler):
         
         newCell.position(float(x), float(y), float(z))
         
-        #self.h.allCells.append(newCell)
 
         self.executeHoc("{n_"+population_id+"_local = n_"+population_id+"_local + 1}")
         
         print_v("Have just created cell: "+ component+" at ("+str(x)+", "+str(y)+", "+str(z)+")")
         
-        ##if self.isParallel == 1:
-        ##    self.executeHoc("{ pnm.register_cell(getCellGlobalId(\""+population_id+"\", "+id+"), "+cellInArray+") }")
 
     #
     #  Should be overridden to create cell group/population array
