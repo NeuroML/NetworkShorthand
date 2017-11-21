@@ -1,4 +1,6 @@
-## JSON based Network Shorthand
+# JSON based Network Shorthand
+
+## Introduction
 
 As discussed during the [2016 NeuroML editors meeting](https://www.neuroml.org/workshops) there is some overlap between the format used for [NetPyNE to create cells/populations/connections](http://neurosimlab.org/netpyne/tutorial.html#network-parameters-tutorial-2) and that used in [MOOSE (Rdesigneur)](https://moose.ncbs.res.in/Rdesigneur/RdesigneurDocumentation.html). [NeuroML](http://www.neuroml.org) has support for instance based network specifications, as well as some template based networks, and [PyNN](http://neuralensemble.org/PyNN/) can procedurally create networks. [Brain Modelling Tookit](https://alleninstitute.github.io/bmtk/) is working on a similar format. 
 
@@ -13,6 +15,16 @@ An end goal for this would be to have complex connectivity information as specif
 - [Bezaire et al. 2016 Hippocampal CA1 network model](https://github.com/mbezaire/ca1/blob/master/datasets/conndata_163.dat)
 
 expressible in a common shorthand notation (not verbosely in XML), which can be read and edited by hand or GUI, but is standardised.
+
+## Scope
+
+- A format in JSON that can be validated, that multiple tools can load in 
+- Allows specification of simple cell models with small numbers of compartments
+- Allows generative network connectivity specification
+- Standard reference implementation (in Python) for reading this format and generating NeuroML2 etc. where instances of cell/connections are fully specified 
+- Existing formats for storing connections (e.g. in HDF5) can be read in and out for easy use in supporting tools
+
+## Existing work
 
 **Example from Rdesigneur**
 
@@ -97,10 +109,4 @@ rdes = rd.rdesigneur(
     },
     
 
-#### Possible scope
-
-- A format in JSON that can be validated, that multiple tools can load in 
-- Allows specification of simple cell models with small numbers of compartments
-- Allows generative network connectivity specification
-- Standard reference implementation (in Python )for reading this format and generating NeuroML2 etc. where cell/networks are fully specified 
 
