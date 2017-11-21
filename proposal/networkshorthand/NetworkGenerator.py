@@ -44,9 +44,9 @@ def generate_network(nl_model, handler, seed=1234):
         
         for i in range(p.size):
             if p.random_layout:
-                x = rng.random()*p.random_layout.x
-                y = rng.random()*p.random_layout.y
-                z = rng.random()*p.random_layout.z
+                x = rng.random()*p.random_layout.width
+                y = rng.random()*p.random_layout.height
+                z = rng.random()*p.random_layout.depth
                 pop_locations[p.id][i]=(x,y,z)
 
                 handler.handleLocation(i, p.id, p.component, x, y, z)
@@ -80,6 +80,11 @@ def generate_network(nl_model, handler, seed=1234):
                                          delay = 0, \
                                          weight = 1)
                         conn_count+=1
+        
+        handler.finaliseProjection(p.id, 
+                                 p.presynaptic, 
+                                 p.postsynaptic, 
+                                 p.synapse)
         
         
         
@@ -123,7 +128,9 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
     
     return nml_file_name, nml_doc
 
+
 locations_mods_loaded_from = []
+
 
 def _generate_neuron_files_from_neuroml(network):
     
@@ -192,21 +199,46 @@ def generate_and_run(simulation, network, simulator):
         
         from networkshorthand.PyNNHandler import PyNNHandler
         
-        pynn_handler = PyNNHandler(simulator_name)
+        pynn_handler = PyNNHandler(simulator_name, simulation.dt)
         
         cells = {}
         for c in network.cells:
             if c.pynn_cell:
-                cell_params = {}
+                cell_params = {'i_offset':1}
                 exec('cells["%s"] = pynn_handler.sim.%s(**cell_params)'%(c.id,c.pynn_cell))
                 
         pynn_handler.set_cells(cells)
         
         generate_network(network, pynn_handler)
         
+        for pid in pynn_handler.populations:
+            pop = pynn_handler.populations[pid]
+            if simulation.recordTraces=='all':
+                pynn_handler.populations[pid].record('v')
+        
+        #pynn_handler.sim.setup(timestep=simulation.dt)
         
         pynn_handler.sim.run(simulation.duration)
         pynn_handler.sim.end()
+        
+        
+        from neo.io import PyNNTextIO
+        
+        for pid in pynn_handler.populations:
+            pop = pynn_handler.populations[pid]
+            
+            if simulation.recordTraces=='all':
+                for i in range(len(pop)):
+                    filename = "%s_%s_v.dat"%(pop.label,i)
+                    print("Writing data for %s[%s]"%(pop,i))
+                    data =  pop.get_data('v', gather=False)
+                    for segment in data.segments:
+                        vm = segment.analogsignals[0].transpose()[i]
+                        tt = np.array([t*simulation.dt/1000. for t in range(len(vm))])
+                        times_vm = np.array([tt, vm/1000.]).transpose()
+                        np.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
+                    #filename = "%s.spikes"%(pop.label)
+                    #io = PyNNTextIO(filename=filename)
         
 
     elif simulator=='NetPyNE':

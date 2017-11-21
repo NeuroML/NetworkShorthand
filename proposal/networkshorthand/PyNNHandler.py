@@ -12,9 +12,13 @@ from importlib import import_module
 
 class PyNNHandler(DefaultNetworkHandler):
         
-    def __init__(self, simulator):
+    populations = {}
+    projections = {}
+    
+    def __init__(self, simulator, dt):
         print_v("Initiating PyNN with simulator %s"%simulator)
         self.sim = import_module("pyNN.%s" % simulator)
+        self.dt = dt
 
     def set_cells(self, cells):
         self.cells = cells
@@ -22,7 +26,7 @@ class PyNNHandler(DefaultNetworkHandler):
     def handleDocumentStart(self, id, notes):
             
         print_v("Document: %s"%id)
-        self.sim.setup()
+        self.sim.setup(timestep=self.dt)
         
 
     def handleNetwork(self, network_id, notes, temperature=None):
@@ -45,6 +49,7 @@ class PyNNHandler(DefaultNetworkHandler):
         print_v("Population: "+population_id+", component: "+component+compInfo+sizeInfo)
         
         exec('%s = self.sim.Population(%s, self.cells["%s"], label="%s")'%(population_id,size,component,population_id))
+        exec('self.populations["%s"] = %s'%(population_id,population_id))
         
         
     #
@@ -55,9 +60,6 @@ class PyNNHandler(DefaultNetworkHandler):
         
 
 
-    #
-    #  Should be overridden to create population array
-    #
     def handleProjection(self, projName, prePop, postPop, synapse, hasWeights=False, hasDelays=False, type="projection", synapse_obj=None, pre_synapse_obj=None):
 
         synInfo=""
@@ -68,6 +70,8 @@ class PyNNHandler(DefaultNetworkHandler):
             synInfo += " (pre comp: %s)"%pre_synapse_obj.__class__.__name__
 
         print_v("Projection: "+projName+" ("+type+") from "+prePop+" to "+postPop+" with syn: "+synapse+synInfo)
+        
+        exec('self.projection__%s_conns = []'%(projName))
 
 
     #
@@ -84,16 +88,27 @@ class PyNNHandler(DefaultNetworkHandler):
                                                     weight = 1):
         
         self.printConnectionInformation(projName, id, prePop, postPop, synapseType, preCellId, postCellId, weight)
-        if preSegId != 0 or postSegId!=0 or preFract != 0.5 or postFract != 0.5:
-            print_v("Src cell: %d, seg: %f, fract: %f -> Tgt cell %d, seg: %f, fract: %f; weight %s, delay: %s ms" % (preCellId,preSegId,preFract,postCellId,postSegId,postFract, weight, delay))
+        print_v("Src cell: %d, seg: %f, fract: %f -> Tgt cell %d, seg: %f, fract: %f; weight %s, delay: %s ms" % (preCellId,preSegId,preFract,postCellId,postSegId,postFract, weight, delay))
+         
+        import random
+        exec('self.projection__%s_conns.append((%s,%s,float(%s),float(%s)))'%(projName,preCellId,postCellId,delay+3*random.random(),0.001*weight*random.random()))
+
         
     #
     #  Should be overridden to handle end of network connection
     #  
     def finaliseProjection(self, projName, prePop, postPop, synapse=None, type="projection"):
    
-        print_v("Projection: "+projName+" from "+prePop+" to "+postPop+" completed")
+        print_v("Projection finalising: "+projName+" from "+prePop+" to "+postPop+" completed")
         
+        exec('print(self.projection__%s_conns)'%projName)
+        exec('self.projection__%s_connector = self.sim.FromListConnector(self.projection__%s_conns, column_names=["weight", "delay"])'%(projName,projName))
+
+        exec('self.projections["%s"] = self.sim.Projection(self.populations["%s"],self.populations["%s"], connector=self.projection__%s_connector, synapse_type=self.sim.StaticSynapse(weight=1, delay=0))'%(projName,prePop,postPop, projName))
+        
+        exec('print(self.projections["%s"].describe())'%projName)
+        
+
         
     #
     #  Should be overridden to create input source array

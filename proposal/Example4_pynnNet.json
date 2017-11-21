@@ -2,7 +2,7 @@
     "notes": "A network for PyNN",
     "cells": [
         { "pynnhhcell": {
-            "pynn_cell": "HH_cond_exp" }
+            "pynn_cell": "EIF_cond_exp_isfa_ista" }
         }
     ],
     "populations": [
@@ -13,6 +13,15 @@
         { "pop1": {
             "component": "pynnhhcell",
             "size": 10 }
+        }
+    ],
+    "projections": [
+        { "proj0": {
+            "synapse": "ampa",
+            "random_connectivity":                 { 
+                    "probability": 0.5 },
+            "presynaptic": "pop0",
+            "postsynaptic": "pop1" }
         }
     ] }
 }

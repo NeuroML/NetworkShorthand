@@ -11,8 +11,8 @@ from Example1 import net
 ################################################################################
 ###   Add some elements to the network & save new JSON
 
-net.populations[0].random_layout = RandomLayout(x=1000,y=100,z=1000)
-net.populations[1].random_layout = RandomLayout(x=1000,y=1000,z=1000)
+net.populations[0].random_layout = RandomLayout(width=1000,height=100,depth=1000)
+net.populations[1].random_layout = RandomLayout(width=1000,height=1000,depth=1000)
 
 net.populations[0].component = 'hhcell'
 net.populations[1].component = 'hhcell'

@@ -1,12 +1,14 @@
 from networkshorthand import *
 from networkshorthand.NetworkGenerator import *
+from networkshorthand.utils import load_network_json
 
 ################################################################################
-###   Reuse network from Example1
+###   Reuse network from Example2
 
-from Example2 import net
+filename = 'Example2_TestNetwork.json'
+net = load_network_json(filename)
 net.id = 'Example3_Network'
-
+print net
 
 ################################################################################
 ###   Build Simulation object & save as JSON
@@ -29,7 +31,7 @@ generate_and_run(sim, net, simulator='jNeuroML')
 
 #generate_and_run(sim, net, simulator='NetPyNE')
 
-generate_and_run(sim, net, simulator='NEURON')
+#generate_and_run(sim, net, simulator='NEURON')
 
 
 

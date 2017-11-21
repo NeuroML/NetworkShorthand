@@ -11,7 +11,7 @@ class Base(object):
             #print( ' - Init of %s:  %s = %s'%(self.get_type(),name, value))
             if not name in self.allowed_fields:
                 raise Exception('Error, cannot set %s=%s in %s. Allowed fields here: %s'%(name, value, self.get_type(), self.allowed_fields))
-            self.fields[name] = (self.allowed_fields[name])(value)
+            self.fields[name] = (self.allowed_fields[name][1])(value)
             
     # Will be overridden when id required
     def get_id(self):
@@ -70,9 +70,9 @@ class Base(object):
             return
         
         if name in self.allowed_fields:
-            if self._is_base_type(self.allowed_fields[name]):
+            if self._is_base_type(self.allowed_fields[name][1]):
                    
-                self.fields[name] = (self.allowed_fields[name])(value)
+                self.fields[name] = (self.allowed_fields[name][1])(value)
             else:
                 self.fields[name] = value
             return 
@@ -93,7 +93,7 @@ class Base(object):
                         if isinstance(self.fields[a],str):
                             formatted = '"%s"'
                             
-                        if self._is_base_type(self.allowed_fields[a]):
+                        if self._is_base_type(self.allowed_fields[a][1]):
                             ss = formatted%(self.fields[a])
                         else:
                             ss = self.fields[a].to_json(pre_indent+indent+indent,indent, wrap=False)
@@ -140,7 +140,7 @@ class BaseWithId(Base):
     
     def __init__(self, **kwargs):
         
-        self.allowed_fields.update({'id':str, 'notes':str})
+        self.allowed_fields.update({'id':('Unique ID of element',str), 'notes':('Human readable notes',str)})
         
         super(BaseWithId, self).__init__(**kwargs)
         
