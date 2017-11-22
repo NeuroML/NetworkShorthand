@@ -20,7 +20,8 @@ class Cell(BaseWithId):
     def __init__(self, **kwargs):
         
         self.allowed_fields = {'neuroml2_source_file':('File name of NeuroML2 file',str),
-                               'pynn_cell':('Name of standard PyNN cell type',str)}
+                               'pynn_cell':('Name of standard PyNN cell type',str),
+                               'parameters':('Dict of parameters for the cell',dict)}
                       
         super(Cell, self).__init__(**kwargs)
   

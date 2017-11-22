@@ -1,17 +1,18 @@
 { "pynnNet": {
     "notes": "A network for PyNN",
     "cells": [
-        { "pynnhhcell": {
-            "pynn_cell": "EIF_cond_exp_isfa_ista" }
+        { "testcell": {
+            "pynn_cell": "EIF_cond_exp_isfa_ista",
+            "parameters": {"tau_refrac": 5, "i_offset": 0.9} }
         }
     ],
     "populations": [
         { "pop0": {
-            "component": "pynnhhcell",
+            "component": "testcell",
             "size": 5 }
         },
         { "pop1": {
-            "component": "pynnhhcell",
+            "component": "testcell",
             "size": 10 }
         }
     ],

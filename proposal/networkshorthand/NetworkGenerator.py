@@ -204,7 +204,7 @@ def generate_and_run(simulation, network, simulator):
         cells = {}
         for c in network.cells:
             if c.pynn_cell:
-                cell_params = {'i_offset':1}
+                cell_params = c.parameters if c.parameters else {}
                 exec('cells["%s"] = pynn_handler.sim.%s(**cell_params)'%(c.id,c.pynn_cell))
                 
         pynn_handler.set_cells(cells)

@@ -12,3 +12,4 @@
 /proposal/test_files/*.hoc
 /proposal/test_files/x86_64
 /proposal/SimExample4.json
+/proposal/LEMS_Sim_PyNN_NeuroML2_Export.xml

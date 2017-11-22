@@ -95,6 +95,8 @@ class Base(object):
                             
                         if self._is_base_type(self.allowed_fields[a][1]):
                             ss = formatted%(self.fields[a])
+                        elif self.allowed_fields[a][1]==dict:
+                            ss = formatted%(str(self.fields[a]).replace("'",'"'))
                         else:
                             ss = self.fields[a].to_json(pre_indent+indent+indent,indent, wrap=False)
                             

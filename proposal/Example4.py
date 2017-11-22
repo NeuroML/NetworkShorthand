@@ -6,12 +6,14 @@ from networkshorthand.NetworkGenerator import *
 
 net = Network(id='pynnNet', notes = 'A network for PyNN')
 
-#hhcell = Cell(id='pynnhhcell', pynn_cell='HH_cond_exp')
-hhcell = Cell(id='pynnhhcell', pynn_cell='EIF_cond_exp_isfa_ista')
-net.cells.append(hhcell)
+cell = Cell(id='testcell', pynn_cell='EIF_cond_exp_isfa_ista')
+cell.parameters = { "tau_refrac":5, "i_offset":.9 }
 
-p0 = Population(id='pop0', size=5, component=hhcell.id)
-p1 = Population(id='pop1', size=10, component=hhcell.id)
+
+net.cells.append(cell)
+
+p0 = Population(id='pop0', size=5, component=cell.id)
+p1 = Population(id='pop1', size=10, component=cell.id)
 
 net.populations.append(p0)
 net.populations.append(p1)
