@@ -2,6 +2,7 @@ import collections
 
 from networkshorthand.BaseTypes import Base
 from networkshorthand.BaseTypes import BaseWithId
+from networkshorthand.BaseTypes import NetworkAdapter
       
 class Network(BaseWithId):
 
@@ -11,9 +12,20 @@ class Network(BaseWithId):
                                  'synapses':('The synapse definitions...',Synapse),
                                  'populations':('The populations...',Population),
                                  'projections':('The projections...',Projection)}
+                                 
+        self.allowed_fields = {'network_reader':('Can read in network',NetworkAdapter)}
                         
         super(Network, self).__init__(**kwargs)
   
+  
+class NetworkReader(Base):
+
+    def __init__(self, **kwargs):
+        
+        self.allowed_fields = {'type':('Type of NetworkReader',str),
+                               'parameters':('Dict of parameters for the cell',dict)}
+                      
+        super(NetworkReader, self).__init__(**kwargs)
   
 class Cell(BaseWithId):
 

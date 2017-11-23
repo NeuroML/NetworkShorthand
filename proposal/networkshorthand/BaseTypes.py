@@ -160,4 +160,12 @@ class BaseWithId(Base):
         f.write(self.to_json())
         f.close()
         print("Written to: %s"%file_name)
+        
+        
+class NetworkAdapter():
+    
+    
+    def parse(self, handler):
+        
+        raise Exception("This needs to be implemented...")
     
