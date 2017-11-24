@@ -99,6 +99,23 @@ def generate_network(nl_model, handler, seed=1234):
                                  p.presynaptic, 
                                  p.postsynaptic, 
                                  p.synapse)
+                                 
+                                 
+    for input in nl_model.inputs:
+        
+        handler.handleInputList(input.id, 
+                                input.population, 
+                                input.input_source, 
+                                size=0, 
+                                input_comp_obj=None)
+                                
+        for i in range(len(pop_locations[input.population])):
+            flip = rng.random()
+            if flip*100.<input.percentage:
+                handler.handleSingleInput(input.id, i, i)
+            
+                                
+        
         
         
         
@@ -222,6 +239,14 @@ def generate_and_run(simulation, network, simulator):
                 exec('cells["%s"] = pynn_handler.sim.%s(**cell_params)'%(c.id,c.pynn_cell))
                 
         pynn_handler.set_cells(cells)
+        
+        input_sources = {}
+        for i in network.input_sources:
+            if i.pynn_input:
+                input_params = i.parameters if i.parameters else {}
+                exec('input_sources["%s"] = pynn_handler.sim.%s(**input_params)'%(i.id,i.pynn_input))
+        
+        pynn_handler.set_input_sources(input_sources)
         
         generate_network(network, pynn_handler)
         

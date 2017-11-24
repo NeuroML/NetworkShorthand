@@ -14,6 +14,8 @@ class PyNNHandler(DefaultNetworkHandler):
         
     populations = {}
     projections = {}
+    input_sources = {}
+    input_info = {}
     
     def __init__(self, simulator, dt):
         print_v("Initiating PyNN with simulator %s"%simulator)
@@ -22,6 +24,9 @@ class PyNNHandler(DefaultNetworkHandler):
 
     def set_cells(self, cells):
         self.cells = cells
+        
+    def set_input_sources(self, input_sources):
+        self.input_sources = input_sources
 
     def handleDocumentStart(self, id, notes):
             
@@ -101,12 +106,12 @@ class PyNNHandler(DefaultNetworkHandler):
    
         print_v("Projection finalising: "+projName+" from "+prePop+" to "+postPop+" completed")
         
-        exec('print(self.projection__%s_conns)'%projName)
+        #exec('print(self.projection__%s_conns)'%projName)
         exec('self.projection__%s_connector = self.sim.FromListConnector(self.projection__%s_conns, column_names=["weight", "delay"])'%(projName,projName))
 
         exec('self.projections["%s"] = self.sim.Projection(self.populations["%s"],self.populations["%s"], connector=self.projection__%s_connector, synapse_type=self.sim.StaticSynapse(weight=1, delay=0))'%(projName,prePop,postPop, projName))
         
-        exec('print(self.projections["%s"].describe())'%projName)
+        #exec('print(self.projections["%s"].describe())'%projName)
         
 
         
@@ -115,12 +120,17 @@ class PyNNHandler(DefaultNetworkHandler):
     #  
     def handleInputList(self, inputListId, population_id, component, size, input_comp_obj=None):
             
+        print inputListId
+        print population_id
+        print component
+        print size
         self.printInputInformation(inputListId, population_id, component, size)
         
         if size<0:
             self.log.error("Error! Need a size attribute in sites element to create spike source!")
             return
              
+        self.input_info[inputListId] = (population_id, component)
         
     #
     #  Should be overridden to to connect each input to the target cell
@@ -129,6 +139,13 @@ class PyNNHandler(DefaultNetworkHandler):
         
         print_v("Input: %s[%s], cellId: %i, seg: %i, fract: %f, weight: %f" % (inputListId,id,cellId,segId,fract,weight))
         
+        population_id, component = self.input_info[inputListId]
+        
+        exec('print self.input_sources[component]')
+        exec('print self.input_sources[component].start')
+        exec('print self.input_sources[component].amplitude')
+        exec('self.input_sources[component].inject_into(self.populations["%s"])'%(population_id))
+        #exec('self.populations["%s"].inject(self.input_sources[component])'%(population_id))
         
     #
     #  Should be overridden to to connect each input to the target cell
@@ -136,13 +153,4 @@ class PyNNHandler(DefaultNetworkHandler):
     def finaliseInputSource(self, inputName):
         print_v("Input : %s completed" % inputName)
         
-        
-
-    #
-    #  To signify network is distributed over parallel nodes
-    #    
-    def setParallelStatus(self, val):
-        
-        print_v("Parallel status (0=serial mode, 1=parallel distributed): "+str(val))
-        self.isParallel = val
         

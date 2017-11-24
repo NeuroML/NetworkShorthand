@@ -10,22 +10,15 @@ class Network(BaseWithId):
         
         self.allowed_children = {'cells':('The cell definitions...',Cell),
                                  'synapses':('The synapse definitions...',Synapse),
+                                 'input_sources':('The input definitions...',InputSource),
                                  'populations':('The populations...',Population),
-                                 'projections':('The projections...',Projection)}
+                                 'projections':('The projections...',Projection),
+                                 'inputs':('The inputs to apply...',Input)}
                                  
         self.allowed_fields = {'network_reader':('Can read in network',NetworkAdapter)}
                         
         super(Network, self).__init__(**kwargs)
-  
-  
-class NetworkReader(Base):
-
-    def __init__(self, **kwargs):
-        
-        self.allowed_fields = {'type':('Type of NetworkReader',str),
-                               'parameters':('Dict of parameters for the cell',dict)}
-                      
-        super(NetworkReader, self).__init__(**kwargs)
+          
   
 class Cell(BaseWithId):
 
@@ -45,6 +38,17 @@ class Synapse(BaseWithId):
         self.allowed_fields = {'neuroml2_source_file':('File name of NeuroML2 file',str)}
                       
         super(Synapse, self).__init__(**kwargs)
+  
+  
+class InputSource(BaseWithId):
+
+    def __init__(self, **kwargs):
+        
+        self.allowed_fields = {'neuroml2_source_file':('File name of NeuroML2 file',str),
+                               'pynn_input':('Name of standard PyNN input',str),
+                               'parameters':('Dict of parameters for the cell',dict)}
+                      
+        super(InputSource, self).__init__(**kwargs)
     
     
 class Population(BaseWithId):
@@ -80,6 +84,18 @@ class Projection(BaseWithId):
                                'random_connectivity':('Use random connectivity',RandomConnectivity)}
 
         super(Projection, self).__init__(**kwargs)
+        
+        
+class Input(BaseWithId):
+
+    def __init__(self, **kwargs):
+        
+        self.allowed_fields = {'input_source':('Type of input to use in population',str),
+                               'population':('Population to target',str),
+                               'percentage':('Percentage of cells to apply this input to',float)}
+                               
+                      
+        super(Input, self).__init__(**kwargs)
 
 
 class RandomConnectivity(Base):
@@ -89,6 +105,17 @@ class RandomConnectivity(Base):
         self.allowed_fields = {'probability':('Random probability of connection',float)}
                                
         super(RandomConnectivity, self).__init__(**kwargs)
+        
+        
+  
+class NetworkReader(Base):
+
+    def __init__(self, **kwargs):
+        
+        self.allowed_fields = {'type':('Type of NetworkReader',str),
+                               'parameters':('Dict of parameters for the cell',dict)}
+                      
+        super(NetworkReader, self).__init__(**kwargs)
     
     
 class Simulation(BaseWithId):

@@ -3,7 +3,13 @@
     "cells": [
         { "testcell": {
             "pynn_cell": "EIF_cond_exp_isfa_ista",
-            "parameters": {"tau_refrac": 5, "i_offset": 0.9} }
+            "parameters": {"tau_refrac": 5, "i_offset": 0.2} }
+        }
+    ],
+    "input_sources": [
+        { "iclamp0": {
+            "pynn_input": "DCSource",
+            "parameters": {"start": 200, "stop": 800, "amplitude": 1} }
         }
     ],
     "populations": [
@@ -23,6 +29,13 @@
                     "probability": 0.5 },
             "presynaptic": "pop0",
             "postsynaptic": "pop1" }
+        }
+    ],
+    "inputs": [
+        { "stim": {
+            "input_source": "iclamp0",
+            "percentage": 70.0,
+            "population": "pop0" }
         }
     ] }
 }
