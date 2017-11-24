@@ -2,6 +2,7 @@ import random
 import numpy as np
 import os
 
+from networkshorthand import *
 from networkshorthand.utils import print_v
 
 
@@ -15,6 +16,17 @@ def generate_network(nl_model, handler, seed=1234):
     rng = random.Random(seed)
     
     handler.handleDocumentStart(nl_model.id, "Generated network")
+    
+    if nl_model.network_reader:
+        
+        exec('from networkshorthand.%s import %s'%(nl_model.network_reader.type,nl_model.network_reader.type))
+        params = ''
+        for k in nl_model.network_reader.parameters:
+            params += '%s = %s, '%(k, '"%s"'%nl_model.network_reader.parameters[k] if type(nl_model.network_reader.parameters[k])==str else nl_model.network_reader.parameters[k])
+        exec('network_reader = %s(%s)'%(nl_model.network_reader.type,params))
+        
+        network_reader.parse(handler)
+        
     
     for c in nl_model.cells:
         if c.neuroml2_source_file:
