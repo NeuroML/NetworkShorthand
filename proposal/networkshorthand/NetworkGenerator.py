@@ -15,7 +15,6 @@ def generate_network(nl_model, handler, seed=1234):
     print_v("Starting net generation...")
     rng = random.Random(seed)
     
-    handler.handleDocumentStart(nl_model.id, "Generated network")
     
     if nl_model.network_reader:
         
@@ -26,6 +25,9 @@ def generate_network(nl_model, handler, seed=1234):
         exec('network_reader = %s(%s)'%(nl_model.network_reader.type,params))
         
         network_reader.parse(handler)
+        
+    else:
+        handler.handleDocumentStart(nl_model.id, "Generated network")
         
     
     for c in nl_model.cells:

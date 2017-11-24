@@ -74,7 +74,8 @@ class BBPConnectomeAdapter(NetworkAdapter):
 
             self.handler.handlePopulation(self.current_population, 
                                      self.parameters['DEFAULT_CELL_ID'], 
-                                     size)
+                                     size,
+                                     None)
                                      
             print("   There are %i cells in: %s"%(size, self.current_population))
             for i in range(0, d.shape[0]):
