@@ -53,8 +53,9 @@ class PyNNHandler(DefaultNetworkHandler):
             
         print_v("Population: "+population_id+", component: "+component+compInfo+sizeInfo)
         
-        exec('%s = self.sim.Population(%s, self.cells["%s"], label="%s")'%(population_id,size,component,population_id))
-        exec('self.populations["%s"] = %s'%(population_id,population_id))
+        exec('self.POP_%s = self.sim.Population(%s, self.cells["%s"], label="%s")'%(population_id,size,component,population_id))
+        exec('print  self.POP_%s'%(population_id))
+        exec('self.populations["%s"] = self.POP_%s'%(population_id,population_id))
         
         
     #
@@ -96,7 +97,7 @@ class PyNNHandler(DefaultNetworkHandler):
         print_v("Src cell: %d, seg: %f, fract: %f -> Tgt cell %d, seg: %f, fract: %f; weight %s, delay: %s ms" % (preCellId,preSegId,preFract,postCellId,postSegId,postFract, weight, delay))
          
         import random
-        exec('self.projection__%s_conns.append((%s,%s,float(%s),float(%s)))'%(projName,preCellId,postCellId,delay+3*random.random(),0.001*weight*random.random()))
+        exec('self.projection__%s_conns.append((%s,%s,float(%s),float(%s)))'%(projName,preCellId,postCellId,weight,delay))
 
         
     #
@@ -109,7 +110,7 @@ class PyNNHandler(DefaultNetworkHandler):
         #exec('print(self.projection__%s_conns)'%projName)
         exec('self.projection__%s_connector = self.sim.FromListConnector(self.projection__%s_conns, column_names=["weight", "delay"])'%(projName,projName))
 
-        exec('self.projections["%s"] = self.sim.Projection(self.populations["%s"],self.populations["%s"], connector=self.projection__%s_connector, synapse_type=self.sim.StaticSynapse(weight=1, delay=0))'%(projName,prePop,postPop, projName))
+        exec('self.projections["%s"] = self.sim.Projection(self.populations["%s"],self.populations["%s"], connector=self.projection__%s_connector, synapse_type=self.sim.StaticSynapse(weight=%s, delay=%s))'%(projName,prePop,postPop, projName,1,5))
         
         #exec('print(self.projections["%s"].describe())'%projName)
         
@@ -141,11 +142,10 @@ class PyNNHandler(DefaultNetworkHandler):
         
         population_id, component = self.input_info[inputListId]
         
-        exec('print self.input_sources[component]')
-        exec('print self.input_sources[component].start')
-        exec('print self.input_sources[component].amplitude')
-        exec('self.input_sources[component].inject_into(self.populations["%s"])'%(population_id))
-        #exec('self.populations["%s"].inject(self.input_sources[component])'%(population_id))
+        exec('print  self.POP_%s'%(population_id))
+        exec('print  self.POP_%s[%s]'%(population_id,cellId))
+        #  exec('self.input_sources[component].inject_into(self.POP_%s[%s])'%(population_id,cellId))
+        exec('self.POP_%s[%s].inject(self.input_sources[component])'%(population_id,cellId))
         
     #
     #  Should be overridden to to connect each input to the target cell

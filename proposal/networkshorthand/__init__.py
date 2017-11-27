@@ -81,6 +81,8 @@ class Projection(BaseWithId):
         self.allowed_fields = {'presynaptic':('Presynaptic population',str),
                                'postsynaptic':('Postsynaptic population',str),
                                'synapse':('Synapse to use',str),
+                               'delay':('Delay to use',float),
+                               'weight':('Weight to use',float),
                                'random_connectivity':('Use random connectivity',RandomConnectivity)}
 
         super(Projection, self).__init__(**kwargs)

@@ -72,6 +72,9 @@ def generate_network(nl_model, handler, seed=1234):
                                  p.postsynaptic, 
                                  p.synapse,
                                  synapse_obj=synapse_objects[p.synapse] if p.synapse in synapse_objects else None)
+
+        delay = p.delay if p.delay else 0
+        weight = p.weight if p.weight else 1
         
         conn_count = 0
         if p.random_connectivity:
@@ -91,8 +94,8 @@ def generate_network(nl_model, handler, seed=1234):
                                          preFract = 0.5, \
                                          postSegId = 0, \
                                          postFract = 0.5, \
-                                         delay = 0, \
-                                         weight = 1)
+                                         delay = delay, \
+                                         weight = weight)
                         conn_count+=1
         
         handler.finaliseProjection(p.id, 

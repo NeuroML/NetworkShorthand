@@ -3,7 +3,7 @@
     "cells": [
         { "testcell": {
             "pynn_cell": "EIF_cond_exp_isfa_ista",
-            "parameters": {"tau_refrac": 5, "i_offset": 0.2} }
+            "parameters": {"tau_refrac": 5, "i_offset": 0} }
         }
     ],
     "input_sources": [
@@ -15,26 +15,28 @@
     "populations": [
         { "pop0": {
             "component": "testcell",
-            "size": 5 }
+            "size": 1 }
         },
         { "pop1": {
             "component": "testcell",
-            "size": 10 }
+            "size": 1 }
         }
     ],
     "projections": [
         { "proj0": {
             "synapse": "ampa",
+            "weight": 0.0002,
             "random_connectivity":                 { 
-                    "probability": 0.5 },
+                    "probability": 1.0 },
             "presynaptic": "pop0",
+            "delay": 2.0,
             "postsynaptic": "pop1" }
         }
     ],
     "inputs": [
         { "stim": {
             "input_source": "iclamp0",
-            "percentage": 70.0,
+            "percentage": 100.0,
             "population": "pop0" }
         }
     ] }
