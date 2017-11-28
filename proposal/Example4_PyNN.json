@@ -1,15 +1,19 @@
-{ "pynnNet": {
+{ "Example4_PyNN": {
     "notes": "A network for PyNN",
     "cells": [
         { "testcell": {
-            "pynn_cell": "EIF_cond_exp_isfa_ista",
-            "parameters": {"tau_refrac": 5, "i_offset": 0} }
+            "pynn_cell": "IF_cond_alpha",
+            "parameters": {"tau_refrac": 5, "i_offset": 0.1} }
+        },
+        { "testcell2": {
+            "pynn_cell": "IF_cond_alpha",
+            "parameters": {"tau_refrac": 5, "i_offset": -0.1} }
         }
     ],
     "input_sources": [
         { "iclamp0": {
             "pynn_input": "DCSource",
-            "parameters": {"start": 200, "stop": 800, "amplitude": 1} }
+            "parameters": {"start": 200.0, "stop": 800.0, "amplitude": 0.99} }
         }
     ],
     "populations": [
@@ -18,14 +22,14 @@
             "size": 1 }
         },
         { "pop1": {
-            "component": "testcell",
+            "component": "testcell2",
             "size": 1 }
         }
     ],
     "projections": [
         { "proj0": {
             "synapse": "ampa",
-            "weight": 0.0002,
+            "weight": 0.02,
             "random_connectivity":                 { 
                     "probability": 1.0 },
             "presynaptic": "pop0",

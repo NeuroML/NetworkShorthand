@@ -233,7 +233,7 @@ def generate_and_run(simulation, network, simulator):
         
         from networkshorthand.PyNNHandler import PyNNHandler
         
-        pynn_handler = PyNNHandler(simulator_name, simulation.dt)
+        pynn_handler = PyNNHandler(simulator_name, simulation.dt, network.id)
         
         cells = {}
         for c in network.cells:
@@ -243,13 +243,9 @@ def generate_and_run(simulation, network, simulator):
                 
         pynn_handler.set_cells(cells)
         
-        input_sources = {}
-        for i in network.input_sources:
-            if i.pynn_input:
-                input_params = i.parameters if i.parameters else {}
-                exec('input_sources["%s"] = pynn_handler.sim.%s(**input_params)'%(i.id,i.pynn_input))
-        
-        pynn_handler.set_input_sources(input_sources)
+        for input_source in network.input_sources:
+            if input_source.pynn_input:
+                pynn_handler.add_input_source(input_source)
         
         generate_network(network, pynn_handler)
         
@@ -258,7 +254,6 @@ def generate_and_run(simulation, network, simulator):
             if simulation.recordTraces=='all':
                 pynn_handler.populations[pid].record('v')
         
-        #pynn_handler.sim.setup(timestep=simulation.dt)
         
         pynn_handler.sim.run(simulation.duration)
         pynn_handler.sim.end()

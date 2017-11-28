@@ -4,20 +4,24 @@ from networkshorthand.NetworkGenerator import *
 ################################################################################
 ###   Build new network
 
-net = Network(id='pynnNet', notes = 'A network for PyNN')
+net = Network(id='Example4_PyNN', notes = 'A network for PyNN')
 
-cell = Cell(id='testcell', pynn_cell='EIF_cond_exp_isfa_ista')
-cell.parameters = { "tau_refrac":5, "i_offset":0 }
+cell = Cell(id='testcell', pynn_cell='IF_cond_alpha')
+cell.parameters = { "tau_refrac":5, "i_offset":.1 }
 net.cells.append(cell)
+
+cell2 = Cell(id='testcell2', pynn_cell='IF_cond_alpha')
+cell2.parameters = { "tau_refrac":5, "i_offset":-.1 }
+net.cells.append(cell2)
 
 input_source = InputSource(id='iclamp0', 
                            pynn_input='DCSource', 
-                           parameters={'amplitude':1, 'start':200, 'stop':800})
+                           parameters={'amplitude':0.99, 'start':200., 'stop':800.})
 net.input_sources.append(input_source)
 
 
 p0 = Population(id='pop0', size=1, component=cell.id)
-p1 = Population(id='pop1', size=1, component=cell.id)
+p1 = Population(id='pop1', size=1, component=cell2.id)
 
 net.populations.append(p0)
 net.populations.append(p1)
@@ -27,7 +31,7 @@ net.projections.append(Projection(id='proj0',
                                   postsynaptic=p1.id,
                                   synapse='ampa',
                                   delay=2,
-                                  weight=0.0002))
+                                  weight=0.02))
 net.projections[0].random_connectivity=RandomConnectivity(probability=1)
 
 net.inputs.append(Input(id='stim',
@@ -36,7 +40,7 @@ net.inputs.append(Input(id='stim',
                         percentage=100))
 
 print net.to_json()
-net.to_json_file('Example4_%s.json'%net.id)
+net.to_json_file('%s.json'%net.id)
 
 ################################################################################
 ###   Build Simulation object & save as JSON
@@ -55,12 +59,14 @@ sim.to_json_file()
 
 print("**** Generating and running in NeuroML ****")
 
-generate_and_run(sim, net, simulator='PyNN_NEURON')
-'''
-generate_and_run(sim, net, simulator='PyNN_Brian')
-generate_and_run(sim, net, simulator='PyNN_NEST')
-generate_and_run(sim, net, simulator='PyNN_NEST')
 generate_and_run(sim, net, simulator='PyNN_NeuroML')
+generate_and_run(sim, net, simulator='PyNN_NEURON')
+
+'''
+generate_and_run(sim, net, simulator='PyNN_NEST')
+generate_and_run(sim, net, simulator='PyNN_Brian')
+
+generate_and_run(sim, net, simulator='PyNN_NEST')
 generate_and_run(sim, net, simulator='PyNN_NeuroML')
 generate_and_run(sim, net, simulator='PyNN_NEURON')
 print("**** Generating and running in NEURON ****")

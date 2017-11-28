@@ -17,21 +17,25 @@ class PyNNHandler(DefaultNetworkHandler):
     input_sources = {}
     input_info = {}
     
-    def __init__(self, simulator, dt):
+    def __init__(self, simulator, dt, reference):
         print_v("Initiating PyNN with simulator %s"%simulator)
         self.sim = import_module("pyNN.%s" % simulator)
         self.dt = dt
+        self.sim.setup(timestep=self.dt, 
+                       debug=True,
+                       reference=reference,
+                       save_format='xml')
 
     def set_cells(self, cells):
         self.cells = cells
         
-    def set_input_sources(self, input_sources):
-        self.input_sources = input_sources
+    def add_input_source(self, input_source):
+        input_params = input_source.parameters if input_source.parameters else {}
+        exec('self.input_sources["%s"] = self.sim.%s(**input_params)'%(input_source.id,input_source.pynn_input))
 
     def handleDocumentStart(self, id, notes):
             
         print_v("Document: %s"%id)
-        self.sim.setup(timestep=self.dt)
         
 
     def handleNetwork(self, network_id, notes, temperature=None):
@@ -54,10 +58,10 @@ class PyNNHandler(DefaultNetworkHandler):
         print_v("Population: "+population_id+", component: "+component+compInfo+sizeInfo)
         
         exec('self.POP_%s = self.sim.Population(%s, self.cells["%s"], label="%s")'%(population_id,size,component,population_id))
-        exec('print  self.POP_%s'%(population_id))
+        #exec('print_v(self.POP_%s)'%(population_id))
         exec('self.populations["%s"] = self.POP_%s'%(population_id,population_id))
-        
-        
+
+
     #
     #  Should be overridden to create specific cell instance
     #    
@@ -142,10 +146,16 @@ class PyNNHandler(DefaultNetworkHandler):
         
         population_id, component = self.input_info[inputListId]
         
-        exec('print  self.POP_%s'%(population_id))
-        exec('print  self.POP_%s[%s]'%(population_id,cellId))
-        #  exec('self.input_sources[component].inject_into(self.POP_%s[%s])'%(population_id,cellId))
-        exec('self.POP_%s[%s].inject(self.input_sources[component])'%(population_id,cellId))
+        #exec('print  self.POP_%s'%(population_id))
+        #exec('print  self.POP_%s[%s]'%(population_id,cellId))
+       
+        exec('self.POP_%s[%s].inject(self.input_sources[component]) '%(population_id,cellId))
+        #exec('self.input_sources[component].inject_into(self.populations["%s"])'%(population_id))
+        
+        #exec('pulse = self.sim.DCSource(amplitude=0.9, start=19, stop=89)')
+        #pulse.inject_into(pop_pre)
+        #exec('self.populations["pop0"][0].inject(pulse)')
+
         
     #
     #  Should be overridden to to connect each input to the target cell
