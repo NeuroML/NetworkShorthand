@@ -20,8 +20,8 @@ input_source = InputSource(id='iclamp0',
 net.input_sources.append(input_source)
 
 
-p0 = Population(id='pop0', size=1, component=cell.id)
-p1 = Population(id='pop1', size=1, component=cell2.id)
+p0 = Population(id='pop0', size=2, component=cell.id)
+p1 = Population(id='pop1', size=2, component=cell2.id)
 
 net.populations.append(p0)
 net.populations.append(p1)
@@ -37,7 +37,7 @@ net.projections[0].random_connectivity=RandomConnectivity(probability=1)
 net.inputs.append(Input(id='stim',
                         input_source=input_source.id,
                         population=p0.id,
-                        percentage=100))
+                        percentage=70))
 
 print net.to_json()
 net.to_json_file('%s.json'%net.id)

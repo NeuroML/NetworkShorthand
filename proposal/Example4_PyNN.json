@@ -19,11 +19,11 @@
     "populations": [
         { "pop0": {
             "component": "testcell",
-            "size": 1 }
+            "size": 2 }
         },
         { "pop1": {
             "component": "testcell2",
-            "size": 1 }
+            "size": 2 }
         }
     ],
     "projections": [
@@ -40,7 +40,7 @@
     "inputs": [
         { "stim": {
             "input_source": "iclamp0",
-            "percentage": 100.0,
+            "percentage": 70.0,
             "population": "pop0" }
         }
     ] }
