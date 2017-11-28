@@ -3,15 +3,15 @@ import tables   # pytables for HDF5 support
 import os
 
 from neuroml.hdf5.NetworkContainer import *
-from networkshorthand.BaseTypes import NetworkAdapter
+from networkshorthand.BaseTypes import NetworkReader
 
 
-class BBPConnectomeAdapter(NetworkAdapter):
+class BBPConnectomeReader(NetworkReader):
     
     
     def __init__(self, **parameters):
                      
-        print("Creating BBPConnectomeAdapter with %s..."%parameters)
+        print("Creating BBPConnectomeReader with %s..."%parameters)
         self.parameters = parameters
         
         self.current_population = None
@@ -50,6 +50,11 @@ class BBPConnectomeAdapter(NetworkAdapter):
                 if g._v_name=='populations':
                     pop_id = node._v_name.replace('-','_')
                     self.current_population = pop_id
+                    self.pop_locations[self.current_population] = {}
+                    
+                    
+                if g._v_name=='connectivity':
+                    self.readingConns = True
                     
                 self.parse_group(node)
 
@@ -82,8 +87,11 @@ class BBPConnectomeAdapter(NetworkAdapter):
                 
                 if i<self.parameters['max_cells_per_pop']:
                     row = d[i,:]
-                
-                    self.handler.handleLocation(i, self.current_population, self.parameters['DEFAULT_CELL_ID'], row[0],row[1],row[2])
+                    x = row[0]
+                    y = row[1]
+                    z = row[2]
+                    self.pop_locations[self.current_population][i]=(x,y,z)
+                    self.handler.handleLocation(i, self.current_population, self.parameters['DEFAULT_CELL_ID'], x, y, z)
                 
     
 if __name__ == '__main__':
@@ -92,9 +100,10 @@ if __name__ == '__main__':
 
     max_cells_per_pop=10
     
-    parameters={'filename':filename, 'max_cells_per_pop':max_cells_per_pop}
 
-    bbp = BBPConnectomeAdapter(parameters)
+    bbp = BBPConnectomeReader(filename=filename, 
+                              max_cells_per_pop=max_cells_per_pop,
+                              DEFAULT_CELL_ID='hhcell')
     
     from networkshorthand.DefaultNetworkHandler import DefaultNetworkHandler
     def_handler = DefaultNetworkHandler()
@@ -105,7 +114,9 @@ if __name__ == '__main__':
 
     neuroml_handler = NetworkBuilder()
     
-    bbp = BBPConnectomeAdapter(parameters)
+    bbp = BBPConnectomeReader(filename=filename, 
+                              max_cells_per_pop=max_cells_per_pop,
+                              DEFAULT_CELL_ID='hhcell')
     bbp.parse(neuroml_handler)  
     
     nml_file_name = 'BBP.net.nml'
@@ -120,7 +131,7 @@ if __name__ == '__main__':
     nrn_handler = NeuronHandler()
     
     nrn_handler.executeHoc('load_file("hhcell.hoc")')
-    bbp = BBPConnectomeAdapter()
+    bbp = BBPConnectomeReader()
     bbp.parse(file_name, nrn_handler)  
     
     #bbp.save_to_hdf5(nml_h5_file_name)'''

@@ -1,0 +1,1005 @@
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta5.xsd" id="Example5_bbpNet">
+    <notes>
+    This NeuroML 2 file has been generated from: 
+        PyNN v0.9.1
+        libNeuroML v0.2.34
+        pyNeuroML v0.3.5
+    </notes>
+    <pulseGenerator id="DCSource_DCSource_0" delay="50.0ms" duration="350.0ms" amplitude="1.0nA"/>
+    <IF_cond_alpha id="IF_cond_alpha_L1_DAC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L1_DLAC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L1_HAC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L1_NGC_DA" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L1_NGC_SA" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L1_SLAC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_BP" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_BTC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_ChC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_DBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_LBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_MC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_NBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_NGC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_PC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L23_SBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_BP" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_BTC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_ChC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_DBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_LBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_MC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_NBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_NGC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_PC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_SBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_SP" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L4_SS" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_BP" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_BTC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_ChC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_DBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_LBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_MC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_NBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_NGC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_SBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_STPC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_TTPC1" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_TTPC2" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L5_UTPC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_BP" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_BPC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_BTC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_ChC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_DBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_IPC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_LBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_MC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_NBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_NGC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_SBC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_TPC_L1" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_TPC_L4" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="IF_cond_alpha_L6_UTPC" cm="1." i_offset="0." tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <network id="network">
+        <population id="L1_DAC" component="IF_cond_alpha_L1_DAC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L1_DLAC" component="IF_cond_alpha_L1_DLAC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L1_HAC" component="IF_cond_alpha_L1_HAC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L1_NGC_DA" component="IF_cond_alpha_L1_NGC_DA" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L1_NGC_SA" component="IF_cond_alpha_L1_NGC_SA" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L1_SLAC" component="IF_cond_alpha_L1_SLAC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_BP" component="IF_cond_alpha_L23_BP" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_BTC" component="IF_cond_alpha_L23_BTC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_ChC" component="IF_cond_alpha_L23_ChC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_DBC" component="IF_cond_alpha_L23_DBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_LBC" component="IF_cond_alpha_L23_LBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_MC" component="IF_cond_alpha_L23_MC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_NBC" component="IF_cond_alpha_L23_NBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_NGC" component="IF_cond_alpha_L23_NGC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_PC" component="IF_cond_alpha_L23_PC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L23_SBC" component="IF_cond_alpha_L23_SBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_BP" component="IF_cond_alpha_L4_BP" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_BTC" component="IF_cond_alpha_L4_BTC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_ChC" component="IF_cond_alpha_L4_ChC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_DBC" component="IF_cond_alpha_L4_DBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_LBC" component="IF_cond_alpha_L4_LBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_MC" component="IF_cond_alpha_L4_MC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_NBC" component="IF_cond_alpha_L4_NBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_NGC" component="IF_cond_alpha_L4_NGC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_PC" component="IF_cond_alpha_L4_PC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_SBC" component="IF_cond_alpha_L4_SBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_SP" component="IF_cond_alpha_L4_SP" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L4_SS" component="IF_cond_alpha_L4_SS" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_BP" component="IF_cond_alpha_L5_BP" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_BTC" component="IF_cond_alpha_L5_BTC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_ChC" component="IF_cond_alpha_L5_ChC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_DBC" component="IF_cond_alpha_L5_DBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_LBC" component="IF_cond_alpha_L5_LBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_MC" component="IF_cond_alpha_L5_MC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_NBC" component="IF_cond_alpha_L5_NBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_NGC" component="IF_cond_alpha_L5_NGC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_SBC" component="IF_cond_alpha_L5_SBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_STPC" component="IF_cond_alpha_L5_STPC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_TTPC1" component="IF_cond_alpha_L5_TTPC1" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_TTPC2" component="IF_cond_alpha_L5_TTPC2" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L5_UTPC" component="IF_cond_alpha_L5_UTPC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_BP" component="IF_cond_alpha_L6_BP" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_BPC" component="IF_cond_alpha_L6_BPC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_BTC" component="IF_cond_alpha_L6_BTC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_ChC" component="IF_cond_alpha_L6_ChC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_DBC" component="IF_cond_alpha_L6_DBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_IPC" component="IF_cond_alpha_L6_IPC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_LBC" component="IF_cond_alpha_L6_LBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_MC" component="IF_cond_alpha_L6_MC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_NBC" component="IF_cond_alpha_L6_NBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_NGC" component="IF_cond_alpha_L6_NGC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_SBC" component="IF_cond_alpha_L6_SBC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_TPC_L1" component="IF_cond_alpha_L6_TPC_L1" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_TPC_L4" component="IF_cond_alpha_L6_TPC_L4" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <population id="L6_UTPC" component="IF_cond_alpha_L6_UTPC" size="5" type="populationList">
+            <instance id="0">
+                <location x="0." y="0." z="0."/>
+            </instance>
+            <instance id="1">
+                <location x="1." y="0." z="0."/>
+            </instance>
+            <instance id="2">
+                <location x="2." y="0." z="0."/>
+            </instance>
+            <instance id="3">
+                <location x="3." y="0." z="0."/>
+            </instance>
+            <instance id="4">
+                <location x="4." y="0." z="0."/>
+            </instance>
+        </population>
+        <inputList id="Input_DCSource_DCSource_0" population="L4_PC" component="DCSource_DCSource_0">
+            <input id="0" target="../L4_PC/1/IF_cond_alpha_L4_PC" destination="synapses"/>
+            <input id="1" target="../L4_PC/2/IF_cond_alpha_L4_PC" destination="synapses"/>
+        </inputList>
+    </network>
+</neuroml>

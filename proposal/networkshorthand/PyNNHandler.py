@@ -68,6 +68,9 @@ class PyNNHandler(DefaultNetworkHandler):
     def handleLocation(self, id, population_id, component, x, y, z):
         self.printLocationInformation(id, population_id, component, x, y, z)
         
+        exec('self.POP_%s.positions[0][%s] = %s'%(population_id,id,x))
+        exec('self.POP_%s.positions[1][%s] = %s'%(population_id,id,y))
+        exec('self.POP_%s.positions[2][%s] = %s'%(population_id,id,z))
 
 
     def handleProjection(self, projName, prePop, postPop, synapse, hasWeights=False, hasDelays=False, type="projection", synapse_obj=None, pre_synapse_obj=None):

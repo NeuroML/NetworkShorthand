@@ -1,0 +1,25 @@
+{ "Example5_bbpNet": {
+    "network_reader":         { 
+            "type": "BBPConnectomeReader",
+            "parameters": {"max_cells_per_pop": 5, "DEFAULT_CELL_ID": "hhcell", "filename": "test_files/cons_locs_pathways_mc0_Column.h5"} },
+    "notes": "A network with the Blue Brain Project connectivity data",
+    "cells": [
+        { "hhcell": {
+            "pynn_cell": "IF_cond_alpha",
+            "parameters": {"tau_refrac": 5, "i_offset": 0} }
+        }
+    ],
+    "input_sources": [
+        { "iclamp0": {
+            "pynn_input": "DCSource",
+            "parameters": {"start": 50.0, "stop": 400.0, "amplitude": 1} }
+        }
+    ],
+    "inputs": [
+        { "stim_L4": {
+            "input_source": "iclamp0",
+            "percentage": 80.0,
+            "population": "L4_PC" }
+        }
+    ] }
+}

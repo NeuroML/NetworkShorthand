@@ -25,6 +25,7 @@ def generate_network(nl_model, handler, seed=1234):
         exec('network_reader = %s(%s)'%(nl_model.network_reader.type,params))
         
         network_reader.parse(handler)
+        pop_locations = network_reader.get_locations()
         
     else:
         handler.handleDocumentStart(nl_model.id, "Generated network")
@@ -258,24 +259,24 @@ def generate_and_run(simulation, network, simulator):
         pynn_handler.sim.run(simulation.duration)
         pynn_handler.sim.end()
         
-        
-        from neo.io import PyNNTextIO
-        
-        for pid in pynn_handler.populations:
-            pop = pynn_handler.populations[pid]
-            
-            if simulation.recordTraces=='all':
-                for i in range(len(pop)):
-                    filename = "%s_%s_v.dat"%(pop.label,i)
-                    print("Writing data for %s[%s]"%(pop,i))
-                    data =  pop.get_data('v', gather=False)
-                    for segment in data.segments:
-                        vm = segment.analogsignals[0].transpose()[i]
-                        tt = np.array([t*simulation.dt/1000. for t in range(len(vm))])
-                        times_vm = np.array([tt, vm/1000.]).transpose()
-                        np.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
-                    #filename = "%s.spikes"%(pop.label)
-                    #io = PyNNTextIO(filename=filename)
+        if not 'NeuroML' in simulator:
+            from neo.io import PyNNTextIO
+
+            for pid in pynn_handler.populations:
+                pop = pynn_handler.populations[pid]
+
+                if simulation.recordTraces=='all':
+                    for i in range(len(pop)):
+                        filename = "%s_%s_v.dat"%(pop.label,i)
+                        print("Writing data for %s[%s]"%(pop,i))
+                        data =  pop.get_data('v', gather=False)
+                        for segment in data.segments:
+                            vm = segment.analogsignals[0].transpose()[i]
+                            tt = np.array([t*simulation.dt/1000. for t in range(len(vm))])
+                            times_vm = np.array([tt, vm/1000.]).transpose()
+                            np.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
+                        #filename = "%s.spikes"%(pop.label)
+                        #io = PyNNTextIO(filename=filename)
         
 
     elif simulator=='NetPyNE':

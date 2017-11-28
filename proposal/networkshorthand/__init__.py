@@ -2,7 +2,7 @@ import collections
 
 from networkshorthand.BaseTypes import Base
 from networkshorthand.BaseTypes import BaseWithId
-from networkshorthand.BaseTypes import NetworkAdapter
+from networkshorthand.BaseTypes import NetworkReader
       
 class Network(BaseWithId):
 
@@ -15,7 +15,7 @@ class Network(BaseWithId):
                                  'projections':('The projections...',Projection),
                                  'inputs':('The inputs to apply...',Input)}
                                  
-        self.allowed_fields = {'network_reader':('Can read in network',NetworkAdapter)}
+        self.allowed_fields = {'network_reader':('Can read in network',NetworkReader)}
                         
         super(Network, self).__init__(**kwargs)
           
