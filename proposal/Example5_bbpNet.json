@@ -1,0 +1,31 @@
+{ "Example5_bbpNet": {
+    "network_reader":         { 
+            "type": "BBPConnectomeReader",
+            "parameters": {"percentage_cells_per_pop": 1, "filename": "test_files/cons_locs_pathways_mc0_Column.h5", "id": "Example5_bbpNet", "DEFAULT_CELL_ID": "hhcell"} },
+    "notes": "A network with the Blue Brain Project connectivity data",
+    "cells": [
+        { "hhcell": {
+            "neuroml2_source_file": "test_files/hhcell.cell.nml" }
+        }
+    ],
+    "synapses": [
+        { "ampa": {
+            "neuroml2_source_file": "test_files/ampa.synapse.nml" }
+        },
+        { "gaba": {
+            "neuroml2_source_file": "test_files/gaba.synapse.nml" }
+        }
+    ],
+    "input_sources": [
+        { "iclamp0": {
+            "neuroml2_source_file": "test_files/inputs.nml" }
+        }
+    ],
+    "inputs": [
+        { "stim_L23_PC": {
+            "input_source": "iclamp0",
+            "percentage": 80.0,
+            "population": "L23_PC" }
+        }
+    ] }
+}

@@ -1,7 +1,8 @@
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta5.xsd" id="Example3_Network">
     <notes>Generated network</notes>
+    <include href="test_files/inputs.nml"></include>
     <include href="test_files/hhcell.cell.nml"></include>
-    <expTwoSynapse id="ampa" gbase="5nS" erev="0mV" tauDecay="2ms" tauRise="1ms"/>
+    <expTwoSynapse id="ampa" gbase="2nS" erev="0mV" tauDecay="2ms" tauRise="1ms"/>
     <network id="Example3_Network">
         <notes>The network</notes>
         <population id="pop0" component="hhcell" size="5" type="populationList">
@@ -81,5 +82,12 @@
             <connection id="24" preCellId="../pop0/4/hhcell" postCellId="../pop1/5/hhcell"/>
             <connection id="25" preCellId="../pop0/4/hhcell" postCellId="../pop1/9/hhcell"/>
         </projection>
+        <inputList id="stim_pop0" population="pop0" component="iclamp0">
+            <input id="0" target="../pop0/0/hhcell" destination="synapses"/>
+            <input id="0" target="../pop0/1/hhcell" destination="synapses"/>
+            <input id="0" target="../pop0/2/hhcell" destination="synapses"/>
+            <input id="0" target="../pop0/3/hhcell" destination="synapses"/>
+            <input id="0" target="../pop0/4/hhcell" destination="synapses"/>
+        </inputList>
     </network>
 </neuroml>

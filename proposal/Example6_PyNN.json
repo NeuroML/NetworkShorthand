@@ -1,0 +1,85 @@
+{ "Example6_PyNN": {
+    "notes": "Another network for PyNN",
+    "cells": [
+        { "CorticalCell": {
+            "pynn_cell": "IF_curr_exp",
+            "parameters": {"tau_refrac": 2.0, "v_thresh": -50.0, "tau_m": 10.0, "tau_syn_E": 0.5, "i_offset": 0.0, "cm": 0.25, "tau_syn_I": 0.5, "v_rest": -65.0, "v_reset": -65.0} }
+        },
+        { "InputCell": {
+            "pynn_cell": "SpikeSourcePoisson",
+            "parameters": {"duration": 10000000000, "start": 0, "rate": 150} }
+        }
+    ],
+    "populations": [
+        { "L23_E": {
+            "component": "CorticalCell",
+            "size": 10 }
+        },
+        { "L23_E_input": {
+            "component": "InputCell",
+            "size": 10 }
+        },
+        { "L23_I": {
+            "component": "CorticalCell",
+            "size": 10 }
+        },
+        { "L23_I_input": {
+            "component": "InputCell",
+            "size": 10 }
+        }
+    ],
+    "projections": [
+        { "proj_input_L23_E": {
+            "synapse": "???",
+            "weight": 10.0,
+            "presynaptic": "L23_E_input",
+            "delay": 2.0,
+            "one_to_one_connector":                 { },
+            "postsynaptic": "L23_E" }
+        },
+        { "proj_input_L23_I": {
+            "synapse": "???",
+            "weight": 10.0,
+            "presynaptic": "L23_I_input",
+            "delay": 2.0,
+            "one_to_one_connector":                 { },
+            "postsynaptic": "L23_I" }
+        },
+        { "proj_L23_E_L23_E": {
+            "synapse": "???",
+            "weight": 1.0,
+            "random_connectivity":                 { 
+                    "probability": 0.1009 },
+            "presynaptic": "L23_E",
+            "delay": 1.0,
+            "postsynaptic": "L23_E" }
+        },
+        { "proj_L23_E_L23_I": {
+            "synapse": "???",
+            "weight": 1.0,
+            "random_connectivity":                 { 
+                    "probability": 0.1346 },
+            "presynaptic": "L23_E",
+            "delay": 1.0,
+            "postsynaptic": "L23_I" }
+        },
+        { "proj_L23_I_L23_E": {
+            "synapse": "???",
+            "weight": -1.0,
+            "random_connectivity":                 { 
+                    "probability": 0.1689 },
+            "presynaptic": "L23_I",
+            "delay": 1.0,
+            "postsynaptic": "L23_E" }
+        },
+        { "proj_L23_I_L23_I": {
+            "synapse": "???",
+            "weight": -1.0,
+            "random_connectivity":                 { 
+                    "probability": 0.1371 },
+            "presynaptic": "L23_I",
+            "delay": 1.0,
+            "postsynaptic": "L23_I" }
+        }
+    ] }
+}
