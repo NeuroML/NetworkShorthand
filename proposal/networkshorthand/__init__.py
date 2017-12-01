@@ -83,7 +83,8 @@ class Projection(BaseWithId):
                                'synapse':('Synapse to use',str),
                                'delay':('Delay to use',float),
                                'weight':('Weight to use',float),
-                               'random_connectivity':('Use random connectivity',RandomConnectivity)}
+                               'random_connectivity':('Use random connectivity',RandomConnectivity),
+                               'one_to_one_connector':('Connect cell index i in pre pop to cell index i in post pop for all i',OneToOneConnector)}
 
         super(Projection, self).__init__(**kwargs)
         
@@ -107,6 +108,13 @@ class RandomConnectivity(Base):
         self.allowed_fields = {'probability':('Random probability of connection',float)}
                                
         super(RandomConnectivity, self).__init__(**kwargs)
+
+
+class OneToOneConnector(Base):
+
+    def __init__(self, **kwargs):
+                               
+        super(OneToOneConnector, self).__init__(**kwargs)
         
         
   

@@ -29,6 +29,7 @@ def generate_network(nl_model, handler, seed=1234):
         
     else:
         handler.handleDocumentStart(nl_model.id, "Generated network")
+        handler.handleNetwork(nl_model.id, nl_model.notes)
         
     
     for c in nl_model.cells:
@@ -45,9 +46,8 @@ def generate_network(nl_model, handler, seed=1234):
                                                 include_includes=True)
             synapse_objects[s.id] = nml2_doc.get_by_id(s.id)
             
-        
-    handler.handleNetwork(nl_model.id, nl_model.notes)
-    
+            
+            
     for p in nl_model.populations:
         
         handler.handlePopulation(p.id, 
@@ -98,6 +98,24 @@ def generate_network(nl_model, handler, seed=1234):
                                          delay = delay, \
                                          weight = weight)
                         conn_count+=1
+                        
+        if p.one_to_one_connector:
+            for i in range(min(len(pop_locations[p.presynaptic]),len(pop_locations[p.postsynaptic]))):
+                
+                        handler.handleConnection(p.id, 
+                                         conn_count, 
+                                         p.presynaptic, 
+                                         p.postsynaptic, 
+                                         p.synapse, \
+                                         i, \
+                                         i, \
+                                         preSegId = 0, \
+                                         preFract = 0.5, \
+                                         postSegId = 0, \
+                                         postFract = 0.5, \
+                                         delay = delay, \
+                                         weight = weight)
+                        conn_count+=1
         
         handler.finaliseProjection(p.id, 
                                  p.presynaptic, 
@@ -115,8 +133,10 @@ def generate_network(nl_model, handler, seed=1234):
                                 
         for i in range(len(pop_locations[input.population])):
             flip = rng.random()
+            input_count = 0
             if flip*100.<input.percentage:
-                handler.handleSingleInput(input.id, i, i)
+                handler.handleSingleInput(input.id, input_count, i)
+                input_count+=1
             
                                 
         
@@ -133,14 +153,49 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
 
     nml_doc = neuroml_handler.get_nml_doc()
     
+    for s in nl_model.synapses:
+        if nml_doc.get_by_id(s.id)==None:
+            if s.neuroml2_source_file:
+                import neuroml
+                incl = neuroml.IncludeType(s.neuroml2_source_file)
+                if not incl in nml_doc.includes:
+                    nml_doc.includes.append(incl) 
+            
+    for i in nl_model.input_sources:
+        if nml_doc.get_by_id(i.id)==None:
+            if i.neuroml2_source_file:
+                import neuroml
+                incl = neuroml.IncludeType(i.neuroml2_source_file)
+                if not incl in nml_doc.includes:
+                    nml_doc.includes.append(incl) 
+    
     for c in nl_model.cells:
         if c.neuroml2_source_file:
+            
             import neuroml
+            incl = neuroml.IncludeType(c.neuroml2_source_file)
+            found_cell = False
             for cell in nml_doc.cells:
+                print cell
                 if cell.id == c.id:
                     nml_doc.cells.remove(cell) # Better to use imported cell file; will have channels, etc.
-                    nml_doc.includes.append(neuroml.IncludeType(c.neuroml2_source_file)) 
+                    nml_doc.includes.append(incl) 
+                    found_cell = True
+                    
+            if not found_cell:
+                for p in nl_model.populations:
+                    if p.component==c.id:
+                        pass
             
+            if not incl in nml_doc.includes:
+                nml_doc.includes.append(incl) 
+                        
+            
+    print 566666
+    
+    print neuroml_handler.get_nml_doc()
+    print neuroml_handler.get_nml_doc().cells
+    print neuroml_handler.get_nml_doc().includes
     if print_summary:
         # Print info
         print(nml_doc.summary())
@@ -253,7 +308,8 @@ def generate_and_run(simulation, network, simulator):
         for pid in pynn_handler.populations:
             pop = pynn_handler.populations[pid]
             if simulation.recordTraces=='all':
-                pynn_handler.populations[pid].record('v')
+                if pop.can_record('v'):
+                    pop.record('v')
         
         
         pynn_handler.sim.run(simulation.duration)
@@ -267,16 +323,17 @@ def generate_and_run(simulation, network, simulator):
 
                 if simulation.recordTraces=='all':
                     for i in range(len(pop)):
-                        filename = "%s_%s_v.dat"%(pop.label,i)
-                        print("Writing data for %s[%s]"%(pop,i))
-                        data =  pop.get_data('v', gather=False)
-                        for segment in data.segments:
-                            vm = segment.analogsignals[0].transpose()[i]
-                            tt = np.array([t*simulation.dt/1000. for t in range(len(vm))])
-                            times_vm = np.array([tt, vm/1000.]).transpose()
-                            np.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
-                        #filename = "%s.spikes"%(pop.label)
-                        #io = PyNNTextIO(filename=filename)
+                        if pop.can_record('v'):
+                            filename = "%s_%s_v.dat"%(pop.label,i)
+                            print("Writing data for %s[%s]"%(pop,i))
+                            data =  pop.get_data('v', gather=False)
+                            for segment in data.segments:
+                                vm = segment.analogsignals[0].transpose()[i]
+                                tt = np.array([t*simulation.dt/1000. for t in range(len(vm))])
+                                times_vm = np.array([tt, vm/1000.]).transpose()
+                                np.savetxt(filename, times_vm , delimiter = '\t', fmt='%s')
+                            #filename = "%s.spikes"%(pop.label)
+                            #io = PyNNTextIO(filename=filename)
         
 
     elif simulator=='NetPyNE':
@@ -374,8 +431,6 @@ def generate_and_run(simulation, network, simulator):
         from pyneuroml import pynml
 
         lems_file_name='LEMS_%s.xml'%simulation.id
-
-        from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
 
         nml_file_name, nml_doc = generate_neuroml2_from_network(network)
 
