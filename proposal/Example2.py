@@ -1,5 +1,6 @@
-from networkshorthand import *
-from networkshorthand.NetworkGenerator import *
+from networkshorthand import RandomLayout, Cell, Synapse, InputSource, Input
+from networkshorthand.NetworkGenerator import generate_network
+from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
 from networkshorthand.DefaultNetworkHandler import DefaultNetworkHandler
 
 ################################################################################

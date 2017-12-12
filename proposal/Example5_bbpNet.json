@@ -15,17 +15,5 @@
         { "gaba": {
             "neuroml2_source_file": "test_files/gaba.synapse.nml" }
         }
-    ],
-    "input_sources": [
-        { "iclamp0": {
-            "neuroml2_source_file": "test_files/inputs.nml" }
-        }
-    ],
-    "inputs": [
-        { "stim_L23_PC": {
-            "input_source": "iclamp0",
-            "percentage": 80.0,
-            "population": "L23_PC" }
-        }
     ] }
 }

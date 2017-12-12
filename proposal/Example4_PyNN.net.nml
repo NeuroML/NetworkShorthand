@@ -2,7 +2,7 @@
     <notes>
     This NeuroML 2 file has been generated from: 
         PyNN v0.9.1
-        libNeuroML v0.2.34
+        libNeuroML v0.2.35
         pyNeuroML v0.3.5
     </notes>
     <pulseGenerator id="DCSource_DCSource_0" delay="200.0ms" duration="600.0ms" amplitude="0.99nA"/>

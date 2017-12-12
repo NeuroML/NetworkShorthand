@@ -29,9 +29,9 @@ class BBPConnectomeReader(NetworkReader):
         self.handler = handler
     
         notes = "Network read in from BBP connectome: %s"%filename
-        handler.handleDocumentStart(id, notes)
+        handler.handle_document_start(id, notes)
         
-        handler.handleNetwork(id, notes)
+        handler.handle_network(id, notes)
         
         h5file=tables.open_file(filename,mode='r')
 
@@ -78,6 +78,13 @@ class BBPConnectomeReader(NetworkReader):
           return node._c_classid == 'ARRAY' or node._c_classid == 'CARRAY'   
 
 
+    def _is_interneuron(self, pop_id):
+        if 'PC' in pop_id or 'SS' in pop_id or 'SP' in pop_id:
+            return False
+        else:
+            return True
+
+
     def parse_dataset(self, d):
         #print("Parsing dataset/array: "+ str(d))
         
@@ -87,15 +94,44 @@ class BBPConnectomeReader(NetworkReader):
             perc_cells = self.parameters['percentage_cells_per_pop'] if 'percentage_cells_per_pop' in self.parameters else 100
             if perc_cells>100: perc_cells = 100
             
-            
             size = max(0,int((perc_cells/100.)*d.shape[0]))
             
             if size>0:
+                properties = {}
+                if self._is_interneuron(self.current_population):
+                    properties['radius'] = 5
+                    type='I'
+                else:
+                    properties['radius'] = 10
+                    type='E'
+                properties['type'] = type
+                    
+                layer = self.current_population.split('_')[0]
+                try:
+                    import opencortex.utils.color as occ
+                    if layer == 'L23':
+                        if type=='E': color = occ.L23_PRINCIPAL_CELL
+                        if type=='I': color = occ.L23_INTERNEURON
+                    if layer == 'L4':
+                        if type=='E': color = occ.L4_PRINCIPAL_CELL
+                        if type=='I': color = occ.L4_INTERNEURON
+                    if layer == 'L5':
+                        if type=='E': color = occ.L5_PRINCIPAL_CELL
+                        if type=='I': color = occ.L5_INTERNEURON
+                    if layer == 'L6':
+                        if type=='E': color = occ.L6_PRINCIPAL_CELL
+                        if type=='I': color = occ.L6_INTERNEURON
+                            
+                    properties['color'] = color
+                except:
+                    # Don't worry about it, it's just metadata
+                    pass
 
-                self.handler.handlePopulation(self.current_population, 
+                self.handler.handle_population(self.current_population, 
                                          self.parameters['DEFAULT_CELL_ID'], 
                                          size,
-                                         None)
+                                         None,
+                                         properties=properties)
 
                 print("   There are %i cells in: %s"%(size, self.current_population))
                 for i in range(0, d.shape[0]):
@@ -106,7 +142,7 @@ class BBPConnectomeReader(NetworkReader):
                         y = row[1]
                         z = row[2]
                         self.pop_locations[self.current_population][i]=(x,y,z)
-                        self.handler.handleLocation(i, self.current_population, self.parameters['DEFAULT_CELL_ID'], x, y, z)
+                        self.handler.handle_location(i, self.current_population, self.parameters['DEFAULT_CELL_ID'], x, y, z)
                     
                 
         # Projection
@@ -131,7 +167,7 @@ class BBPConnectomeReader(NetworkReader):
 
                 if conns_here:
                     print("Conn %s -> %s (%s)"%(self.pre_pop,self.post_pop, synapse))
-                    self.handler.handleProjection(proj_id, 
+                    self.handler.handle_projection(proj_id, 
                                          self.pre_pop, 
                                          self.post_pop, 
                                          synapse)
@@ -143,9 +179,9 @@ class BBPConnectomeReader(NetworkReader):
                         j = jj[index]
                         if i<pre_num and j<post_num:
                             #print("  Conn5 %s[%s] -> %s[%s]"%(self.pre_pop,i,self.post_pop,j))
-                            delay = 1
+                            delay = 1.111
                             weight =1
-                            self.handler.handleConnection(proj_id, 
+                            self.handler.handle_connection(proj_id, 
                                              conn_count, 
                                              self.pre_pop, 
                                              self.post_pop, 
@@ -157,7 +193,7 @@ class BBPConnectomeReader(NetworkReader):
                             conn_count+=1
 
 
-                    self.handler.finaliseProjection(proj_id, 
+                    self.handler.finalise_projection(proj_id, 
                                          self.pre_pop, 
                                          self.post_pop, 
                                          synapse)

@@ -1,4 +1,4 @@
-from networkshorthand import *
+from networkshorthand import Network, Population, Projection, RandomConnectivity
 
 
 ################################################################################

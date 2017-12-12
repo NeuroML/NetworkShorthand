@@ -1,5 +1,5 @@
-from networkshorthand import *
-from networkshorthand.NetworkGenerator import *
+from networkshorthand import Network, Cell, Synapse, NetworkReader
+from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
 
 
 ################################################################################
@@ -25,7 +25,7 @@ net.cells.append(cell)
 input_source = InputSource(id='iclamp0', 
                            pynn_input='DCSource', 
                            parameters={'amplitude':1, 'start':50., 'stop':400.})'''
-                                            
+'''                                            
 input_source = InputSource(id='iclamp0', 
                            neuroml2_source_file='test_files/inputs.nml')
 net.input_sources.append(input_source)
@@ -34,7 +34,7 @@ for pop in ['L23_PC']:
     net.inputs.append(Input(id='stim_%s'%pop,
                             input_source=input_source.id,
                             population=pop,
-                            percentage=80))
+                            percentage=80))'''
 
 print net.to_json()
 net.to_json_file('%s.json'%net.id)
@@ -43,9 +43,10 @@ net.to_json_file('%s.json'%net.id)
 ################################################################################
 ###   Builds a NeuroML 2 representation, save as XML
 
+format_='hdf5'
 generate_neuroml2_from_network(net, 
-                               nml_file_name='%s.net.nml'%net.id, 
-                               format='xml')
+                               nml_file_name='%s.net.nml%s'%(net.id, '.h5' if format_=='hdf5' else ''), 
+                               format=format_)
  
 '''
 sim = Simulation(id='SimExample5',

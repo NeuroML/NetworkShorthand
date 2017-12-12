@@ -1,5 +1,6 @@
-from networkshorthand import *
-from networkshorthand.NetworkGenerator import *
+from networkshorthand import Network, Cell, Population, Simulation
+from networkshorthand import Projection, RandomConnectivity, OneToOneConnector
+from networkshorthand.NetworkGenerator import generate_and_run
 
 ################################################################################
 ###   Build new network

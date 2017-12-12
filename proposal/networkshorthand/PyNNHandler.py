@@ -33,12 +33,12 @@ class PyNNHandler(DefaultNetworkHandler):
         input_params = input_source.parameters if input_source.parameters else {}
         exec('self.input_sources["%s"] = self.sim.%s(**input_params)'%(input_source.id,input_source.pynn_input))
 
-    def handleDocumentStart(self, id, notes):
+    def handle_document_start(self, id, notes):
             
         print_v("Document: %s"%id)
         
 
-    def handleNetwork(self, network_id, notes, temperature=None):
+    def handle_network(self, network_id, notes, temperature=None):
             
         print_v("Network: %s"%network_id)
         if temperature:
@@ -46,7 +46,7 @@ class PyNNHandler(DefaultNetworkHandler):
         if notes:
             print_v("  Notes: "+notes)
 
-    def handlePopulation(self, population_id, component, size=-1, component_obj=None):
+    def handle_population(self, population_id, component, size=-1, component_obj=None):
         sizeInfo = " as yet unspecified size"
         if size>=0:
             sizeInfo = " size: "+ str(size)+ " cells"
@@ -65,7 +65,7 @@ class PyNNHandler(DefaultNetworkHandler):
     #
     #  Should be overridden to create specific cell instance
     #    
-    def handleLocation(self, id, population_id, component, x, y, z):
+    def handle_location(self, id, population_id, component, x, y, z):
         self.printLocationInformation(id, population_id, component, x, y, z)
         
         exec('self.POP_%s.positions[0][%s] = %s'%(population_id,id,x))
@@ -73,7 +73,7 @@ class PyNNHandler(DefaultNetworkHandler):
         exec('self.POP_%s.positions[2][%s] = %s'%(population_id,id,z))
 
 
-    def handleProjection(self, projName, prePop, postPop, synapse, hasWeights=False, hasDelays=False, type="projection", synapse_obj=None, pre_synapse_obj=None):
+    def handle_projection(self, projName, prePop, postPop, synapse, hasWeights=False, hasDelays=False, type="projection", synapse_obj=None, pre_synapse_obj=None):
 
         synInfo=""
         if synapse_obj:
@@ -90,7 +90,7 @@ class PyNNHandler(DefaultNetworkHandler):
     #
     #  Should be overridden to handle network connection
     #  
-    def handleConnection(self, projName, id, prePop, postPop, synapseType, \
+    def handle_connection(self, projName, id, prePop, postPop, synapseType, \
                                                     preCellId, \
                                                     postCellId, \
                                                     preSegId = 0, \
@@ -100,7 +100,7 @@ class PyNNHandler(DefaultNetworkHandler):
                                                     delay = 0, \
                                                     weight = 1):
         
-        self.printConnectionInformation(projName, id, prePop, postPop, synapseType, preCellId, postCellId, weight)
+        self.print_connection_information(projName, id, prePop, postPop, synapseType, preCellId, postCellId, weight)
         print_v("Src cell: %d, seg: %f, fract: %f -> Tgt cell %d, seg: %f, fract: %f; weight %s, delay: %s ms" % (preCellId,preSegId,preFract,postCellId,postSegId,postFract, weight, delay))
          
         import random
@@ -110,7 +110,7 @@ class PyNNHandler(DefaultNetworkHandler):
     #
     #  Should be overridden to handle end of network connection
     #  
-    def finaliseProjection(self, projName, prePop, postPop, synapse=None, type="projection"):
+    def finalise_projection(self, projName, prePop, postPop, synapse=None, type="projection"):
    
         print_v("Projection finalising: "+projName+" from "+prePop+" to "+postPop+" completed")
         
@@ -126,13 +126,13 @@ class PyNNHandler(DefaultNetworkHandler):
     #
     #  Should be overridden to create input source array
     #  
-    def handleInputList(self, inputListId, population_id, component, size, input_comp_obj=None):
+    def handle_input_list(self, inputListId, population_id, component, size, input_comp_obj=None):
             
         print inputListId
         print population_id
         print component
         print size
-        self.printInputInformation(inputListId, population_id, component, size)
+        self.print_input_information(inputListId, population_id, component, size)
         
         if size<0:
             self.log.error("Error! Need a size attribute in sites element to create spike source!")
@@ -143,7 +143,7 @@ class PyNNHandler(DefaultNetworkHandler):
     #
     #  Should be overridden to to connect each input to the target cell
     #  
-    def handleSingleInput(self, inputListId, id, cellId, segId = 0, fract = 0.5, weight=1):
+    def handle_single_input(self, inputListId, id, cellId, segId = 0, fract = 0.5, weight=1):
         
         print_v("Input: %s[%s], cellId: %i, seg: %i, fract: %f, weight: %f" % (inputListId,id,cellId,segId,fract,weight))
         
@@ -163,7 +163,7 @@ class PyNNHandler(DefaultNetworkHandler):
     #
     #  Should be overridden to to connect each input to the target cell
     #  
-    def finaliseInputSource(self, inputName):
+    def finalise_input_source(self, inputName):
         print_v("Input : %s completed" % inputName)
         
         

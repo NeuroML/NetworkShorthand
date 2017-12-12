@@ -2,7 +2,6 @@ import random
 import numpy as np
 import os
 
-from networkshorthand import *
 from networkshorthand.utils import print_v
 
 
@@ -28,8 +27,8 @@ def generate_network(nl_model, handler, seed=1234):
         pop_locations = network_reader.get_locations()
         
     else:
-        handler.handleDocumentStart(nl_model.id, "Generated network")
-        handler.handleNetwork(nl_model.id, nl_model.notes)
+        handler.handle_document_start(nl_model.id, "Generated network")
+        handler.handle_network(nl_model.id, nl_model.notes)
         
     
     for c in nl_model.cells:
@@ -50,7 +49,7 @@ def generate_network(nl_model, handler, seed=1234):
             
     for p in nl_model.populations:
         
-        handler.handlePopulation(p.id, 
+        handler.handle_population(p.id, 
                                  p.component, 
                                  p.size, 
                                  cell_objects[p.component] if p.component in cell_objects else None)
@@ -64,11 +63,11 @@ def generate_network(nl_model, handler, seed=1234):
                 z = rng.random()*p.random_layout.depth
                 pop_locations[p.id][i]=(x,y,z)
 
-                handler.handleLocation(i, p.id, p.component, x, y, z)
+                handler.handle_location(i, p.id, p.component, x, y, z)
         
     for p in nl_model.projections:
         
-        handler.handleProjection(p.id, 
+        handler.handle_projection(p.id, 
                                  p.presynaptic, 
                                  p.postsynaptic, 
                                  p.synapse,
@@ -84,7 +83,7 @@ def generate_network(nl_model, handler, seed=1234):
                     flip = rng.random()
                     #print("Is cell %i conn to %i, prob %s - %s"%(pre_i, post_i, flip, p.random_connectivity.probability))
                     if flip<p.random_connectivity.probability:
-                        handler.handleConnection(p.id, 
+                        handler.handle_connection(p.id, 
                                          conn_count, 
                                          p.presynaptic, 
                                          p.postsynaptic, 
@@ -102,7 +101,7 @@ def generate_network(nl_model, handler, seed=1234):
         if p.one_to_one_connector:
             for i in range(min(len(pop_locations[p.presynaptic]),len(pop_locations[p.postsynaptic]))):
                 
-                        handler.handleConnection(p.id, 
+                        handler.handle_connection(p.id, 
                                          conn_count, 
                                          p.presynaptic, 
                                          p.postsynaptic, 
@@ -117,7 +116,7 @@ def generate_network(nl_model, handler, seed=1234):
                                          weight = weight)
                         conn_count+=1
         
-        handler.finaliseProjection(p.id, 
+        handler.finalise_projection(p.id, 
                                  p.presynaptic, 
                                  p.postsynaptic, 
                                  p.synapse)
@@ -125,7 +124,7 @@ def generate_network(nl_model, handler, seed=1234):
                                  
     for input in nl_model.inputs:
         
-        handler.handleInputList(input.id, 
+        handler.handle_input_list(input.id, 
                                 input.population, 
                                 input.input_source, 
                                 size=0, 
@@ -135,7 +134,7 @@ def generate_network(nl_model, handler, seed=1234):
             flip = rng.random()
             input_count = 0
             if flip*100.<input.percentage:
-                handler.handleSingleInput(input.id, input_count, i)
+                handler.handle_single_input(input.id, input_count, i)
                 input_count+=1
             
                                 
@@ -176,7 +175,6 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
             incl = neuroml.IncludeType(c.neuroml2_source_file)
             found_cell = False
             for cell in nml_doc.cells:
-                print cell
                 if cell.id == c.id:
                     nml_doc.cells.remove(cell) # Better to use imported cell file; will have channels, etc.
                     nml_doc.includes.append(incl) 
@@ -191,11 +189,6 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
                 nml_doc.includes.append(incl) 
                         
             
-    print 566666
-    
-    print neuroml_handler.get_nml_doc()
-    print neuroml_handler.get_nml_doc().cells
-    print neuroml_handler.get_nml_doc().includes
     if print_summary:
         # Print info
         print(nml_doc.summary())
