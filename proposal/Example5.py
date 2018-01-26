@@ -5,12 +5,13 @@ from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
 ################################################################################
 ###   Build new network
 
-net = Network(id='Example5_bbpNet', notes = 'A network with the Blue Brain Project connectivity data')
+percent = 5
+net = Network(id='BBP_%spercent'%percent, notes = 'A network with the Blue Brain Project connectivity data (%s% of total cells)')
 
 default_cell = 'hhcell'
 net.network_reader = NetworkReader(type='BBPConnectomeReader',
                                    parameters={'filename':'test_files/cons_locs_pathways_mc0_Column.h5',
-                                               'percentage_cells_per_pop':1,
+                                               'percentage_cells_per_pop':percent,
                                                'DEFAULT_CELL_ID':default_cell,
                                                'id':net.id})
                             
@@ -43,7 +44,7 @@ net.to_json_file('%s.json'%net.id)
 ################################################################################
 ###   Builds a NeuroML 2 representation, save as XML
 
-format_='hdf5'
+format_='xml'
 generate_neuroml2_from_network(net, 
                                nml_file_name='%s.net.nml%s'%(net.id, '.h5' if format_=='hdf5' else ''), 
                                format=format_)

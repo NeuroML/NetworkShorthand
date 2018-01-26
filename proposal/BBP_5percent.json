@@ -1,8 +1,8 @@
-{ "Example5_bbpNet": {
+{ "BBP_5percent": {
     "network_reader":         { 
             "type": "BBPConnectomeReader",
-            "parameters": {"percentage_cells_per_pop": 1, "filename": "test_files/cons_locs_pathways_mc0_Column.h5", "id": "Example5_bbpNet", "DEFAULT_CELL_ID": "hhcell"} },
-    "notes": "A network with the Blue Brain Project connectivity data",
+            "parameters": {"percentage_cells_per_pop": 5, "filename": "test_files/cons_locs_pathways_mc0_Column.h5", "id": "BBP_5percent", "DEFAULT_CELL_ID": "hhcell"} },
+    "notes": "A network with the Blue Brain Project connectivity data (%s% of total cells)",
     "cells": [
         { "hhcell": {
             "neuroml2_source_file": "test_files/hhcell.cell.nml" }
