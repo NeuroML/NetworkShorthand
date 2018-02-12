@@ -21,8 +21,7 @@ net.populations[1].component = 'hhcell'
 net.cells.append(Cell(id='hhcell', neuroml2_source_file='test_files/hhcell.cell.nml'))
 net.synapses.append(Synapse(id='ampa', neuroml2_source_file='test_files/ampa.synapse.nml'))
 
-input_source = InputSource(id='iclamp0', 
-                           neuroml2_source_file='test_files/inputs.nml')
+input_source = InputSource(id='poissonFiringSyn', neuroml2_source_file='test_files/inputs.nml')
 net.input_sources.append(input_source)
 
 net.inputs.append(Input(id='stim_%s'%net.populations[0].id,

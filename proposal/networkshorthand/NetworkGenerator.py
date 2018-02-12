@@ -129,10 +129,10 @@ def generate_network(nl_model, handler, seed=1234):
                                 input.input_source, 
                                 size=0, 
                                 input_comp_obj=None)
-                                
+                          
+        input_count = 0      
         for i in range(len(pop_locations[input.population])):
             flip = rng.random()
-            input_count = 0
             if flip*100.<input.percentage:
                 handler.handle_single_input(input.id, input_count, i)
                 input_count+=1
@@ -216,48 +216,58 @@ locations_mods_loaded_from = []
 
 
 def _generate_neuron_files_from_neuroml(network):
-    
-        nml_src_files = []
-        dir_for_mod_files = None
-        
-        for c in network.cells:
-            if c.neuroml2_source_file:
-                nml_src_files.append(c.neuroml2_source_file)
-                if not dir_for_mod_files:
-                    dir_for_mod_files = os.path.dirname(os.path.abspath(c.neuroml2_source_file))
-                    
-        for s in network.synapses:
-            if s.neuroml2_source_file:
-                nml_src_files.append(s.neuroml2_source_file)
-                if not dir_for_mod_files:
-                    dir_for_mod_files = os.path.dirname(os.path.abspath(s.neuroml2_source_file))
+
+    print_v("-------------   Generating NEURON files from NeuroML for %s..."%(network.id))
+    nml_src_files = []
+    dir_for_mod_files = None
+
+    for c in network.cells:
+        if c.neuroml2_source_file:
+            nml_src_files.append(c.neuroml2_source_file)
+            if not dir_for_mod_files:
+                dir_for_mod_files = os.path.dirname(os.path.abspath(c.neuroml2_source_file))
+
+    for s in network.synapses:
+        if s.neuroml2_source_file:
+            nml_src_files.append(s.neuroml2_source_file)
+            if not dir_for_mod_files:
+                dir_for_mod_files = os.path.dirname(os.path.abspath(s.neuroml2_source_file))
+
+    for i in network.input_sources:
+        if i.neuroml2_source_file:
+            nml_src_files.append(i.neuroml2_source_file)
+            if not dir_for_mod_files:
+                dir_for_mod_files = os.path.dirname(os.path.abspath(i.neuroml2_source_file))
                 
-        for f in nml_src_files:
-            from pyneuroml import pynml
-            pynml.run_lems_with_jneuroml_neuron(f, 
-                                                nogui=True, 
-                                                only_generate_scripts=True,
-                                                compile_mods = True,
-                                                verbose=True)
-                     
-        if not dir_for_mod_files in locations_mods_loaded_from:
-            print_v("Generated NEURON code; loading mechanisms from %s"%dir_for_mod_files)
-            print locations_mods_loaded_from
-            try:
-                
-                from neuron import load_mechanisms
-                #if os.path.get_cwd()==dir_for_mod_files:
-                    #print_v("Compiled mod files in currents"%dir_for_mod_files)
-                load_mechanisms(dir_for_mod_files)
-                
-                locations_mods_loaded_from.append(dir_for_mod_files)
-            except:
-                print_v("Failed to load mod file mechanisms...")
+    print nml_src_files
+    print dir_for_mod_files
+
+    for f in nml_src_files:
+        from pyneuroml import pynml
+        pynml.run_lems_with_jneuroml_neuron(f, 
+                                            nogui=True, 
+                                            only_generate_scripts=True,
+                                            compile_mods = True,
+                                            verbose=True)
+
+    if not dir_for_mod_files in locations_mods_loaded_from:
+        print_v("Generated NEURON code; loading mechanisms from %s"%dir_for_mod_files)
+        print locations_mods_loaded_from
+        try:
+
+            from neuron import load_mechanisms
+            #if os.path.get_cwd()==dir_for_mod_files:
+                #print_v("Compiled mod files in currents"%dir_for_mod_files)
+            load_mechanisms(dir_for_mod_files)
+
+            locations_mods_loaded_from.append(dir_for_mod_files)
+        except:
+            print_v("Failed to load mod file mechanisms...")
 
 
 def generate_and_run(simulation, network, simulator):
 
-
+    print_v("Generating network %s and running in simulator: %s..."%(network.id, simulator))
     if simulator=='NEURON':
         
         _generate_neuron_files_from_neuroml(network)

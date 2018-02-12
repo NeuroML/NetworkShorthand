@@ -82,12 +82,12 @@
             <connection id="24" preCellId="../pop0/4/hhcell" postCellId="../pop1/5/hhcell"/>
             <connection id="25" preCellId="../pop0/4/hhcell" postCellId="../pop1/9/hhcell"/>
         </projection>
-        <inputList id="stim_pop0" population="pop0" component="iclamp0">
+        <inputList id="stim_pop0" population="pop0" component="poissonFiringSyn">
             <input id="0" target="../pop0/0/hhcell" destination="synapses"/>
-            <input id="0" target="../pop0/1/hhcell" destination="synapses"/>
-            <input id="0" target="../pop0/2/hhcell" destination="synapses"/>
-            <input id="0" target="../pop0/3/hhcell" destination="synapses"/>
-            <input id="0" target="../pop0/4/hhcell" destination="synapses"/>
+            <input id="1" target="../pop0/1/hhcell" destination="synapses"/>
+            <input id="2" target="../pop0/2/hhcell" destination="synapses"/>
+            <input id="3" target="../pop0/3/hhcell" destination="synapses"/>
+            <input id="4" target="../pop0/4/hhcell" destination="synapses"/>
         </inputList>
     </network>
 </neuroml>

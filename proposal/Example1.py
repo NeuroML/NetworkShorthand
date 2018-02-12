@@ -17,8 +17,6 @@ p0 = Population(id='pop0', size=5, component='iaf')
 p1 = Population(id='pop1', size=10, component='iaf')
 
 print p0
-print p1
-
 print p1.to_json()
 
 net.populations.append(p0)

@@ -38,13 +38,13 @@
         }
     ],
     "input_sources": [
-        { "iclamp0": {
+        { "poissonFiringSyn": {
             "neuroml2_source_file": "test_files/inputs.nml" }
         }
     ],
     "inputs": [
         { "stim_pop0": {
-            "input_source": "iclamp0",
+            "input_source": "poissonFiringSyn",
             "percentage": 80.0,
             "population": "pop0" }
         }
