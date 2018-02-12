@@ -9,6 +9,7 @@ from networkshorthand.utils import print_v
 
 class BBPConnectomeReader(NetworkReader):
     
+    component_objects = {} # Store cell ids vs objects, e.g. NeuroML2 based object
     
     def __init__(self, **parameters):
                      
@@ -127,11 +128,27 @@ class BBPConnectomeReader(NetworkReader):
                 except:
                     # Don't worry about it, it's just metadata
                     pass
+                
+                component_obj = None
+                
+                if self.parameters['DEFAULT_CELL_ID'] in self.component_objects:
+                    component_obj = self.component_objects[self.parameters['DEFAULT_CELL_ID']]
+                else:
+                    if 'cell_info' in self.parameters:
+                        def_cell_info = self.parameters['cell_info'][self.parameters['DEFAULT_CELL_ID']]
+                        if def_cell_info.neuroml2_source_file:
+                            from pyneuroml import pynml
+                            nml2_doc = pynml.read_neuroml2_file(def_cell_info.neuroml2_source_file, 
+                                                    include_includes=True)
+                            component_obj = nml2_doc.get_by_id(self.parameters['DEFAULT_CELL_ID'])
+                            print_v("Loaded NeuroML2 object %s from %s "%(component_obj,def_cell_info.neuroml2_source_file))
+                            self.component_objects[self.parameters['DEFAULT_CELL_ID']] = component_obj
+                        
 
                 self.handler.handle_population(self.current_population, 
                                          self.parameters['DEFAULT_CELL_ID'], 
                                          size,
-                                         None,
+                                         component_obj=component_obj,
                                          properties=properties)
 
                 print_v("   There are %i cells in: %s"%(size, self.current_population))

@@ -18,10 +18,11 @@ def generate_network(nl_model, handler, seed=1234):
     if nl_model.network_reader:
         
         exec('from networkshorthand.%s import %s'%(nl_model.network_reader.type,nl_model.network_reader.type))
-        params = ''
-        for k in nl_model.network_reader.parameters:
-            params += '%s = %s, '%(k, '"%s"'%nl_model.network_reader.parameters[k] if type(nl_model.network_reader.parameters[k])==str else nl_model.network_reader.parameters[k])
-        exec('network_reader = %s(%s)'%(nl_model.network_reader.type,params))
+        #params = ''
+        #for k in nl_model.network_reader.parameters:
+        #    params += '%s = %s, '%(k, '"%s"'%nl_model.network_reader.parameters[k] if type(nl_model.network_reader.parameters[k])==str else nl_model.network_reader.parameters[k])
+        exec('network_reader = %s()'%(nl_model.network_reader.type))
+        network_reader.parameters = nl_model.network_reader.parameters
         
         network_reader.parse(handler)
         pop_locations = network_reader.get_locations()
@@ -359,16 +360,19 @@ def generate_and_run(simulation, network, simulator):
         simConfig = specs.SimConfig() 
         simConfig.tstop = simulation.duration
         simConfig.duration = simulation.duration
-        simConfig.st = simulation.dt
+        simConfig.dt = simulation.dt
         simConfig.recordStep = simulation.dt
         
         simConfig.recordCells = ['all'] 
         simConfig.recordTraces = {}
         if simulation.recordTraces=='all':
         
-            for p in network.populations:
-                for i in range(p.size):
-                    simConfig.recordTraces['v_%s_%s'%(p.id,i)] = {'sec':'soma','loc':0.5,'var':'v','conds':{'pop':p.id,'cellLabel':i}}
+            for pop in netpyne_handler.popParams.values():
+                print pop['cellsList']
+                for i in pop['cellsList']:
+                    id = pop['pop']
+                    index = i['cellLabel']
+                    simConfig.recordTraces['v_%s_%s'%(id,index)] = {'sec':'soma','loc':0.5,'var':'v','conds':{'pop':id,'cellLabel':index}}
 
         simConfig.saveDat = True
         

@@ -1,6 +1,7 @@
 from networkshorthand import Network, Cell, InputSource, Population
 from networkshorthand import Projection, RandomConnectivity, Input, Simulation
 from networkshorthand.NetworkGenerator import generate_and_run
+import sys
 
 ################################################################################
 ###   Build new network
@@ -60,7 +61,13 @@ sim.to_json_file()
 
 print("**** Generating and running in NeuroML ****")
 
-generate_and_run(sim, net, simulator='PyNN_NeuroML')
+
+if '-pynnnest' in sys.argv:
+    generate_and_run(sim, net, simulator='PyNN_NEST')
+else:
+    generate_and_run(sim, net, simulator='PyNN_NeuroML')
+
+
 
 '''
 generate_and_run(sim, net, simulator='PyNN_NEURON')

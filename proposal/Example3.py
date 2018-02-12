@@ -1,6 +1,7 @@
 from networkshorthand import *
 from networkshorthand.NetworkGenerator import *
 from networkshorthand.utils import load_network_json
+import sys
 
 ################################################################################
 ###   Reuse network from Example2
@@ -25,11 +26,15 @@ sim.to_json_file()
 ################################################################################
 ###   Run in some simulators
 
-generate_and_run(sim, net, simulator='jNeuroML')
+if '-netpyne' in sys.argv:
+    generate_and_run(sim, net, simulator='NetPyNE')
+    
+else:
+    
+    generate_and_run(sim, net, simulator='jNeuroML')
 
 #generate_and_run(sim, net, simulator='jNeuroML_NEURON')
 
-#generate_and_run(sim, net, simulator='NetPyNE')
 
 #generate_and_run(sim, net, simulator='NEURON')
 

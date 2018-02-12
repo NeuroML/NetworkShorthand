@@ -8,14 +8,16 @@ from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
 percent = 5
 net = Network(id='BBP_%spercent'%percent, notes = 'A network with the Blue Brain Project connectivity data (%s% of total cells)')
 
-default_cell = 'hhcell'
+default_cell = Cell(id='hhcell', neuroml2_source_file='test_files/hhcell.cell.nml')
+
 net.network_reader = NetworkReader(type='BBPConnectomeReader',
-                                   parameters={'filename':'test_files/cons_locs_pathways_mc0_Column.h5',
+                                   parameters={'id':net.id,
+                                               'filename':'test_files/cons_locs_pathways_mc0_Column.h5',
                                                'percentage_cells_per_pop':percent,
-                                               'DEFAULT_CELL_ID':default_cell,
-                                               'id':net.id})
+                                               'DEFAULT_CELL_ID':default_cell.id,
+                                               'cell_info':{default_cell.id:default_cell}})
                             
-net.cells.append(Cell(id=default_cell, neuroml2_source_file='test_files/hhcell.cell.nml'))
+net.cells.append(default_cell)
 net.synapses.append(Synapse(id='ampa', neuroml2_source_file='test_files/ampa.synapse.nml'))
 net.synapses.append(Synapse(id='gaba', neuroml2_source_file='test_files/gaba.synapse.nml'))
 
@@ -23,7 +25,7 @@ net.synapses.append(Synapse(id='gaba', neuroml2_source_file='test_files/gaba.syn
 input_source = InputSource(id='poissonFiringSyn', neuroml2_source_file='test_files/inputs.nml')
 net.input_sources.append(input_source)
 
-for pop in ['L23_PC']:
+for pop in ['L4_PC']:
     net.inputs.append(Input(id='stim_%s'%pop,
                             input_source=input_source.id,
                             population=pop,
@@ -46,13 +48,13 @@ exit()
 from networkshorthand import Simulation
 from networkshorthand.NetworkGenerator import generate_and_run
 sim = Simulation(id='SimExample5',
-                 duration='100',
+                 duration='500',
                  dt='0.025',
                  recordTraces='all')
                                
+#generate_and_run(sim, net, simulator='jNeuroML_NEURON')
 generate_and_run(sim, net, simulator='NetPyNE')
 '''                    
-generate_and_run(sim, net, simulator='jNeuroML_NEURON')
                  
 #generate_and_run(sim, net, simulator='NEURON')
 generate_and_run(sim, net, simulator='PyNN_NeuroML')

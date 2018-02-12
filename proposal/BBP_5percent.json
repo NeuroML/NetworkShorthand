@@ -1,7 +1,7 @@
 { "BBP_5percent": {
     "network_reader":         { 
             "type": "BBPConnectomeReader",
-            "parameters": {"percentage_cells_per_pop": 5, "filename": "test_files/cons_locs_pathways_mc0_Column.h5", "id": "BBP_5percent", "DEFAULT_CELL_ID": "hhcell"} },
+            "parameters": {"cell_info": {"hhcell": Cell (hhcell), neuroml2_source_file = test_files/hhcell.cell.nml}, "filename": "test_files/cons_locs_pathways_mc0_Column.h5", "percentage_cells_per_pop": 5, "DEFAULT_CELL_ID": "hhcell", "id": "BBP_5percent"} },
     "notes": "A network with the Blue Brain Project connectivity data (%s% of total cells)",
     "cells": [
         { "hhcell": {
@@ -22,10 +22,10 @@
         }
     ],
     "inputs": [
-        { "stim_L23_PC": {
+        { "stim_L4_PC": {
             "input_source": "poissonFiringSyn",
             "percentage": 80.0,
-            "population": "L23_PC" }
+            "population": "L4_PC" }
         }
     ] }
 }

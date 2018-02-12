@@ -13,10 +13,12 @@ python Example2.py
 echo
 echo "**** Running Example 3 ****"
 python Example3.py
+python Example3.py -netpyne
 
 echo
 echo "**** Running Example 4 ****"
 python Example4.py
+python Example4.py -pynnnest
 
 echo
 echo "**** Running Example 5 ****"
