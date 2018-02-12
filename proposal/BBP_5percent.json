@@ -15,5 +15,17 @@
         { "gaba": {
             "neuroml2_source_file": "test_files/gaba.synapse.nml" }
         }
+    ],
+    "input_sources": [
+        { "poissonFiringSyn": {
+            "neuroml2_source_file": "test_files/inputs.nml" }
+        }
+    ],
+    "inputs": [
+        { "stim_L23_PC": {
+            "input_source": "poissonFiringSyn",
+            "percentage": 80.0,
+            "population": "L23_PC" }
+        }
     ] }
 }

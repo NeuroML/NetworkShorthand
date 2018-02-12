@@ -5,13 +5,14 @@ import os
 from neuroml.hdf5.NetworkContainer import *
 from networkshorthand.BaseTypes import NetworkReader
 
+from networkshorthand.utils import print_v
 
 class BBPConnectomeReader(NetworkReader):
     
     
     def __init__(self, **parameters):
                      
-        print("Creating BBPConnectomeReader with %s..."%parameters)
+        print_v("Creating BBPConnectomeReader with %s..."%parameters)
         self.parameters = parameters
         self.current_population = None
         self.pre_pop = None
@@ -35,7 +36,7 @@ class BBPConnectomeReader(NetworkReader):
         
         h5file=tables.open_file(filename,mode='r')
 
-        print("Opened HDF5 file: %s"%(h5file.filename))
+        print_v("Opened HDF5 file: %s"%(h5file.filename))
 
         self.parse_group(h5file.root.populations)
         self.parse_group(h5file.root.connectivity)
@@ -86,7 +87,7 @@ class BBPConnectomeReader(NetworkReader):
 
 
     def parse_dataset(self, d):
-        #print("Parsing dataset/array: "+ str(d))
+        #print_v("Parsing dataset/array: "+ str(d))
         
         # Population
         if self.current_population and d.name=='locations':
@@ -133,7 +134,7 @@ class BBPConnectomeReader(NetworkReader):
                                          None,
                                          properties=properties)
 
-                print("   There are %i cells in: %s"%(size, self.current_population))
+                print_v("   There are %i cells in: %s"%(size, self.current_population))
                 for i in range(0, d.shape[0]):
 
                     if i<size:
@@ -166,7 +167,7 @@ class BBPConnectomeReader(NetworkReader):
                         break
 
                 if conns_here:
-                    print("Conn %s -> %s (%s)"%(self.pre_pop,self.post_pop, synapse))
+                    print_v("Conn %s -> %s (%s)"%(self.pre_pop,self.post_pop, synapse))
                     self.handler.handle_projection(proj_id, 
                                          self.pre_pop, 
                                          self.post_pop, 
