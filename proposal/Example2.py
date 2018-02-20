@@ -8,6 +8,10 @@ from networkshorthand.DefaultNetworkHandler import DefaultNetworkHandler
 
 from Example1 import net
 
+net.notes = "A simple network with 2 populations & projection between them. "+ \
+            "Cells are specified to be NeuroML 2 HH cell models & pre population " \
+            "is given a spiking input."
+
 
 ################################################################################
 ###   Add some elements to the network & save new JSON

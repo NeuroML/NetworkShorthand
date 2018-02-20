@@ -31,7 +31,6 @@ for pop in ['L4_PC']:
                             population=pop,
                             percentage=80))
 
-print net.to_json()
 net.to_json_file('%s.json'%net.id)
 
 

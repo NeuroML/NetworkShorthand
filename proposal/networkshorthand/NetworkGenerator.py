@@ -240,8 +240,6 @@ def _generate_neuron_files_from_neuroml(network):
             if not dir_for_mod_files:
                 dir_for_mod_files = os.path.dirname(os.path.abspath(i.neuroml2_source_file))
                 
-    print nml_src_files
-    print dir_for_mod_files
 
     for f in nml_src_files:
         from pyneuroml import pynml
@@ -253,7 +251,6 @@ def _generate_neuron_files_from_neuroml(network):
 
     if not dir_for_mod_files in locations_mods_loaded_from:
         print_v("Generated NEURON code; loading mechanisms from %s"%dir_for_mod_files)
-        print locations_mods_loaded_from
         try:
 
             from neuron import load_mechanisms
@@ -351,7 +348,8 @@ def generate_and_run(simulation, network, simulator):
         import pprint; pp = pprint.PrettyPrinter(depth=6)
         
         netParams = specs.NetParams()
-        netpyne_handler = neuromlFuncs.NetPyNEBuilder(netParams, verbose=True)
+        simConfig = specs.SimConfig()
+        netpyne_handler = neuromlFuncs.NetPyNEBuilder(netParams, simConfig=simConfig, verbose=True)
         
         generate_network(network, netpyne_handler)
         
@@ -368,7 +366,6 @@ def generate_and_run(simulation, network, simulator):
         if simulation.recordTraces=='all':
         
             for pop in netpyne_handler.popParams.values():
-                print pop['cellsList']
                 for i in pop['cellsList']:
                     id = pop['pop']
                     index = i['cellLabel']

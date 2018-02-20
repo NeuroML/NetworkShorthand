@@ -9,6 +9,7 @@ import sys
 filename = 'Example2_TestNetwork.json'
 net = load_network_json(filename)
 net.id = 'Example3_Network'
+net.notes = 'Example 3: simple network with 2 populations of NeuroML2 cells, a projection between them and spiking input.'
 print net
 
 ################################################################################
@@ -29,11 +30,12 @@ sim.to_json_file()
 if '-netpyne' in sys.argv:
     generate_and_run(sim, net, simulator='NetPyNE')
     
+elif '-jnmlnrn' in sys.argv:
+    generate_and_run(sim, net, simulator='jNeuroML_NEURON')
+    
 else:
     
     generate_and_run(sim, net, simulator='jNeuroML')
-
-#generate_and_run(sim, net, simulator='jNeuroML_NEURON')
 
 
 #generate_and_run(sim, net, simulator='NEURON')

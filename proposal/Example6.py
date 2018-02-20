@@ -5,7 +5,7 @@ from networkshorthand.NetworkGenerator import generate_and_run
 ################################################################################
 ###   Build new network
 
-net = Network(id='Example6_PyNN', notes = 'Another network for PyNN')
+net = Network(id='Example6_PyNN', notes = 'Another network for PyNN - work in progress...')
 
 cell = Cell(id='CorticalCell', pynn_cell='IF_curr_exp')
 cell.parameters = {

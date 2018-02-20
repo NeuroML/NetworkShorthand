@@ -4,7 +4,7 @@
     <include href="test_files/hhcell.cell.nml"></include>
     <expTwoSynapse id="ampa" gbase="2nS" erev="0mV" tauDecay="2ms" tauRise="1ms"/>
     <network id="Example3_Network">
-        <notes>The network</notes>
+        <notes>Example 3: simple network with 2 populations of NeuroML2 cells, a projection between them and spiking input.</notes>
         <population id="pop0" component="hhcell" size="5" type="populationList">
             <instance id="0">
                 <location x="966.453535692138757" y="44.073259917535268" z="7.491470058587191"/>

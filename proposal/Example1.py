@@ -5,7 +5,8 @@ from networkshorthand import Network, Population, Projection, RandomConnectivity
 ###   Build a new network
 
 net = Network(id='net0')
-net.notes = 'The network'
+net.notes = "A simple network with 2 populations & projection between them. "+ \
+            "No info yet on what the cells are so network can't be simulated."
 
 print net
 

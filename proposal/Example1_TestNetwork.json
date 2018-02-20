@@ -1,22 +1,31 @@
-{ "TestNetwork": {
-    "notes": "The network",
-    "populations": [
-        { "pop0": {
-            "component": "iaf",
-            "size": 5 }
-        },
-        { "pop1": {
-            "component": "iaf",
-            "size": 10 }
-        }
-    ],
-    "projections": [
-        { "proj0": {
-            "synapse": "ampa",
-            "random_connectivity":                 { 
-                    "probability": 0.5 },
-            "presynaptic": "pop0",
-            "postsynaptic": "pop1" }
-        }
-    ] }
+{
+    "TestNetwork": {
+        "notes": "A simple network with 2 populations & projection between them. No info yet on what the cells are so network can't be simulated.", 
+        "populations": [
+            {
+                "pop0": {
+                    "size": 5, 
+                    "component": "iaf"
+                }
+            }, 
+            {
+                "pop1": {
+                    "size": 10, 
+                    "component": "iaf"
+                }
+            }
+        ], 
+        "projections": [
+            {
+                "proj0": {
+                    "presynaptic": "pop0", 
+                    "postsynaptic": "pop1", 
+                    "synapse": "ampa", 
+                    "random_connectivity": {
+                        "probability": 0.5
+                    }
+                }
+            }
+        ]
+    }
 }

@@ -1,47 +1,74 @@
-{ "Example4_PyNN": {
-    "notes": "A network for PyNN",
-    "cells": [
-        { "testcell": {
-            "pynn_cell": "IF_cond_alpha",
-            "parameters": {"tau_refrac": 5, "i_offset": 0.1} }
-        },
-        { "testcell2": {
-            "pynn_cell": "IF_cond_alpha",
-            "parameters": {"tau_refrac": 5, "i_offset": -0.1} }
-        }
-    ],
-    "input_sources": [
-        { "iclamp0": {
-            "pynn_input": "DCSource",
-            "parameters": {"start": 200.0, "stop": 800.0, "amplitude": 0.99} }
-        }
-    ],
-    "populations": [
-        { "pop0": {
-            "component": "testcell",
-            "size": 2 }
-        },
-        { "pop1": {
-            "component": "testcell2",
-            "size": 2 }
-        }
-    ],
-    "projections": [
-        { "proj0": {
-            "synapse": "ampa",
-            "weight": 0.02,
-            "random_connectivity":                 { 
-                    "probability": 1.0 },
-            "presynaptic": "pop0",
-            "delay": 2.0,
-            "postsynaptic": "pop1" }
-        }
-    ],
-    "inputs": [
-        { "stim": {
-            "input_source": "iclamp0",
-            "percentage": 70.0,
-            "population": "pop0" }
-        }
-    ] }
+{
+    "Example4_PyNN": {
+        "notes": "Example 4: a network with PyNN cells & inputs", 
+        "cells": [
+            {
+                "testcell": {
+                    "pynn_cell": "IF_cond_alpha", 
+                    "parameters": {
+                        "tau_refrac": 5, 
+                        "i_offset": 0.1
+                    }
+                }
+            }, 
+            {
+                "testcell2": {
+                    "pynn_cell": "IF_cond_alpha", 
+                    "parameters": {
+                        "tau_refrac": 5, 
+                        "i_offset": -0.1
+                    }
+                }
+            }
+        ], 
+        "input_sources": [
+            {
+                "iclamp0": {
+                    "pynn_input": "DCSource", 
+                    "parameters": {
+                        "start": 200.0, 
+                        "stop": 800.0, 
+                        "amplitude": 0.99
+                    }
+                }
+            }
+        ], 
+        "populations": [
+            {
+                "pop0": {
+                    "size": 2, 
+                    "component": "testcell"
+                }
+            }, 
+            {
+                "pop1": {
+                    "size": 2, 
+                    "component": "testcell2"
+                }
+            }
+        ], 
+        "projections": [
+            {
+                "proj0": {
+                    "presynaptic": "pop0", 
+                    "postsynaptic": "pop1", 
+                    "synapse": "ampa", 
+                    "delay": 2.0, 
+                    "weight": 0.02, 
+                    "random_connectivity": {
+                        "probability": 1.0
+                    }
+                }
+            }
+        ], 
+        "inputs": [
+            {
+                "stim": {
+                    "input_source": "iclamp0", 
+                    "population": "pop0", 
+                    "percentage": 70.0
+                }
+            }
+        ]
+    }
 }

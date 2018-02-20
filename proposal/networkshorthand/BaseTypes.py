@@ -1,4 +1,7 @@
 import collections
+import json
+from collections import OrderedDict
+
 
 class Base(object):
     
@@ -77,6 +80,26 @@ class Base(object):
                 self.fields[name] = value
             return 
         
+    def _to_json_element(self, val):
+        
+        if isinstance(val,str):
+            return '"%s"'%val
+        
+        if isinstance(val,Base):
+            return val.to_json(wrap=False)
+        
+        elif isinstance(val,dict):
+            d='{'
+            for k in val:
+                v = val[k]
+                str_v = v.to_json() if isinstance(v,Base) else self._to_json_element(v)
+                d+='"%s": %s, '%(k, str_v)
+            d=d[:-2]+'}'
+            return d
+        
+        else: 
+            return str(val)
+        
     
     def to_json(self, pre_indent='', indent='    ', wrap=True):
         
@@ -89,33 +112,41 @@ class Base(object):
             for a in self.allowed_fields:
                 if a != 'id':
                     if a in self.fields:
-                        formatted = '%s'
-                        if isinstance(self.fields[a],str):
-                            formatted = '"%s"'
-                            
-                        if self._is_base_type(self.allowed_fields[a][1]):
-                            ss = formatted%(self.fields[a])
-                        elif self.allowed_fields[a][1]==dict:
-                            ss = formatted%(str(self.fields[a]).replace("'",'"'))
-                        else:
-                            ss = self.fields[a].to_json(pre_indent+indent+indent,indent, wrap=False)
-                            
+                        ss = self._to_json_element(self.fields[a])
                         s+='\n'+pre_indent+indent +'"%s": '%a+ss+','
+                        
+        for c in self.allowed_children:
             
-        for c in self.children:
-            s+='\n'+pre_indent+indent +'"%s": [\n'%(c)
-            for cc in self.children[c]:
-                s += cc.to_json(pre_indent+indent+indent,indent, wrap=True)+',\n'
-            s=s[:-2]
-            s+='\n'+pre_indent+indent +"],"
+            if c in self.children:
+                s+='\n'+pre_indent+indent +'"%s": [\n'%(c)
+                for cc in self.children[c]:
+                    s += cc.to_json(pre_indent+indent+indent,indent, wrap=True)+',\n'
+                s=s[:-2]
+                s+='\n'+pre_indent+indent +"],"
+            
         s=s[:-1]    
-        
         s+=' }'
             
         if wrap:
             s += "\n"+pre_indent+"}" 
+            
+        verbose = False
+        if verbose:
+            print()
+            print("=========== pre %s ============="%self)
+            print(s)
+            
+        yy = json.loads(s, object_pairs_hook=OrderedDict)
+        ret = json.dumps(yy,indent=4)
         
-        return s
+        if verbose:
+            print("============ json ============")
+            print(yy)
+            print("============ post ============")
+            print(ret)
+            print("==============================")
+        
+        return ret
     
     
     def __repr__(self):

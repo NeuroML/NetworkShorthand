@@ -6,7 +6,8 @@ import sys
 ################################################################################
 ###   Build new network
 
-net = Network(id='Example4_PyNN', notes = 'A network for PyNN')
+net = Network(id='Example4_PyNN')
+net.notes = 'Example 4: a network with PyNN cells & inputs'
 
 cell = Cell(id='testcell', pynn_cell='IF_cond_alpha')
 cell.parameters = { "tau_refrac":5, "i_offset":.1 }
@@ -59,11 +60,15 @@ sim.to_json_file()
 ################################################################################
 ###   Run in some simulators
 
-print("**** Generating and running in NeuroML ****")
+print("**** Generating and running ****")
 
 
 if '-pynnnest' in sys.argv:
     generate_and_run(sim, net, simulator='PyNN_NEST')
+    
+elif '-pynnnrn' in sys.argv:
+    generate_and_run(sim, net, simulator='PyNN_NEURON')
+    
 else:
     generate_and_run(sim, net, simulator='PyNN_NeuroML')
 
