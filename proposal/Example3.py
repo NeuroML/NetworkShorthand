@@ -11,6 +11,7 @@ net = load_network_json(filename)
 net.id = 'Example3_Network'
 net.notes = 'Example 3: simple network with 2 populations of NeuroML2 cells, a projection between them and spiking input.'
 print net
+net.to_json_file()
 
 ################################################################################
 ###   Build Simulation object & save as JSON
