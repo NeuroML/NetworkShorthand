@@ -1,5 +1,6 @@
 from networkshorthand import Network, Cell, Synapse, NetworkReader, InputSource, Input
 from networkshorthand.NetworkGenerator import generate_neuroml2_from_network
+import sys
 
 
 ################################################################################
@@ -41,20 +42,23 @@ format_='xml'
 generate_neuroml2_from_network(net, 
                                nml_file_name='%s.net.nml%s'%(net.id, '.h5' if format_=='hdf5' else ''), 
                                format=format_)
- 
-exit()
+
 
 from networkshorthand import Simulation
-from networkshorthand.NetworkGenerator import generate_and_run
+
 sim = Simulation(id='SimExample5',
                  duration='500',
                  dt='0.025',
                  recordTraces='all')
                                
+                               
+from networkshorthand.NetworkGenerator import generate_and_run
 #generate_and_run(sim, net, simulator='jNeuroML_NEURON')
-generate_and_run(sim, net, simulator='NetPyNE')
+
+if '-netpyne' in sys.argv:
+    generate_and_run(sim, net, simulator='NetPyNE')
+    
 '''                    
-                 
 #generate_and_run(sim, net, simulator='NEURON')
 generate_and_run(sim, net, simulator='PyNN_NeuroML')
 #generate_and_run(sim, net, simulator='PyNN_NEURON')'''

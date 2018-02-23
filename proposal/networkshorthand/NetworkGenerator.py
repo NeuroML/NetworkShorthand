@@ -266,6 +266,7 @@ def _generate_neuron_files_from_neuroml(network):
 def generate_and_run(simulation, network, simulator):
 
     print_v("Generating network %s and running in simulator: %s..."%(network.id, simulator))
+    
     if simulator=='NEURON':
         
         _generate_neuron_files_from_neuroml(network)
@@ -429,7 +430,7 @@ def generate_and_run(simulation, network, simulator):
         sim.gatherData()                  # gather spiking data and cell info from each node
         sim.saveData()                    # save params, cell info and sim output to file (pickle,mat,txt,etc)
         
-    elif simulator=='jNeuroML' or  simulator=='jNeuroML_NEURON':
+    elif simulator=='jNeuroML' or  simulator=='jNeuroML_NEURON' or simulator=='jNeuroML_NetPyNE':
 
         from pyneuroml.lems import generate_lems_file_for_neuroml
         from pyneuroml import pynml
@@ -447,6 +448,8 @@ def generate_and_run(simulation, network, simulator):
         if network.synapses:
             for s in network.synapses:
                 included_files.append(s.neuroml2_source_file)'''
+                
+        print_v("Generating LEMS file prior to running in %s"%simulator)
 
         generate_lems_file_for_neuroml(simulation.id, 
                                nml_file_name, 
@@ -473,10 +476,13 @@ def generate_and_run(simulation, network, simulator):
                                lems_file_generate_seed=12345,
                                simulation_seed=12345)
               
+              
         if simulator=='jNeuroML':
             pynml.run_lems_with_jneuroml(lems_file_name, nogui=True)
         elif simulator=='jNeuroML_NEURON':
             pynml.run_lems_with_jneuroml_neuron(lems_file_name, nogui=True)
+        elif simulator=='jNeuroML_NetPyNE':
+            pynml.run_lems_with_jneuroml_netpyne(lems_file_name, nogui=True, verbose=True)
 
 
     

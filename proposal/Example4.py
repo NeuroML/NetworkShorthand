@@ -69,6 +69,12 @@ if '-pynnnest' in sys.argv:
 elif '-pynnnrn' in sys.argv:
     generate_and_run(sim, net, simulator='PyNN_NEURON')
     
+elif '-pynnbrian' in sys.argv:
+    generate_and_run(sim, net, simulator='PyNN_Brian')
+    
+#elif '-jnml' in sys.argv:
+#    generate_and_run(sim, net, simulator='jNeuroML')
+    
 else:
     generate_and_run(sim, net, simulator='PyNN_NeuroML')
 
