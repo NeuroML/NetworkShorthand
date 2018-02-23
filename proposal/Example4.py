@@ -1,4 +1,4 @@
-from networkshorthand import Network, Cell, InputSource, Population
+from networkshorthand import Network, Cell, InputSource, Population, Synapse
 from networkshorthand import Projection, RandomConnectivity, Input, Simulation
 from networkshorthand.NetworkGenerator import generate_and_run
 import sys
@@ -25,9 +25,20 @@ net.input_sources.append(input_source)
 
 p0 = Population(id='pop0', size=2, component=cell.id)
 p1 = Population(id='pop1', size=2, component=cell2.id)
+p2 = Population(id='pop2', size=1, component=cell2.id)
 
 net.populations.append(p0)
 net.populations.append(p1)
+net.populations.append(p2)
+
+net.synapses.append(Synapse(id='ampa', 
+                            pynn_receptor_type='excitatory', 
+                            pynn_synapse_type='cond_alpha', 
+                            parameters={'e_rev':-10, 'tau_syn':2}))
+net.synapses.append(Synapse(id='gaba', 
+                            pynn_receptor_type='inhibitory', 
+                            pynn_synapse_type='cond_alpha', 
+                            parameters={'e_rev':-80, 'tau_syn':10}))
 
 net.projections.append(Projection(id='proj0',
                                   presynaptic=p0.id, 
@@ -36,6 +47,14 @@ net.projections.append(Projection(id='proj0',
                                   delay=2,
                                   weight=0.02))
 net.projections[0].random_connectivity=RandomConnectivity(probability=1)
+
+net.projections.append(Projection(id='proj1',
+                                  presynaptic=p0.id, 
+                                  postsynaptic=p2.id,
+                                  synapse='gaba',
+                                  delay=2,
+                                  weight=0.02))
+net.projections[1].random_connectivity=RandomConnectivity(probability=1)
 
 net.inputs.append(Input(id='stim',
                         input_source=input_source.id,
@@ -72,8 +91,14 @@ elif '-pynnnrn' in sys.argv:
 elif '-pynnbrian' in sys.argv:
     generate_and_run(sim, net, simulator='PyNN_Brian')
     
-#elif '-jnml' in sys.argv:
-#    generate_and_run(sim, net, simulator='jNeuroML')
+elif '-jnml' in sys.argv:
+    generate_and_run(sim, net, simulator='jNeuroML')
+    
+elif '-jnmlnrn' in sys.argv:
+    generate_and_run(sim, net, simulator='jNeuroML_NEURON')
+    
+elif '-jnmlnetpyne' in sys.argv:
+    generate_and_run(sim, net, simulator='jNeuroML_NetPyNE')
     
 else:
     generate_and_run(sim, net, simulator='PyNN_NeuroML')

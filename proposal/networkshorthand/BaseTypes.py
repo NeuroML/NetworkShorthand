@@ -168,6 +168,14 @@ class Base(object):
             
         return s
     
+    def get_child(self, id, type):
+        for c in self.children[type]:
+            if c.id == id:
+                return c
+            
+        return None
+        
+    
 
 class BaseWithId(Base):
     

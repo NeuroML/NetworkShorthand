@@ -29,6 +29,9 @@ class PyNNHandler(DefaultNetworkHandler):
     def set_cells(self, cells):
         self.cells = cells
         
+    def set_receptor_types(self, receptor_types):
+        self.receptor_types = receptor_types
+        
     def add_input_source(self, input_source):
         input_params = input_source.parameters if input_source.parameters else {}
         exec('self.input_sources["%s"] = self.sim.%s(**input_params)'%(input_source.id,input_source.pynn_input))
@@ -49,7 +52,7 @@ class PyNNHandler(DefaultNetworkHandler):
     def handle_population(self, population_id, component, size=-1, component_obj=None):
         sizeInfo = " as yet unspecified size"
         if size>=0:
-            sizeInfo = " size: "+ str(size)+ " cells"
+            sizeInfo = ", size: "+ str(size)+ " cells"
         if component_obj:
             compInfo = " (%s)"%component_obj.__class__.__name__
         else:
@@ -117,7 +120,11 @@ class PyNNHandler(DefaultNetworkHandler):
         #exec('print(self.projection__%s_conns)'%projName)
         exec('self.projection__%s_connector = self.sim.FromListConnector(self.projection__%s_conns, column_names=["weight", "delay"])'%(projName,projName))
 
-        exec('self.projections["%s"] = self.sim.Projection(self.populations["%s"],self.populations["%s"], connector=self.projection__%s_connector, synapse_type=self.sim.StaticSynapse(weight=%s, delay=%s))'%(projName,prePop,postPop, projName,1,5))
+        exec('self.projections["%s"] = self.sim.Projection(self.populations["%s"],self.populations["%s"], ' % (projName,prePop,postPop) + \
+                                                          'connector=self.projection__%s_connector, ' % projName + \
+                                                          'synapse_type=self.sim.StaticSynapse(weight=%s, delay=%s), ' % (1,5) + \
+                                                          'receptor_type="%s", ' % (self.receptor_types[synapse]) + \
+                                                          'label="%s")'%projName)
         
         #exec('print(self.projections["%s"].describe())'%projName)
         
@@ -127,11 +134,7 @@ class PyNNHandler(DefaultNetworkHandler):
     #  Should be overridden to create input source array
     #  
     def handle_input_list(self, inputListId, population_id, component, size, input_comp_obj=None):
-            
-        print inputListId
-        print population_id
-        print component
-        print size
+        
         self.print_input_information(inputListId, population_id, component, size)
         
         if size<0:

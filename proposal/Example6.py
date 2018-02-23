@@ -1,4 +1,4 @@
-from networkshorthand import Network, Cell, Population, Simulation
+from networkshorthand import Network, Cell, Population, Simulation, Synapse
 from networkshorthand import Projection, RandomConnectivity, OneToOneConnector
 from networkshorthand.NetworkGenerator import generate_and_run
 
@@ -13,8 +13,6 @@ cell.parameters = {
     'i_offset'  : 0.0,   # nA
     'tau_m'     : 10.0,  # ms
     'tau_refrac': 2.0,   # ms
-    'tau_syn_E' : 0.5,   # ms
-    'tau_syn_I' : 0.5,   # ms
     'v_reset'   : -65.0,  # mV
     'v_rest'    : -65.0,  # mV
     'v_thresh'  : -50.0  # mV
@@ -28,6 +26,17 @@ input_cell.parameters = {
      'rate':      150
 }
 net.cells.append(input_cell)
+
+e_syn = Synapse(id='ampa', 
+                pynn_receptor_type='excitatory', 
+                pynn_synapse_type='curr_alpha', 
+                parameters={'tau_syn':0.5})
+net.synapses.append(e_syn)
+i_syn = Synapse(id='gaba', 
+                pynn_receptor_type='inhibitory', 
+                pynn_synapse_type='curr_alpha', 
+                parameters={'tau_syn':0.5})
+net.synapses.append(i_syn)
 
 
 scale = 0.1
@@ -56,7 +65,7 @@ for p in pops:
     proj = Projection(id='proj_input_%s'%p,
                     presynaptic='%s_input'%p, 
                     postsynaptic=p,
-                    synapse='???',
+                    synapse=e_syn.id,
                     delay=2,
                     weight=10)
     proj.one_to_one_connector=OneToOneConnector()
@@ -68,12 +77,14 @@ for pre_i in range(len(pops)):
         post = pops[post_i]
         prob = conn_probs[post_i][pre_i]   #######   TODO: check!!!!
         weight = 1
+        syn = e_syn
         if 'I'in pre:
             weight = -1
+            syn = i_syn
         proj = Projection(id='proj_%s_%s'%(pre,post),
                         presynaptic=pre, 
                         postsynaptic=post,
-                        synapse='???',
+                        synapse=syn.id,
                         delay=1,
                         weight=weight)
         proj.random_connectivity=RandomConnectivity(probability=prob)

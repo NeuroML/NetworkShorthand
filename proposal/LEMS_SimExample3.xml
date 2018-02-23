@@ -14,7 +14,10 @@
     <Include file="Networks.xml"/>
     <Include file="Simulation.xml"/>
     
+    <Include file="PyNN.xml"/>
     <Include file="Example3_Network.net.nml"/>
+    <Include file="test_files/inputs.nml"/>
+    <Include file="test_files/hhcell.cell.nml"/>
    
     <Simulation id="SimExample3" length="1000.0ms" step="0.025ms" target="Example3_Network" seed="12345">  <!-- Note seed: ensures same random numbers used every run -->
         

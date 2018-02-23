@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import os
+import copy
 
 from networkshorthand.utils import print_v
 
@@ -153,14 +154,6 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
 
     nml_doc = neuroml_handler.get_nml_doc()
     
-    for s in nl_model.synapses:
-        if nml_doc.get_by_id(s.id)==None:
-            if s.neuroml2_source_file:
-                import neuroml
-                incl = neuroml.IncludeType(s.neuroml2_source_file)
-                if not incl in nml_doc.includes:
-                    nml_doc.includes.append(incl) 
-            
     for i in nl_model.input_sources:
         if nml_doc.get_by_id(i.id)==None:
             if i.neuroml2_source_file:
@@ -168,6 +161,14 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
                 incl = neuroml.IncludeType(i.neuroml2_source_file)
                 if not incl in nml_doc.includes:
                     nml_doc.includes.append(incl) 
+                    
+            if i.pynn_input:
+                import pyNN.neuroml
+                input_params = i.parameters if i.parameters else {}
+                temp_input = eval('pyNN.neuroml.%s(**input_params)'%i.pynn_input)
+                pg_id = temp_input.add_to_nml_doc(nml_doc, None)
+                pg = nml_doc.get_by_id(pg_id)
+                pg.id = i.id
     
     for c in nl_model.cells:
         if c.neuroml2_source_file:
@@ -188,7 +189,37 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
             
             if not incl in nml_doc.includes:
                 nml_doc.includes.append(incl) 
-                        
+                
+        if c.pynn_cell:
+            import pyNN.neuroml
+            cell_params = c.parameters if i.parameters else {}
+            temp_cell = eval('pyNN.neuroml.%s(**cell_params)'%c.pynn_cell)
+            cell_id = temp_cell.add_to_nml_doc(nml_doc, None)
+            cell = nml_doc.get_by_id(cell_id)
+            cell.id = c.id
+            
+    for s in nl_model.synapses:
+        if nml_doc.get_by_id(s.id)==None:
+            if s.neuroml2_source_file:
+                import neuroml
+                incl = neuroml.IncludeType(s.neuroml2_source_file)
+                if not incl in nml_doc.includes:
+                    nml_doc.includes.append(incl) 
+            
+            if s.pynn_synapse_type and s.pynn_receptor_type:
+                import neuroml
+                
+                if s.pynn_synapse_type == 'cond_exp':
+                    syn = neuroml.ExpCondSynapse(id=s.id, tau_syn=s.parameters['tau_syn'], e_rev=s.parameters['e_rev'])
+                elif s.pynn_synapse_type == 'cond_alpha':
+                    syn = neuroml.AlphaCondSynapse(id=s.id, tau_syn=s.parameters['tau_syn'], e_rev=s.parameters['e_rev'])
+                elif s.pynn_synapse_type == 'curr_exp':
+                    syn = neuroml.ExpCurrSynapse(id=s.id, tau_syn=s.parameters['tau_syn'])
+                elif s.pynn_synapse_type == 'curr_alpha':
+                    syn = neuroml.AlphaCurrSynapse(id=s.id, tau_syn=s.parameters['tau_syn'])
+                    
+                nml_doc.exp_cond_synapses.append(syn)
+
             
     if print_summary:
         # Print info
@@ -293,13 +324,44 @@ def generate_and_run(simulation, network, simulator):
         
         pynn_handler = PyNNHandler(simulator_name, simulation.dt, network.id)
         
+        syn_cell_params = {}
+        for proj in network.projections:
+            
+            synapse = network.get_child(proj.synapse,'synapses')
+            post_pop = network.get_child(proj.postsynaptic,'populations')
+          
+            if not post_pop.component in syn_cell_params:
+                syn_cell_params[post_pop.component] = {}
+            for p in synapse.parameters:
+                post = ''
+                if synapse.pynn_receptor_type == "excitatory":
+                    post = '_E'
+                elif synapse.pynn_receptor_type == "inhibitory":
+                    post = '_I'
+                syn_cell_params[post_pop.component]['%s%s'%(p,post)]=synapse.parameters[p]
+                    
+        
         cells = {}
         for c in network.cells:
             if c.pynn_cell:
-                cell_params = c.parameters if c.parameters else {}
+                cell_params = copy.deepcopy(c.parameters) if c.parameters else {}
+                
+                dont_set_here = ['tau_syn_E', 'e_rev_E','tau_syn_I', 'e_rev_I']
+                for d in dont_set_here:
+                    if d in c.parameters:
+                        raise Exception('Synaptic parameters like %s should be set under synapses'%d)
+                if c.id in syn_cell_params:
+                    cell_params.update(syn_cell_params[c.id])
                 exec('cells["%s"] = pynn_handler.sim.%s(**cell_params)'%(c.id,c.pynn_cell))
                 
         pynn_handler.set_cells(cells)
+        
+        receptor_types = {}
+        for s in network.synapses:
+            if s.pynn_receptor_type:
+                receptor_types[s.id] = s.pynn_receptor_type
+                
+        pynn_handler.set_receptor_types(receptor_types)
         
         for input_source in network.input_sources:
             if input_source.pynn_input:
@@ -439,7 +501,7 @@ def generate_and_run(simulation, network, simulator):
 
         nml_file_name, nml_doc = generate_neuroml2_from_network(network)
 
-        included_files = []
+        included_files = ['PyNN.xml']
         '''
         if network.cells:
             for c in network.cells:
@@ -458,7 +520,7 @@ def generate_and_run(simulation, network, simulator):
                                simulation.dt, 
                                lems_file_name,
                                '.',
-                               nml_doc = None,  # Use this if the nml doc has already been loaded (to avoid delay in reload)
+                               nml_doc = nml_doc,  # Use this if the nml doc has already been loaded (to avoid delay in reload)
                                include_extra_files = included_files,
                                gen_plots_for_all_v = True,
                                plot_all_segments = False,

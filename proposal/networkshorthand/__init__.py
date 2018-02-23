@@ -35,7 +35,10 @@ class Synapse(BaseWithId):
 
     def __init__(self, **kwargs):
         
-        self.allowed_fields = collections.OrderedDict([('neuroml2_source_file',('File name of NeuroML2 file',str))])
+        self.allowed_fields = collections.OrderedDict([('neuroml2_source_file',('File name of NeuroML2 file',str)),
+                                        ('pynn_synapse_type',("Options: 'curr_exp', 'curr_alpha', 'cond_exp', 'cond_alpha'.",str)),
+                                        ('pynn_receptor_type',("Either 'excitatory' or 'inhibitory'.",str)),
+                                        ('parameters',('Dict of parameters for the cell',dict))])
                       
         super(Synapse, self).__init__(**kwargs)
   

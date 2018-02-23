@@ -23,6 +23,9 @@ python Example4.py
 python Example4.py -pynnnest
 python Example4.py -pynnnrn
 python Example4.py -pynnbrian
+python Example4.py -jnmlnetpyne
+python Example4.py -jnmlnrn
+python Example4.py -jnml
 
 echo
 echo "**** Running Example 5 ****"
