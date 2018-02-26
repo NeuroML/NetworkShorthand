@@ -2,7 +2,7 @@
     <notes>Generated network</notes>
     <pulseGenerator id="iclamp0" delay="200.0ms" duration="600.0ms" amplitude="0.99nA"/>
     <IF_cond_alpha id="testcell" cm="1." i_offset="0.1" tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
-    <IF_cond_alpha id="testcell2" cm="1." i_offset="-0.1" tau_syn_E="0.3" tau_syn_I="0.5" v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="0." e_rev_I="-70."/>
+    <IF_cond_alpha id="testcell2" cm="1." i_offset="-0.1" tau_syn_E="2." tau_syn_I="10." v_init="-65." tau_m="20." tau_refrac="5." v_reset="-65." v_rest="-65." v_thresh="-50." e_rev_E="-10." e_rev_I="-80."/>
     <expCondSynapse id="ampa" tau_syn="2." e_rev="-10."/>
     <expCondSynapse id="gaba" tau_syn="10." e_rev="-80."/>
     <network id="Example4_PyNN">

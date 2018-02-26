@@ -193,6 +193,21 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
         if c.pynn_cell:
             import pyNN.neuroml
             cell_params = c.parameters if i.parameters else {}
+
+            for proj in nl_model.projections:
+
+                synapse = nl_model.get_child(proj.synapse,'synapses')
+                post_pop = nl_model.get_child(proj.postsynaptic,'populations')
+                if post_pop.component == c.id:
+                    #print("--------- Cell %s in post pop %s of %s uses %s"%(c.id,post_pop.id, proj.id, synapse))
+
+                    if synapse.pynn_receptor_type == 'excitatory':
+                        post='_E'
+                    elif synapse.pynn_receptor_type == 'inhibitory':
+                        post='_I'
+                    for p in synapse.parameters:
+                        cell_params['%s%s'%(p,post)]=synapse.parameters[p]
+                    
             temp_cell = eval('pyNN.neuroml.%s(**cell_params)'%c.pynn_cell)
             cell_id = temp_cell.add_to_nml_doc(nml_doc, None)
             cell = nml_doc.get_by_id(cell_id)
@@ -546,5 +561,4 @@ def generate_and_run(simulation, network, simulator):
         elif simulator=='jNeuroML_NetPyNE':
             pynml.run_lems_with_jneuroml_netpyne(lems_file_name, nogui=True, verbose=True)
 
-
-    
+        print_v("Finished running LEMS file %s in %s"%(lems_file_name, simulator))
