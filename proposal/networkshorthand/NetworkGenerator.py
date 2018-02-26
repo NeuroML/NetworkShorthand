@@ -226,14 +226,17 @@ def generate_neuroml2_from_network(nl_model, nml_file_name=None, print_summary=T
                 
                 if s.pynn_synapse_type == 'cond_exp':
                     syn = neuroml.ExpCondSynapse(id=s.id, tau_syn=s.parameters['tau_syn'], e_rev=s.parameters['e_rev'])
+                    nml_doc.exp_cond_synapses.append(syn)
                 elif s.pynn_synapse_type == 'cond_alpha':
                     syn = neuroml.AlphaCondSynapse(id=s.id, tau_syn=s.parameters['tau_syn'], e_rev=s.parameters['e_rev'])
+                    nml_doc.alpha_cond_synapses.append(syn)
                 elif s.pynn_synapse_type == 'curr_exp':
                     syn = neuroml.ExpCurrSynapse(id=s.id, tau_syn=s.parameters['tau_syn'])
+                    nml_doc.exp_curr_synapses.append(syn)
                 elif s.pynn_synapse_type == 'curr_alpha':
                     syn = neuroml.AlphaCurrSynapse(id=s.id, tau_syn=s.parameters['tau_syn'])
+                    nml_doc.alpha_curr_synapses.append(syn)
                     
-                nml_doc.exp_cond_synapses.append(syn)
 
             
     if print_summary:

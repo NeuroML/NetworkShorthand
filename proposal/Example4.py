@@ -64,9 +64,9 @@ net.inputs.append(Input(id='stim',
 print net.to_json()
 net.to_json_file('%s.json'%net.id)
 
+
 ################################################################################
 ###   Build Simulation object & save as JSON
-
 
 sim = Simulation(id='SimExample4',
                  duration='1000',
@@ -102,30 +102,4 @@ elif '-jnmlnetpyne' in sys.argv:
     
 else:
     generate_and_run(sim, net, simulator='PyNN_NeuroML')
-
-
-
-'''
-generate_and_run(sim, net, simulator='PyNN_NEURON')
-generate_and_run(sim, net, simulator='PyNN_NEST')
-generate_and_run(sim, net, simulator='PyNN_Brian')
-
-generate_and_run(sim, net, simulator='PyNN_NEST')
-generate_and_run(sim, net, simulator='PyNN_NeuroML')
-generate_and_run(sim, net, simulator='PyNN_NEURON')
-print("**** Generating and running in NEURON ****")
-
-
-print("**** Generating and running in NEST ****")
-
-generate_and_run(sim, net, simulator='PyNN_NEST')
-
-print("**** Generating and running in Brian ****")
-'''
-
-
-
-
-
-
 
