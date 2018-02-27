@@ -39,6 +39,9 @@ Can be simulated using:
 - **NEST** via **PyNN**
 - **NEURON** via **PyNN**
 - **Brian** via **PyNN**
+- **jNeuroML**
+- **NEURON** generated from **jNeuroML**
+- **NetPyNE** generated from **jNeuroML**
 
 
 #### Ex. 5: A network with the Blue Brain Project connectivity data 
