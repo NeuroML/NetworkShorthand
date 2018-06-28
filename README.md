@@ -107,6 +107,10 @@ rdes = rd.rdesigneur(
             'weight' : 6e-3,
             'receptor_type' : 'excitatory'
     },
+
+
+
     
-
-
+## Proposal
+    
+A proposed solution for this format, tightly integrated with NeuroML2, is here: **https://github.com/NeuroML/NeuroMLlite**
